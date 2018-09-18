@@ -28,7 +28,6 @@
 				9AD17A6D20C1C73E0043C7AD /* PBXTargetDependency */,
 				9AD17A6920C1C7360043C7AD /* PBXTargetDependency */,
 				9AD17A6B20C1C7360043C7AD /* PBXTargetDependency */,
-				9AD17A6720C1C7290043C7AD /* PBXTargetDependency */,
 				9AD17A6520C1C7200043C7AD /* PBXTargetDependency */,
 				9AD17A6120C1C7180043C7AD /* PBXTargetDependency */,
 				9AD17A6320C1C7180043C7AD /* PBXTargetDependency */,
@@ -1125,8 +1124,6 @@
 		E4E1DA5E1E5F91690080F769 /* AWSTestUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB8EF2E1C6A69A00098B15B /* AWSTestUtility.m */; };
 		EF0FEB3B1ED218E300D763BC /* AWSCognitoAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDE85B01ED203D9008841EC /* AWSCognitoAuth.m */; };
 		EF0FEB3D1ED2192600D763BC /* AWSCognitoAuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EFDE85AC1ED203D9008841EC /* AWSCognitoAuthTests.m */; };
-		EF0FEB3E1ED2194400D763BC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFDE85AD1ED203D9008841EC /* Info.plist */; };
-		EF0FEB401ED2196000D763BC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFDE85AA1ED203D9008841EC /* Info.plist */; };
 		EF0FEB411ED2696700D763BC /* AWSCognitoAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = EFDE85AF1ED203D9008841EC /* AWSCognitoAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF0FEB421ED2698300D763BC /* AWSCognitoAuth_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = EFDE85B31ED203D9008841EC /* AWSCognitoAuth_Internal.h */; };
 		EF0FEB451ED26A1200D763BC /* AWSCognitoAuth.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EFDE85E51ED2046E008841EC /* AWSCognitoAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1900,13 +1897,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 181270C81E8EB53A00174785;
 			remoteInfo = AWSLogsUnitTests;
-		};
-		9AD17A6620C1C7290043C7AD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CE0D41541C6A66A9006B91B5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1813F65A1DB5A0B8009486D6;
-			remoteInfo = AWSResources;
 		};
 		9AD17A6820C1C7360043C7AD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3120,7 +3110,6 @@
 		181270E31E8EB78900174785 /* AWSLogsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSLogsService.h; sourceTree = "<group>"; };
 		181270E41E8EB78900174785 /* AWSLogsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSLogsService.m; sourceTree = "<group>"; };
 		181270EB1E8EB7D300174785 /* AWSGeneralLogsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSGeneralLogsTests.m; sourceTree = "<group>"; };
-		1813F65B1DB5A0B8009486D6 /* AWSResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AWSResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		184F42FE1E930A2D004F3FE2 /* AWSCocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSCocoaLumberjack.h; sourceTree = "<group>"; };
 		184F42FF1E930A2D004F3FE2 /* AWSDDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AWSDDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		184F43001E930A2D004F3FE2 /* AWSDDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSDDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
@@ -4213,13 +4202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				181270ED1E8EBF9F00174785 /* libOCMock.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1813F6581DB5A0B8009486D6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5569,7 +5551,6 @@
 				185111CB1D78F03B0009F5C3 /* AWSLex.framework */,
 				185111D41D78F03B0009F5C3 /* AWSLexTests.xctest */,
 				18F572511D8A08FB0068546F /* AWSLexUnitTests.xctest */,
-				1813F65B1DB5A0B8009486D6 /* AWSResources.bundle */,
 				18E2F5611DED307400BD4608 /* AWSPolly.framework */,
 				18E2F56A1DED307500BD4608 /* AWSPollyTests.xctest */,
 				18E2F58E1DED31D300BD4608 /* AWSPollyUnitTests.xctest */,
@@ -7955,23 +7936,6 @@
 			productReference = 181270C91E8EB53A00174785 /* AWSLogsUnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		1813F65A1DB5A0B8009486D6 /* AWSResources */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1813F65E1DB5A0B9009486D6 /* Build configuration list for PBXNativeTarget "AWSResources" */;
-			buildPhases = (
-				1813F6571DB5A0B8009486D6 /* Sources */,
-				1813F6581DB5A0B8009486D6 /* Frameworks */,
-				1813F6591DB5A0B8009486D6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AWSResources;
-			productName = AWSResourceBundle;
-			productReference = 1813F65B1DB5A0B8009486D6 /* AWSResources.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
 		185111CA1D78F03B0009F5C3 /* AWSLex */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 185111E01D78F03B0009F5C3 /* Build configuration list for PBXNativeTarget "AWSLex" */;
@@ -9581,7 +9545,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Amazon Web Services";
 				TargetAttributes = {
 					1778554220F9A72800D083BB = {
@@ -9634,9 +9598,6 @@
 					181270C81E8EB53A00174785 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
-					};
-					1813F65A1DB5A0B8009486D6 = {
-						CreatedOnToolsVersion = 7.3.1;
 					};
 					185111CA1D78F03B0009F5C3 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -9984,7 +9945,6 @@
 				CE9DE7461C6A7AE40060793F /* AWSMobileAnalyticsTests */,
 				CE9E501A1C72C19800B60FD7 /* AWSMobileAnalyticsLegacyTests */,
 				CE56048F1C6BC96500B4E00B /* AWSMobileAnalyticsUnitTests */,
-				1813F65A1DB5A0B8009486D6 /* AWSResources */,
 				18798F7D1DEF9EA900BC419B /* AWSPinpoint */,
 				18798F861DEF9EA900BC419B /* AWSPinpointTests */,
 				18798F981DEF9EF800BC419B /* AWSPinpointUnitTests */,
@@ -10116,13 +10076,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		181270C71E8EB53A00174785 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1813F6591DB5A0B8009486D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -10747,7 +10700,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0FEB3E1ED2194400D763BC /* Info.plist in Resources */,
 				EFDE85F21ED2050C008841EC /* credentials.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10756,7 +10708,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0FEB401ED2196000D763BC /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10889,13 +10840,6 @@
 			files = (
 				181270EE1E8EBFAC00174785 /* AWSTestUtility.m in Sources */,
 				181270EC1E8EB7D300174785 /* AWSGeneralLogsTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1813F6571DB5A0B8009486D6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12446,11 +12390,6 @@
 			target = 181270C81E8EB53A00174785 /* AWSLogsUnitTests */;
 			targetProxy = 9AD17A6420C1C7200043C7AD /* PBXContainerItemProxy */;
 		};
-		9AD17A6720C1C7290043C7AD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1813F65A1DB5A0B8009486D6 /* AWSResources */;
-			targetProxy = 9AD17A6620C1C7290043C7AD /* PBXContainerItemProxy */;
-		};
 		9AD17A6920C1C7360043C7AD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 18798F861DEF9EA900BC419B /* AWSPinpointTests */;
@@ -13031,7 +12970,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -13057,7 +12996,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -13083,7 +13022,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -13111,7 +13050,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -13393,7 +13332,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -13420,7 +13359,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -13591,42 +13530,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.sdk.ios.AWSLogsUnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		1813F65F1DB5A0B9009486D6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = AWSResources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.sdk.ios.AWSResources;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		1813F6601DB5A0B9009486D6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = AWSResources/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = com.amazonaws.sdk.ios.AWSResources;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -14046,7 +13949,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14072,7 +13975,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14148,7 +14051,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14174,7 +14077,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -14417,6 +14320,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -14479,6 +14383,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -16827,7 +16732,7 @@
 		EFDE85F41ED2050C008841EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = AWSCognitoAuth/Info.plist;
+				INFOPLIST_FILE = AWSCognitoAuthTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -16843,7 +16748,7 @@
 		EFDE85F51ED2050C008841EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = AWSCognitoAuth/Info.plist;
+				INFOPLIST_FILE = AWSCognitoAuthTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -16859,7 +16764,7 @@
 		EFDE86081ED20517008841EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = AWSCognitoAuth/Info.plist;
+				INFOPLIST_FILE = AWSCognitoAuthUnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -16875,7 +16780,7 @@
 		EFDE86091ED20517008841EC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = AWSCognitoAuth/Info.plist;
+				INFOPLIST_FILE = AWSCognitoAuthUnitTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -16995,15 +16900,6 @@
 			buildConfigurations = (
 				181270DA1E8EB53A00174785 /* Debug */,
 				181270DB1E8EB53A00174785 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1813F65E1DB5A0B9009486D6 /* Build configuration list for PBXNativeTarget "AWSResources" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1813F65F1DB5A0B9009486D6 /* Debug */,
-				1813F6601DB5A0B9009486D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
