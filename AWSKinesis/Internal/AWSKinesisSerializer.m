@@ -13,12 +13,8 @@
 // permissions and limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "AWSKinesisSerializer.h"
 
-@interface AWSPinpointAnalyticsResources : NSObject
-
-+ (instancetype)sharedInstance;
-
-- (NSDictionary *)JSONObject;
+@implementation AWSKinesisRequestSerializer
 
 @end
