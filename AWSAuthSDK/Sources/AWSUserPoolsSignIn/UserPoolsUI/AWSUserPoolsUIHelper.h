@@ -68,6 +68,13 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 + (id<AWSUIConfiguration>) getAWSUIConfiguration;
 
+/**
+ Check if the NSString contains a valid email address
+ @return BOOL
+ **/
++ (BOOL) isValidEmail:(NSString *) email;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

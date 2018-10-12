@@ -67,15 +67,15 @@ id<AWSUIConfiguration> config = nil;
 }
 
 - (void)setUp {
-    _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"User Name" type:InputTypeText];
+    _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
     _passwordRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Password" type:InputTypePassword];
     _emailRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
     _phoneNumberRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Phone Number" type:InputTypeText];
     _tableDelegate = [AWSFormTableDelegate new];
     [self.tableDelegate addCell:self.userNameRow];
     [self.tableDelegate addCell:self.passwordRow];
-    [self.tableDelegate addCell:self.emailRow];
-    [self.tableDelegate addCell:self.phoneNumberRow];
+    //[self.tableDelegate addCell:self.emailRow];
+    //[self.tableDelegate addCell:self.phoneNumberRow];
     self.tableView.delegate = self.tableDelegate;
     self.tableView.dataSource = self.tableDelegate;
     [self.tableView reloadData];
@@ -115,20 +115,20 @@ id<AWSUIConfiguration> config = nil;
     phone.value = [self.tableDelegate getValueForCell:self.phoneNumberRow forTableView:self.tableView];
     AWSCognitoIdentityUserAttributeType * email = [AWSCognitoIdentityUserAttributeType new];
     email.name = @"email";
-    email.value = [self.tableDelegate getValueForCell:self.emailRow forTableView:self.tableView];
+    email.value = [self.tableDelegate getValueForCell:self.userNameRow forTableView:self.tableView];
     
-    if(![@"" isEqualToString:phone.value]){
+    if(phone.value && ![@"" isEqualToString:phone.value]){
         [attributes addObject:phone];
     }
-    if(![@"" isEqualToString:email.value]){
+    if(email.value && ![@"" isEqualToString:email.value]){
         [attributes addObject:email];
     }
     
     NSString *userName = [self.tableDelegate getValueForCell:self.userNameRow forTableView:self.tableView];
     NSString *password = [self.tableDelegate getValueForCell:self.passwordRow forTableView:self.tableView];
-    if ([userName isEqualToString:@""] || [password isEqualToString:@""]) {
+	if ([userName isEqualToString:@""] || [password isEqualToString:@""] || ![AWSUserPoolsUIHelper isValidEmail:userName]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Missing Information"
-                                                                                 message:@"Please enter a valid username and password."
+                                                                                 message:@"Please enter a valid Email and password."
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:ok];
@@ -151,6 +151,8 @@ id<AWSUIConfiguration> config = nil;
                              completion:nil];
         }
     }
+	
+	NSLog(@"SignUp with Attributes: %@", attributes);
     
     //sign up the user
     [[self.pool signUp:userName
@@ -303,6 +305,8 @@ id<AWSUIConfiguration> config = nil;
         return nil;
     }];
 }
+
+
 
 @end
 

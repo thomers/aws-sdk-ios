@@ -60,7 +60,7 @@
 }
 
 - (void)setUp {
-    _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"User Name" type:InputTypeText];
+    _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
     _tableDelegate = [AWSFormTableDelegate new];
     [self.tableDelegate addCell:self.userNameRow];
     self.tableView.delegate = self.tableDelegate;
@@ -94,9 +94,9 @@
 
 - (IBAction)onForgotPassword:(id)sender {
     NSString *userName = [self.tableDelegate getValueForCell:self.userNameRow forTableView:self.tableView];
-    if ([userName isEqualToString:@""]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Missing Username"
-                                                                                 message:@"Please enter a valid username."
+    if ([userName isEqualToString:@""] || ![AWSUserPoolsUIHelper isValidEmail:userName]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Invalid Email"
+                                                                                 message:@"Please enter a valid email."
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:ok];
