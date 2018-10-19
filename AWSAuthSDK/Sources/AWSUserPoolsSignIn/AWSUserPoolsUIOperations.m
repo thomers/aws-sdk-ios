@@ -92,11 +92,17 @@ completionHandler:(nonnull void (^)(id _Nullable, NSError * _Nullable))completio
 }
 
 - (void)handleLoginWithSignInProvider:(id<AWSSignInProvider>)signInProvider {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNIN_INPROGRESS_NOTIFICATION object:self];
+	});
+	
     [[AWSSignInManager sharedInstance]
      loginWithSignInProviderKey:[signInProvider identityProviderName]
      completionHandler:^(id result, NSError *error) {
          if (!error) {
              dispatch_async(dispatch_get_main_queue(), ^{
+				 [[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNIN_SUCCESS_NOTIFICATION object:self];
+
                  [[self.navigationController viewControllers].firstObject  dismissViewControllerAnimated:YES
                                           completion:nil];
                  if (self.completionHandler) {
@@ -104,7 +110,11 @@ completionHandler:(nonnull void (^)(id _Nullable, NSError * _Nullable))completio
                  }
              });
          } else {
-             // in case of error, propogate the error back to customer, but do not dismiss sign in vc
+			 dispatch_async(dispatch_get_main_queue(), ^{
+				 [[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNIN_ERROR_NOTIFICATION object:self userInfo:@{@"error" : error}];
+			 });
+
+			 // in case of error, propogate the error back to customer, but do not dismiss sign in vc
              if (self.completionHandler) {
                  self.completionHandler(signInProvider, error);
              }
@@ -136,7 +146,8 @@ completionHandler:(nonnull void (^)(id _Nullable, NSError * _Nullable))completio
 -(void) didCompletePasswordAuthenticationStepWithError:(NSError*) error {
     if(error){
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+			[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNIN_ERROR_NOTIFICATION object:self userInfo:@{@"error" : error}];
+
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:error.userInfo[@"__type"]
                                                                                      message:error.userInfo[@"message"]
                                                                               preferredStyle:UIAlertControllerStyleAlert];

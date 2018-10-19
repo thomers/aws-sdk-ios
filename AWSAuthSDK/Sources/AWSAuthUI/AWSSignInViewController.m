@@ -163,11 +163,16 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
 #pragma mark - Utility Methods
 
 - (void)handleLoginWithSignInProvider:(id<AWSSignInProvider>)signInProvider {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_SIGNIN_INPROGRESS_NOTIFICATION" object:self];
+	});
+	
     [[AWSSignInManager sharedInstance]
      loginWithSignInProviderKey:[signInProvider identityProviderName]
      completionHandler:^(id result, NSError *error) {
          if (!error) {
              dispatch_async(dispatch_get_main_queue(), ^{
+				 [[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_SIGNIN_SUCCESS_NOTIFICATION" object:self];
                  [self dismissViewControllerAnimated:YES
                                           completion:nil];
                  if (self.completionHandler) {
@@ -176,7 +181,8 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
              });
          } else {
              // in case of error, propogate the error back to customer, but do not dismiss sign in vc
-             if (self.completionHandler) {
+			 [[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_SIGNIN_ERROR_NOTIFICATION" object:self userInfo:@{@"error" : error}];
+			 if (self.completionHandler) {
                  self.completionHandler(signInProvider, error);
              }
          }
@@ -432,6 +438,12 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
 #pragma mark - IBActions
 
 - (void)handleUserPoolSignIn {
+	// Dismisses the keyboard if open before transitioning to the new storyboard
+	[self.view endEditing:YES];
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_SIGNIN_INPROGRESS_NOTIFICATION" object:self];
+	});
     Class awsUserPoolsUIOperations = NSClassFromString(USERPOOLS_UI_OPERATIONS);
     AWSUserPoolsUIOperations *userPoolsOperations = [[awsUserPoolsUIOperations alloc] initWithAuthUIConfiguration:self.config];
     [userPoolsOperations loginWithUserName:[self.tableDelegate getValueForCell:self.userNameRow forTableView:self.tableView]
@@ -466,7 +478,9 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
                             error:(NSError * _Nullable)error {
     if (!error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_SIGNIN_SUCCESS_NOTIFICATION" object:self];
+
+			[self dismissViewControllerAnimated:YES
                                      completion:nil];
             if (self.completionHandler) {
                 self.completionHandler(signInProvider, error);
@@ -474,7 +488,9 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
         });
     } else {
         // in case of error attempt, send a completion handler to customer but do not dismiss vc
-        if (self.completionHandler) {
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_SIGNIN_ERROR_NOTIFICATION" object:self userInfo:@{@"error" : error}];
+		
+		if (self.completionHandler) {
             self.completionHandler(signInProvider, error);
         }
     }

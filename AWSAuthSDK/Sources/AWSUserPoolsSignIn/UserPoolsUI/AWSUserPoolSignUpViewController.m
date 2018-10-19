@@ -153,7 +153,9 @@ id<AWSUIConfiguration> config = nil;
     }
 	
 	NSLog(@"SignUp with Attributes: %@", attributes);
-    
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNUP_INPROGRESS_NOTIFICATION object:self];
+	
     //sign up the user
     [[self.pool signUp:userName
               password:password
@@ -162,6 +164,8 @@ id<AWSUIConfiguration> config = nil;
         AWSDDLogDebug(@"Successful signUp user: %@",task.result.user.username);
         dispatch_async(dispatch_get_main_queue(), ^{
             if(task.error){
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNUP_ERROR_NOTIFICATION object:self userInfo:@{@"error": task.error}];
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
                                                                                          message:task.error.userInfo[@"message"]
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
@@ -171,10 +175,14 @@ id<AWSUIConfiguration> config = nil;
                                    animated:YES
                                  completion:nil];
             }else if(task.result.user.confirmedStatus != AWSCognitoIdentityUserStatusConfirmed){
-                self.sentTo = task.result.codeDeliveryDetails.destination;
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNUP_PENDINGCONFIRM_NOTIFICATION object:self];
+
+				self.sentTo = task.result.codeDeliveryDetails.destination;
                 [self performSegueWithIdentifier:@"SignUpConfirmSegue" sender:sender];
             }
             else{
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_SIGNUP_SUCCESS_NOTIFICATION object:self];
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Registration Complete"
                                                                                          message:@"Registration was successful."
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
@@ -247,9 +255,14 @@ id<AWSUIConfiguration> config = nil;
                          completion:nil];
         return;
     }
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_CONFIRM_INPROGRESS_NOTIFICATION object:self];
+	
     [[self.user confirmSignUp:confirmationCode forceAliasCreation:YES] continueWithBlock: ^id _Nullable(AWSTask<AWSCognitoIdentityUserConfirmSignUpResponse *> * _Nonnull task) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(task.error){
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_CONFIRM_ERROR_NOTIFICATION object:self userInfo:@{@"error" : task.error}];
+
                 if(task.error){
                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
                                                                                              message:task.error.userInfo[@"message"]
@@ -261,6 +274,8 @@ id<AWSUIConfiguration> config = nil;
                                      completion:nil];
                 }
             } else {
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_CONFIRM_SUCCESS_NOTIFICATION object:self];
+
                 //return to initial screen
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Registration Complete"
                                                                                          message:@"Registration was successful."
@@ -280,10 +295,14 @@ id<AWSUIConfiguration> config = nil;
 
 - (IBAction)onResendConfirmationCode:(id)sender {
     //resend the confirmation code
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_RESEND_INPROGRESS_NOTIFICATION object:self];
+
     [[self.user resendConfirmationCode] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserResendConfirmationCodeResponse *> * _Nonnull task) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(task.error){
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_RESEND_ERROR_NOTIFICATION object:self userInfo:@{@"error" : task.error}];
+
+				UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
                                                                                          message:task.error.userInfo[@"message"]
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
@@ -292,6 +311,8 @@ id<AWSUIConfiguration> config = nil;
                                    animated:YES
                                  completion:nil];
             }else {
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_RESEND_SUCCESS_NOTIFICATION object:self];
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Code Resent"
                                                                                          message:[NSString stringWithFormat:@"Code resent to: %@", task.result.codeDeliveryDetails.destination]
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
