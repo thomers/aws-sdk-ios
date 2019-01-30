@@ -97,6 +97,9 @@ static NSString *const AWSInfoIdentityManager = @"IdentityManager";
         
         _defaultRegion = [[defaultInfoDictionary objectForKey:AWSInfoRegion] aws_regionTypeValue];
     }
+	
+	AWSDDLogDebug(@"awsconfiguration loaded: ");
+	AWSDDLogDebug(@"  %@", _rootInfoDictionary);
     
     return self;
 }

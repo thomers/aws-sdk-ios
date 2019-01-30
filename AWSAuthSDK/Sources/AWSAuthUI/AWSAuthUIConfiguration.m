@@ -36,6 +36,8 @@
 
 @synthesize enableUserPoolsUI;
 
+@synthesize enableSignup;
+
 @synthesize isBackgroundColorFullScreen;
 
 @synthesize font;

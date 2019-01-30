@@ -34,6 +34,16 @@ NS_ASSUME_NONNULL_BEGIN
  **/
 @interface AWSAuthUIConfiguration: NSObject<AWSUIConfiguration>
 
+
+// ADDED BY TOM !!! *****************************
+/**
+ @property enableSignup
+ @brief Enables the signup button
+ **/
+@property (atomic) BOOL enableSignup;
+// ADDED BY TOM !!! *****************************
+
+
 /**
  @property canCancel
  @brief If set to `YES` user can hit cancel button to dismiss sign in UI

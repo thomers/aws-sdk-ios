@@ -229,13 +229,14 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
             [self.forgotPasswordButton removeFromSuperview];
         }
         
-        if (self.config.enableUserPoolsUI) {
+        if ((self.config.enableUserPoolsUI) && (self.config.enableSignup)) {
             
             [self.signUpButton addTarget:self
                                   action:@selector(handleUserPoolSignUp)
                         forControlEvents:UIControlEventTouchUpInside];
         } else {
-            [self.signUpButton removeFromSuperview];
+            [self.signUpButton setHidden:YES];
+			[self.signUpButton setEnabled:NO];
         }
     } else {
         [self.tableFormView removeFromSuperview];

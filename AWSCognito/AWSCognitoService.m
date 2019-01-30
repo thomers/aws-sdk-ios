@@ -133,6 +133,8 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
                                          userInfo:nil];
         }
         _defaultCognito = [[AWSCognito alloc] initWithConfiguration:serviceConfiguration];
+		
+		AWSDDLogDebug(@"Instantiated defaultCognito");
     });
 
     return _defaultCognito;
