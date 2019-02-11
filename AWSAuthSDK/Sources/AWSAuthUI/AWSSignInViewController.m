@@ -261,23 +261,32 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
                     forControlEvents:UIControlEventTouchUpInside];
         
         if (self.config.enableUserPoolsUI) {
-            
             [self.forgotPasswordButton addTarget:self
                                           action:@selector(handleUserPoolForgotPassword)
                                 forControlEvents:UIControlEventTouchUpInside];
         } else {
             [self.forgotPasswordButton removeFromSuperview];
         }
-        
+        /*
+		 TODO REENABLE THIS
         if ((self.config.enableUserPoolsUI) && (self.config.enableSignup)) {
-            
-            [self.signUpButton addTarget:self
-                                  action:@selector(handleUserPoolSignUp)
-                        forControlEvents:UIControlEventTouchUpInside];
+	    */
+		
+		NSLog(@"Setting up signUpButton");
+		[self.signUpButton addTarget:self
+							  action:@selector(handleUserPoolSignUp)
+					forControlEvents:UIControlEventTouchUpInside];
+		[self.signUpButton setEnabled:YES];
+		[self.signUpButton setHidden:NO];
+
+		NSLog(@"DiD set up signUpButton");
+
+		/*
         } else {
             [self.signUpButton setHidden:YES];
 			[self.signUpButton setEnabled:NO];
         }
+		 */
     } else {
         [self.tableFormView removeFromSuperview];
         self.orSignInWithLabel.text = @"Sign in with";

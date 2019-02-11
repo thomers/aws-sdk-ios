@@ -112,6 +112,7 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
         Class userpoolClass = NSClassFromString(@"AWSCognitoUserPoolsSignInProvider");
         if (userpoolClass) {
             authUIConfig.enableUserPoolsUI = true;
+			authUIConfig.enableSignup = true;
         } else {
             AWSDDLogWarn(@"Found UserPool configuration in awsconfiguration.json but could not find dependencies. Skipping rendering in AuthUI");
         }
