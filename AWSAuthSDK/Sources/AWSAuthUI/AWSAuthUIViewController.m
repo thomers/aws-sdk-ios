@@ -60,7 +60,16 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
     if(configDictionary[@"backgroundColor"]) {
         [config setBackgroundColor:(UIColor *)configDictionary[@"backgroundColor"]];
     }
-    
+	
+	if(configDictionary[@"enableSignup"]) {
+		NSString *enableSignupValue = (NSString *)configDictionary[@"enableSignup"];
+		if ([enableSignupValue isEqual: @"YES"]) {
+			[config setEnableSignup:true];
+		} else {
+			[config setEnableSignup:false];
+		}
+	}
+	
     [[AWSSignInManager sharedInstance] setDontFederate];
     
     AWSDDLogDebug(@"Presenting SignInViewController");
