@@ -95,7 +95,10 @@
         inputCell.placeHolderView.hidden = YES;
         inputCell.inputBox.text = formCell.staticText;
     }
-    
+	if (formCell.inputType == InputTypeEmail) {
+		inputCell.inputBox.keyboardType = UIKeyboardTypeEmailAddress;
+	}
+	
     [inputCell setAWSTableInputCellFont];
     return inputCell;
 }

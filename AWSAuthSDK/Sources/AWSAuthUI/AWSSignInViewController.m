@@ -238,7 +238,7 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
         self.passwordRow = [[formTableCell alloc] initWithPlaceHolder:@"Password"
                                                                  type:InputTypePassword];
         self.userNameRow = [[formTableCell alloc] initWithPlaceHolder:@"Email"
-                                                                 type:InputTypeText];
+                                                                 type:InputTypeEmail];
         Class formTableDelegate = NSClassFromString(@"AWSFormTableDelegate");
         self.tableDelegate = [formTableDelegate new];
         [self.tableDelegate addCell:self.userNameRow];

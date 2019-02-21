@@ -24,7 +24,9 @@ typedef NS_ENUM(NSInteger, InputType) {
     /** password type enables secure text input **/
     InputTypePassword,
     /** staticText hides place holder view and shows the input field by default **/
-    InputTypeStaticText
+    InputTypeStaticText,
+	/** email type works like text type, but enables email keyboard **/
+	InputTypeEmail
 };
 
 /**
