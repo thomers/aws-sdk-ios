@@ -271,6 +271,8 @@ didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions {
    resumeSessionWithCompletionHandler:^(id result, NSError *error) {
        AWSDDLogInfo(@"Welcome to AWS! You are connected successfully.");
        AWSDDLogInfo(@"result = %@,error = %@", result, error);
+	   NSLog(@"Error: %@", error.localizedDescription);
+	   NSLog(@"     : %@", error);
    }];
 }
 

@@ -144,7 +144,7 @@ public class AWSMobileClient: _AWSMobileClient {
     /// Initializes `AWSMobileClient` and determines the `UserState` for current user using cache.
     ///
     /// - Parameter completionHandler: Callback which describes current user's state.
-    public func initialize(_ completionHandler: @escaping (UserState?, Error?) -> Void) {
+	public func initialize(_ completionHandler: @escaping (UserState?, Error?) -> Void) {
         // Read awsconfiguration.json and set the credentials provider here
         initializationQueue.sync {
             

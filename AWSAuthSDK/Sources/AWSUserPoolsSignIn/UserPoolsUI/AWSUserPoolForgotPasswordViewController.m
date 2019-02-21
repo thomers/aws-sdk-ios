@@ -19,6 +19,7 @@
 #import "AWSFormTableDelegate.h"
 #import "AWSUserPoolsUIHelper.h"
 #import <AWSAuthCore/AWSUIConfiguration.h>
+#import <AWSUserPoolsSignIn/AWSUserPoolsUIOperations.h>
 
 @interface AWSUserPoolForgotPasswordViewController ()
 
@@ -134,6 +135,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUp];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onConfirmCodeReceived:) name:NFAWS_CONFIRMCODE_RECEIVED_NOTIFICATION object:nil];
+}
+
+- (void) onConfirmCodeReceived:(NSNotification *) notification {
+	NSString *code = notification.userInfo[@"code"];
+	self.confirmCodeReceived = code;
+	[self onUpdatePassword:nil];
+
 }
 
 // This is used to dismiss the keyboard, user just has to tap outside the
@@ -176,7 +185,14 @@
 
 - (IBAction)onUpdatePassword:(id)sender {
     //confirm forgot password with input from ui.
-    NSString *confirmationCode = [self.tableDelegate getValueForCell:self.confirmationCodeRow forTableView:self.tableView];
+	
+	NSString *confirmationCode;
+	if (self.confirmCodeReceived) {
+		confirmationCode = self.confirmCodeReceived;
+	} else {
+		confirmationCode = [self.tableDelegate getValueForCell:self.confirmationCodeRow forTableView:self.tableView];
+	}
+	
     NSString *updatedPassword = [self.tableDelegate getValueForCell:self.updatedPasswordRow forTableView:self.tableView];
     if ([confirmationCode isEqualToString:@""] || [updatedPassword isEqualToString:@""]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Missing Information"

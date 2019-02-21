@@ -21,6 +21,7 @@
 #import "AWSUserPoolsUIHelper.h"
 #import <AWSAuthCore/AWSSignInManager.h>
 #import <AWSAuthCore/AWSUIConfiguration.h>
+#import <AWSUserPoolsSignIn/AWSUserPoolsUIOperations.h>
 
 
 @interface AWSSignInManager()
@@ -221,7 +222,16 @@ id<AWSUIConfiguration> config = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUp];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onConfirmCodeReceived:) name:NFAWS_CONFIRMCODE_RECEIVED_NOTIFICATION object:nil];
 }
+
+- (void) onConfirmCodeReceived:(NSNotification *) notification {
+	NSString *code = notification.userInfo[@"code"];
+	self.confirmCodeReceived = code;
+	[self onConfirmCode:nil];
+}
+
 
 // This is used to dismiss the keyboard, user just has to tap outside the
 // user name and password views and it will dismiss
@@ -257,7 +267,13 @@ id<AWSUIConfiguration> config = nil;
 }
 
 - (IBAction)onConfirmCode:(id)sender {
-    NSString *confirmationCode = [self.tableDelegate getValueForCell:self.confirmationCodeRow forTableView:self.tableView];
+	NSString *confirmationCode;
+	if (self.confirmCodeReceived) {
+		confirmationCode = self.confirmCodeReceived;
+	} else {
+		confirmationCode = [self.tableDelegate getValueForCell:self.confirmationCodeRow forTableView:self.tableView];
+	}
+	
     if ([confirmationCode isEqualToString:@""]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Missing Information"
                                                                                  message:@"Please enter a valid confirmation code."
