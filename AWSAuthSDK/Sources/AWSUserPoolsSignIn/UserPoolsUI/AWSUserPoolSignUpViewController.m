@@ -326,12 +326,12 @@ id<AWSUIConfiguration> config = nil;
 
 - (IBAction)onResendConfirmationCode:(id)sender {
     //resend the confirmation code
-	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_RESEND_INPROGRESS_NOTIFICATION object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_CONFIRMCODE_RESEND_INPROGRESS_NOTIFICATION object:self];
 
     [[self.user resendConfirmationCode] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserResendConfirmationCodeResponse *> * _Nonnull task) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(task.error){
-				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_RESEND_ERROR_NOTIFICATION object:self userInfo:@{@"error" : task.error}];
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_CONFIRMCODE_RESEND_ERROR_NOTIFICATION object:self userInfo:@{@"error" : task.error}];
 
 				UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
                                                                                          message:task.error.userInfo[@"message"]
@@ -342,7 +342,7 @@ id<AWSUIConfiguration> config = nil;
                                    animated:YES
                                  completion:nil];
             }else {
-				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_RESEND_SUCCESS_NOTIFICATION object:self];
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_CONFIRMCODE_RESEND_SUCCESS_NOTIFICATION object:self];
 
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Code Resent"
                                                                                          message:[NSString stringWithFormat:@"Code resent to: %@", task.result.codeDeliveryDetails.destination]

@@ -107,9 +107,14 @@
         return;
     }
     self.user = [self.pool getUser:userName];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_FORGOTPASSWORD_EMAIL_INPROGRESS_NOTIFICATION object:self];
+
     [[self.user forgotPassword] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserForgotPasswordResponse *> * _Nonnull task) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(task.error){
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_FORGOTPASSWORD_EMAIL_ERROR_NOTIFICATION object:self userInfo:@{@"error" : task.error}];
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
                                                                                          message:task.error.userInfo[@"message"]
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
@@ -119,6 +124,8 @@
                                    animated:YES
                                  completion:nil];
             }else {
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_FORGOTPASSWORD_EMAIL_SUCCESS_NOTIFICATION object:self];
+
                 [self performSegueWithIdentifier:@"NewPasswordSegue" sender:sender];
             }
         });
@@ -205,9 +212,15 @@
                          completion:nil];
         return;
     }
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_FORGOTPASSWORD_UPDATEPASSWORD_INPROGRESS_NOTIFICATION object:self];
+
+	
     [[self.user confirmForgotPassword:confirmationCode password:updatedPassword] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserConfirmForgotPasswordResponse *> * _Nonnull task) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(task.error){
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_FORGOTPASSWORD_UPDATEPASSWORD_ERROR_NOTIFICATION object:self userInfo:@{@"error" : task.error}];
+
                 
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:task.error.userInfo[@"__type"]
                                                                                          message:task.error.userInfo[@"message"]
@@ -219,6 +232,8 @@
                                  completion:nil];
                 
             }else {
+				[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_FORGOTPASSWORD_UPDATEPASSWORD_SUCCESS_NOTIFICATION object:self];
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Password Reset Complete"
                                                                                          message:@"Password Reset was completed successfully."
                                                                                   preferredStyle:UIAlertControllerStyleAlert];
