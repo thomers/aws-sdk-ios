@@ -1734,6 +1734,7 @@ NSString *const AWSIoTErrorDomain = @"com.amazonaws.AWSIoTErrorDomain";
              @"dayOfWeek" : @"dayOfWeek",
              @"frequency" : @"frequency",
              @"scheduledAuditName" : @"scheduledAuditName",
+             @"tags" : @"tags",
              @"targetCheckNames" : @"targetCheckNames",
              };
 }
@@ -1813,6 +1814,10 @@ NSString *const AWSIoTErrorDomain = @"com.amazonaws.AWSIoTErrorDomain";
                 return nil;
         }
     }];
+}
+
++ (NSValueTransformer *)tagsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSIoTTag class]];
 }
 
 @end
@@ -1997,6 +2002,7 @@ NSString *const AWSIoTErrorDomain = @"com.amazonaws.AWSIoTErrorDomain";
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"ruleName" : @"ruleName",
+             @"tags" : @"tags",
              @"topicRulePayload" : @"topicRulePayload",
              };
 }

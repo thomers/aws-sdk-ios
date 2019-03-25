@@ -673,6 +673,7 @@ NSString *const AWSRekognitionErrorDomain = @"com.amazonaws.AWSRekognitionErrorD
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"moderationLabels" : @"ModerationLabels",
+             @"moderationModelVersion" : @"ModerationModelVersion",
              };
 }
 
@@ -1146,6 +1147,7 @@ NSString *const AWSRekognitionErrorDomain = @"com.amazonaws.AWSRekognitionErrorD
 	return @{
              @"jobStatus" : @"JobStatus",
              @"moderationLabels" : @"ModerationLabels",
+             @"moderationModelVersion" : @"ModerationModelVersion",
              @"nextToken" : @"NextToken",
              @"statusMessage" : @"StatusMessage",
              @"videoMetadata" : @"VideoMetadata",
@@ -1369,6 +1371,7 @@ NSString *const AWSRekognitionErrorDomain = @"com.amazonaws.AWSRekognitionErrorD
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"jobStatus" : @"JobStatus",
+             @"labelModelVersion" : @"LabelModelVersion",
              @"labels" : @"Labels",
              @"nextToken" : @"NextToken",
              @"statusMessage" : @"StatusMessage",
