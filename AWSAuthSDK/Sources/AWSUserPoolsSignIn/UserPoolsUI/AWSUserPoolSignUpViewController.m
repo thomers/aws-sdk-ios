@@ -81,7 +81,7 @@ id<AWSUIConfiguration> config = nil;
 
 - (void)setUp {
     _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeEmail];
-    _passwordRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Password" type:InputTypePassword];
+    _passwordRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Password (min. 8 characters)" type:InputTypePassword];
   //  _emailRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
   //  _phoneNumberRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Phone Number" type:InputTypeText];
     _tableDelegate = [AWSFormTableDelegate new];
