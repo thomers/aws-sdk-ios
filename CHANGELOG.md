@@ -1,6 +1,30 @@
 
 # AWS Mobile SDK for iOS CHANGELOG
 
+## 2.9.4
+
+### Bug Fixes
+
+* **AWS IoT**
+  * Fixed bug in userMetaData logic
+  * Fixed a `objc_retain` crash in thread initiation. See [issue #1257](https://github.com/aws-amplify/aws-sdk-ios/issues/1257), and [issue #1190](https://github.com/aws-amplify/aws-sdk-ios/issues/1190)
+
+## 2.9.3
+
+### New Features
+
+* **AWSMobileClient**
+  * Added support for SAML in `federatedSignIn()`.
+  * Added support Cognito Hosted UI in `showSignIn()`.
+  * Added support to use OAuth 2.0 provider like `Auth0` in `showSignIn()`. Federation for AWS credentials requires OpenID support from the provider.
+  * Added support for global sign out.
+  * Added support for device features which include `list`, `get`, `updateStatus` and `forget`. These APIs are available through `getDeviceOperations()`.
+
+### Bug Fixes
+
+* **Amazon S3**
+  * Fixed TransferUtility issue with serverside encryption using customer provided key. See [PR #1282](https://github.com/aws-amplify/aws-sdk-ios/pull/1282)
+
 ## 2.9.2
 
 ### New Features

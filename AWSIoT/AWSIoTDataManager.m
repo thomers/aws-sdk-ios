@@ -209,6 +209,12 @@ static NSString *const AWSInfoIoTDataManager = @"IoTDataManager";
 
 @implementation AWSIoTDataManager
 
+/*
+ This version is for metrics collection for AWS IoT purpose only. It may be different
+ than the version of AWS SDK for iOS. Update this version when there's a change in AWSIoT.
+ */
+static const NSString *SDK_VERSION = @"2.6.19";
+
 static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
 + (instancetype)defaultIoTDataManager {
@@ -322,6 +328,7 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
         if(_mqttClient == nil){
             AWSDDLogError(@"**** mqttClient is nil. **** ");
         }
+        _mqttClient.userMetaData = [NSString stringWithFormat:@"%@%@", @"?SDK=iOS&Version=", SDK_VERSION];
         _mqttClient.associatedObject = self;
         _userDidIssueDisconnect = NO;
         _userDidIssueConnect = NO;
@@ -333,6 +340,30 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     [self.mqttClient setIsMetricsEnabled:enabled];
 }
 
+- (void)addUserMetaData:(NSDictionary<NSString *, NSString *> *)userMetaData {
+
+    // validate the length of username field
+    NSMutableString *userMetadata = [NSMutableString stringWithFormat:@"%@%@", @"?SDK=iOS&Version=", SDK_VERSION];
+    NSUInteger baseLength = [userMetadata length];
+
+    // Append each of the user-specified key-value pair to the connection username
+    if (userMetaData ) {
+        for (id key in userMetaData) {
+            if (!([key isEqualToString:@"SDK"] || [key isEqualToString:@"Version"])) {
+                [userMetadata appendFormat:@"&%@=%@", key, [userMetaData objectForKey:key]];
+            } else {
+                AWSDDLogWarn(@"Keynames 'SDK' and 'Version' are reserved and will be skipped");
+            }
+        }
+    }
+
+    if ([userMetadata length] > 255) {
+        AWSDDLogWarn(@"Total number of characters in username fields cannot exceed (%u)", (255 - baseLength));
+        self.mqttClient.userMetaData = [userMetadata substringToIndex:255];
+    } else {
+        self.mqttClient.userMetaData = [NSString stringWithString:userMetadata];
+    }
+}
 
 - (BOOL)connectUsingALPNWithClientId:(NSString *)clientId
                         cleanSession:(BOOL)cleanSession
