@@ -90,12 +90,14 @@
         [self setButtonFont:showButton];
         [showButton setTitleColor:[UIColor darkGrayColor]
                          forState:UIControlStateNormal];
+		inputCell.inputBox.textContentType = UITextContentTypePassword;
     }
     if (formCell.inputType == InputTypeStaticText) {
         inputCell.placeHolderView.hidden = YES;
         inputCell.inputBox.text = formCell.staticText;
     }
 	if (formCell.inputType == InputTypeEmail) {
+		inputCell.inputBox.textContentType = UITextContentTypeEmailAddress;
 		inputCell.inputBox.keyboardType = UIKeyboardTypeEmailAddress;
 	}
 	
