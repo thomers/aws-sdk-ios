@@ -1081,6 +1081,7 @@
           \"shape\":\"BatchSize\",\
           \"documentation\":\"<p>The maximum number of items to retrieve in a single batch.</p> <ul> <li> <p> <b>Amazon Kinesis</b> - Default 100. Max 10,000.</p> </li> <li> <p> <b>Amazon DynamoDB Streams</b> - Default 100. Max 1,000.</p> </li> <li> <p> <b>Amazon Simple Queue Service</b> - Default 10. Max 10.</p> </li> </ul>\"\
         },\
+        \"MaximumBatchingWindowInSeconds\":{\"shape\":\"MaximumBatchingWindowInSeconds\"},\
         \"StartingPosition\":{\
           \"shape\":\"EventSourcePosition\",\
           \"documentation\":\"<p>The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB Streams sources. <code>AT_TIMESTAMP</code> is only supported for Amazon Kinesis streams.</p>\"\
@@ -1373,6 +1374,7 @@
           \"shape\":\"BatchSize\",\
           \"documentation\":\"<p>The maximum number of items to retrieve in a single batch.</p>\"\
         },\
+        \"MaximumBatchingWindowInSeconds\":{\"shape\":\"MaximumBatchingWindowInSeconds\"},\
         \"EventSourceArn\":{\
           \"shape\":\"Arn\",\
           \"documentation\":\"<p>The Amazon Resource Name (ARN) of the event source.</p>\"\
@@ -2475,6 +2477,11 @@
       \"max\":10000,\
       \"min\":1\
     },\
+    \"MaximumBatchingWindowInSeconds\":{\
+      \"type\":\"integer\",\
+      \"max\":300,\
+      \"min\":0\
+    },\
     \"MemorySize\":{\
       \"type\":\"integer\",\
       \"max\":3008,\
@@ -2779,6 +2786,7 @@
         \"nodejs4.3\",\
         \"nodejs6.10\",\
         \"nodejs8.10\",\
+        \"nodejs10.x\",\
         \"java8\",\
         \"python2.7\",\
         \"python3.6\",\
@@ -3037,7 +3045,8 @@
         \"BatchSize\":{\
           \"shape\":\"BatchSize\",\
           \"documentation\":\"<p>The maximum number of items to retrieve in a single batch.</p> <ul> <li> <p> <b>Amazon Kinesis</b> - Default 100. Max 10,000.</p> </li> <li> <p> <b>Amazon DynamoDB Streams</b> - Default 100. Max 1,000.</p> </li> <li> <p> <b>Amazon Simple Queue Service</b> - Default 10. Max 10.</p> </li> </ul>\"\
-        }\
+        },\
+        \"MaximumBatchingWindowInSeconds\":{\"shape\":\"MaximumBatchingWindowInSeconds\"}\
       }\
     },\
     \"UpdateFunctionCodeRequest\":{\

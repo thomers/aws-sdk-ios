@@ -204,6 +204,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @class AWSComprehendEntityRecognizerMetadata;
 @class AWSComprehendEntityRecognizerMetadataEntityTypesListItem;
 @class AWSComprehendEntityRecognizerProperties;
+@class AWSComprehendEntityTypesEvaluationMetrics;
 @class AWSComprehendEntityTypesListItem;
 @class AWSComprehendInputDataConfig;
 @class AWSComprehendKeyPhrase;
@@ -264,6 +265,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @class AWSComprehendTopicsDetectionJobProperties;
 @class AWSComprehendUntagResourceRequest;
 @class AWSComprehendUntagResourceResponse;
+@class AWSComprehendVpcConfig;
 
 /**
  <p>The result of calling the operation. The operation returns one object for each document that is successfully processed by the operation.</p>
@@ -339,7 +341,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -393,7 +395,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -452,7 +454,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -506,7 +508,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendSyntaxLanguageCode languageCode;
 
@@ -641,7 +643,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @property (nonatomic, strong) AWSComprehendDocumentClassifierInputDataConfig * _Nullable inputDataConfig;
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -659,6 +661,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your custom classifier. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -715,6 +722,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your custom entity recognizer. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -1014,7 +1026,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -1045,7 +1057,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -1076,7 +1088,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -1112,7 +1124,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 
 
 /**
- <p>The language code of the input documents. You can specify English ("en") or Spanish ("es").</p>
+ <p>The language code of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt").</p>
  */
 @property (nonatomic, assign) AWSComprehendSyntaxLanguageCode languageCode;
 
@@ -1224,6 +1236,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -1353,6 +1370,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your custom classifier. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -1457,6 +1479,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your dominant language detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -1553,6 +1580,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your entity detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -1631,7 +1663,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @end
 
 /**
- <p> Detailed information about the accuracy of an entity recognizer. </p>
+ <p>Detailed information about the accuracy of an entity recognizer. </p>
  */
 @interface AWSComprehendEntityRecognizerEvaluationMetrics : AWSModel
 
@@ -1699,7 +1731,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @property (nonatomic, strong) AWSComprehendEntityRecognizerEntityList * _Nullable entityList;
 
 /**
- <p>The entity types in the input data for an entity recognizer.</p>
+ <p>The entity types in the input data for an entity recognizer. A maximum of 12 entity types can be used at one time to train an entity recognizer.</p>
  */
 @property (nonatomic, strong) NSArray<AWSComprehendEntityTypesListItem *> * _Nullable entityTypes;
 
@@ -1717,7 +1749,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @property (nonatomic, strong) NSArray<AWSComprehendEntityRecognizerMetadataEntityTypesListItem *> * _Nullable entityTypes;
 
 /**
- <p> Detailed information about the accuracy of an entity recognizer.</p>
+ <p>Detailed information about the accuracy of an entity recognizer.</p>
  */
 @property (nonatomic, strong) AWSComprehendEntityRecognizerEvaluationMetrics * _Nullable evaluationMetrics;
 
@@ -1738,6 +1770,16 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @interface AWSComprehendEntityRecognizerMetadataEntityTypesListItem : AWSModel
 
+
+/**
+ <p>Detailed information about the accuracy of the entity recognizer for a specific item on the list of entity types. </p>
+ */
+@property (nonatomic, strong) AWSComprehendEntityTypesEvaluationMetrics * _Nullable evaluationMetrics;
+
+/**
+ <p>indicates the number of times the given entity name was seen in the training data. </p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable numberOfTrainMentions;
 
 /**
  <p>Type of entity from the list of entity types in the metadata of an entity recognizer. </p>
@@ -1811,6 +1853,34 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your custom entity recognizer. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
+@end
+
+/**
+ <p>Detailed information about the accuracy of an entity recognizer for a specific entity type. </p>
+ */
+@interface AWSComprehendEntityTypesEvaluationMetrics : AWSModel
+
+
+/**
+ <p>A measure of how accurate the recognizer results are for for a specific entity type in the test data. It is derived from the <code>Precision</code> and <code>Recall</code> values. The <code>F1Score</code> is the harmonic average of the two scores. The highest score is 1, and the worst score is 0. </p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable f1Score;
+
+/**
+ <p>A measure of the usefulness of the recognizer results for a specific entity type in the test data. High precision means that the recognizer returned substantially more relevant results than irrelevant ones. </p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable precision;
+
+/**
+ <p>A measure of how complete the recognizer results are for a specific entity type in the test data. High recall means that the recognizer returned most of the relevant results.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable recall;
 
 @end
 
@@ -1963,6 +2033,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your key phrases detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -2451,6 +2526,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p> Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your sentiment detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -2522,6 +2602,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your document classification job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -2577,6 +2662,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your dominant language detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -2644,6 +2734,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your entity detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -2691,7 +2786,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @property (nonatomic, strong) NSString * _Nullable jobName;
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -2704,6 +2799,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p> Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your key phrases detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -2752,7 +2852,7 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
 @property (nonatomic, strong) NSString * _Nullable jobName;
 
 /**
- <p>The language of the input documents. You can specify English ("en") or Spanish ("es"). All documents must be in the same language.</p>
+ <p>The language of the input documents. You can specify any of the primary languages supported by Amazon Comprehend: German ("de"), English ("en"), Spanish ("es"), French ("fr"), Italian ("it"), or Portuguese ("pt"). All documents must be in the same language.</p>
  */
 @property (nonatomic, assign) AWSComprehendLanguageCode languageCode;
 
@@ -2765,6 +2865,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your sentiment detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -2826,6 +2931,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  <p>ID for the AWS Key Management Service (KMS) key that Amazon Comprehend uses to encrypt data on the storage volume attached to the ML compute instance(s) that process the analysis job. The VolumeKmsKeyId can be either of the following formats:</p><ul><li><p>KMS Key ID: <code>"1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li><li><p>Amazon Resource Name (ARN) of a KMS Key: <code>"arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"</code></p></li></ul>
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
+
+/**
+ <p>Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for your topic detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
 
 @end
 
@@ -3180,6 +3290,11 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @property (nonatomic, strong) NSString * _Nullable volumeKmsKeyId;
 
+/**
+ <p>Configuration parameters for a private Virtual Private Cloud (VPC) containing the resources you are using for your topic detection job. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ */
+@property (nonatomic, strong) AWSComprehendVpcConfig * _Nullable vpcConfig;
+
 @end
 
 /**
@@ -3205,6 +3320,25 @@ typedef NS_ENUM(NSInteger, AWSComprehendSyntaxLanguageCode) {
  */
 @interface AWSComprehendUntagResourceResponse : AWSModel
 
+
+@end
+
+/**
+ <p> Configuration parameters for an optional private Virtual Private Cloud (VPC) containing the resources you are using for the job. For For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">Amazon VPC</a>. </p>
+ Required parameters: [SecurityGroupIds, Subnets]
+ */
+@interface AWSComprehendVpcConfig : AWSModel
+
+
+/**
+ <p>The ID number for a security group on an instance of your private VPC. Security groups on your VPC function serve as a virtual firewall to control inbound and outbound traffic and provides security for the resources that you’ll be accessing on the VPC. This ID number is preceded by "sg-", for instance: "sg-03b388029b0a285ea". For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Security Groups for your VPC</a>. </p>
+ */
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable securityGroupIds;
+
+/**
+ <p>The ID for each subnet being used in your private VPC. This subnet is a subset of the a range of IPv4 addresses used by the VPC and is specific to a given availability zone in the VPC’s region. This ID number is preceded by "subnet-", for instance: "subnet-04ccf456919e69055". For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">VPCs and Subnets</a>. </p>
+ */
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable subnets;
 
 @end
 

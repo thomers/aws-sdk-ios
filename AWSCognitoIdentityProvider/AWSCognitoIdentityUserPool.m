@@ -8,11 +8,11 @@
 #import "AWSCognitoIdentityProvider.h"
 #import "AWSCognitoIdentityUser_Internal.h"
 #import "AWSCognitoIdentityUserPool_Internal.h"
-#import "AWSUICKeyChainStore.h"
+#import <AWSCore/AWSUICKeyChainStore.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSData+AWSCognitoIdentityProvider.h"
 #import "AWSCognitoIdentityProviderModel.h"
-#import "AWSCognitoIdentityProviderASF.h"
+#import <AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.h>
 
 static const NSString * AWSCognitoIdentityUserPoolCurrentUser = @"currentUser";
 
@@ -198,9 +198,9 @@ static NSString *const AWSPinpointContextKeychainUniqueIdKey = @"com.amazonaws.A
     
     return [[self.client signUp:request] continueWithSuccessBlock:^id _Nullable(AWSTask<AWSCognitoIdentityProviderSignUpResponse *> * _Nonnull task) {
         AWSCognitoIdentityUser * user = [[AWSCognitoIdentityUser alloc] initWithUsername:username pool:self];
-        if([task.result.userConfirmed intValue] == AWSCognitoIdentityProviderUserStatusTypeConfirmed){
+        if([task.result.userConfirmed boolValue]) {
             user.confirmedStatus = AWSCognitoIdentityUserStatusConfirmed;
-        }else if([task.result.userConfirmed intValue] == AWSCognitoIdentityProviderUserStatusTypeUnconfirmed) {
+        } else {
             user.confirmedStatus = AWSCognitoIdentityUserStatusUnconfirmed;
         }
         AWSCognitoIdentityUserPoolSignUpResponse *signupResponse = [AWSCognitoIdentityUserPoolSignUpResponse new];
