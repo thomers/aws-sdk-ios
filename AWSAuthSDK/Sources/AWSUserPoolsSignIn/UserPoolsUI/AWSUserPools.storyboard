@@ -216,10 +216,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ynd-Ed-kPb">
-                                <rect key="frame" x="20" y="46" width="280" height="300"/>
+                                <rect key="frame" x="20" y="46" width="280" height="180"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tlm-ET-L8c">
-                                        <rect key="frame" x="4" y="4" width="272" height="292"/>
+                                        <rect key="frame" x="4" y="4" width="272" height="172"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AWSFormTableCell" rowHeight="75" id="WTQ-Mh-Km6" customClass="AWSTableInputCell">
@@ -319,7 +319,7 @@
                                 <constraints>
                                     <constraint firstItem="tlm-ET-L8c" firstAttribute="top" secondItem="ynd-Ed-kPb" secondAttribute="top" constant="4" id="a3v-Gq-Eeq"/>
                                     <constraint firstItem="tlm-ET-L8c" firstAttribute="leading" secondItem="ynd-Ed-kPb" secondAttribute="leading" constant="4" id="d8c-zH-HYo"/>
-                                    <constraint firstAttribute="height" constant="300" id="dLd-FZ-yeH"/>
+                                    <constraint firstAttribute="height" constant="180" id="dLd-FZ-yeH"/>
                                     <constraint firstItem="tlm-ET-L8c" firstAttribute="centerY" secondItem="ynd-Ed-kPb" secondAttribute="centerY" id="rnR-zW-r27"/>
                                     <constraint firstItem="tlm-ET-L8c" firstAttribute="centerX" secondItem="ynd-Ed-kPb" secondAttribute="centerX" id="rzB-04-Ch0"/>
                                 </constraints>
@@ -331,7 +331,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Db4-um-TSC">
-                                <rect key="frame" x="20" y="366" width="280" height="35"/>
+                                <rect key="frame" x="20" y="246" width="280" height="35"/>
                                 <color key="backgroundColor" red="0.71372549019999998" green="0.1960784314" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="CI7-9s-lAA"/>

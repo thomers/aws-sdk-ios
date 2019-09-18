@@ -87,8 +87,8 @@ id<AWSUIConfiguration> config = nil;
     _tableDelegate = [AWSFormTableDelegate new];
     [self.tableDelegate addCell:self.userNameRow];
     [self.tableDelegate addCell:self.passwordRow];
-    //[self.tableDelegate addCell:self.emailRow];
-    //[self.tableDelegate addCell:self.phoneNumberRow];
+    //[self.tableDelegate addCell:self.emailRow];//        NOTE - just commenting does not reduze the table view HEIGHT, and it still shows 4 rows (2 empty)
+    //[self.tableDelegate addCell:self.phoneNumberRow]; // Edit the tableview height constraint in AWSUserPoolsSignin/Resources/AWSUserPools.storyboard!
     self.tableView.delegate = self.tableDelegate;
     self.tableView.dataSource = self.tableDelegate;
     [self.tableView reloadData];
