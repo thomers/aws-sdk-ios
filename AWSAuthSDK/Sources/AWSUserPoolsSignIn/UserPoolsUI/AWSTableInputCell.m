@@ -59,6 +59,8 @@
         [self.headerLabel setFont:font];
         [self.inputBox setFont:font];
     }
+	
+	self.inputBox.adjustsFontSizeToFitWidth = NO;
 }
 
 @end
