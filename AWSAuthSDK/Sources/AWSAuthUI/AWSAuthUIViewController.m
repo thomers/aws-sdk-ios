@@ -69,6 +69,19 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
 			[config setEnableSignup:false];
 		}
 	}
+
+	if(configDictionary[@"enableSignupForward"]) {
+		NSString *enableSignupValue = (NSString *)configDictionary[@"enableSignupForward"];
+		if ([enableSignupValue isEqual: @"YES"]) {
+			[config setEnableSignupForward:true];
+		} else {
+			[config setEnableSignupForward:false];
+		}
+	}
+	
+	if(configDictionary[@"signupForwardURL"]) {
+		[config setSignupForwardURL:(NSString *)configDictionary[@"signupForwardURL"]];
+	}
 	
     [[AWSSignInManager sharedInstance] setDontFederate];
     

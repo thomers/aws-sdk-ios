@@ -271,9 +271,17 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
 		NSLog(@"self.config.enableSignUp set to: %@", (self.config.enableSignup ? @"YES" : @"NO"));
 
 		if ((self.config.enableUserPoolsUI) && (self.config.enableSignup)) {
-			[self.signUpButton addTarget:self
-								  action:@selector(handleUserPoolSignUp)
-						forControlEvents:UIControlEventTouchUpInside];
+			if (self.config.enableSignupForward) {
+				[self.signUpButton addTarget:self
+									  action:@selector(handleSignUpForward)
+							forControlEvents:UIControlEventTouchUpInside];
+
+			} else {
+				[self.signUpButton addTarget:self
+									  action:@selector(handleUserPoolSignUp)
+							forControlEvents:UIControlEventTouchUpInside];
+			}
+			
 			[self.signUpButton setEnabled:YES];
 			[self.signUpButton setHidden:NO];
         } else {
@@ -351,10 +359,19 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
 }
 
 - (void)setUpResponders {
-    [self.signUpButton addTarget:self
-                          action:@selector(handleUserPoolSignUp)
-                forControlEvents:UIControlEventTouchUpInside];
-    [self.signInButton addTarget:self
+	if (self.config.enableSignupForward) {
+		[self.signUpButton addTarget:self
+							  action:@selector(handleSignUpForward)
+					forControlEvents:UIControlEventTouchUpInside];
+
+	} else {
+		[self.signUpButton addTarget:self
+							  action:@selector(handleUserPoolSignUp)
+					forControlEvents:UIControlEventTouchUpInside];
+
+	}
+
+	[self.signInButton addTarget:self
                           action:@selector(handleUserPoolSignIn)
                 forControlEvents:UIControlEventTouchUpInside];
     [self.forgotPasswordButton addTarget:self
@@ -519,9 +536,13 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
                          completionHandler:self.completionHandler];
 }
 
+- (void) handleSignUpForward {
+	[self.view endEditing:YES];
+	
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.config.signupForwardURL] options:@{} completionHandler:nil];
+}
 
 - (void)handleUserPoolSignUp {
-    
     // Dismisses the keyboard if open before transitioning to the new storyboard
     [self.view endEditing:YES];
     

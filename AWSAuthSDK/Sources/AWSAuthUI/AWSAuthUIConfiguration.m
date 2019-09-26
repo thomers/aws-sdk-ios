@@ -37,6 +37,8 @@
 @synthesize enableUserPoolsUI;
 
 @synthesize enableSignup;
+@synthesize enableSignupForward;
+@synthesize signupForwardURL;
 
 @synthesize isBackgroundColorFullScreen;
 

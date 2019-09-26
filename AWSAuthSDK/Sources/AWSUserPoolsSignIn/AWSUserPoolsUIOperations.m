@@ -64,6 +64,10 @@ completionHandler:(nonnull void (^)(id _Nullable, NSError * _Nullable))completio
     return nil;
 }
 
+
+
+
+
 -(void)pushSignUpVCFromNavigationController:(UINavigationController *)navController {
     AWSUserPoolSignUpViewController *viewController = (AWSUserPoolSignUpViewController *)[self getUserPoolsViewControllerWithIdentifier:USERPOOLS_SIGNUP_VIEW_CONTROLLER_IDENTIFIER];
     viewController.config = self.config;

@@ -19,7 +19,8 @@ import Foundation
 	// -------- TOM MODIFICATIONS --------------------------------
 	/// If false, the "Signup" button will be hidden, disabling registration
 	@objc public let enableSignup: Bool
-
+	@objc public let enableSignupForward: Bool
+	@objc public let signupForwardURL: String?
 	
     /// Initializer for the drop-in UI configuration.
     ///
@@ -29,11 +30,13 @@ import Foundation
     ///   - backgroundColor: The background color of the sign-in screen.
 	///   - enableSignup: Show/hide the "Signup" button
 
-    @objc public init(canCancel: Bool = false,logoImage: UIImage? = nil, backgroundColor: UIColor? = nil, enableSignup: Bool = true) {
+	@objc public init(canCancel: Bool = false,logoImage: UIImage? = nil, backgroundColor: UIColor? = nil, enableSignup: Bool = true, enableSignupForward: Bool = false, signupForwardURL: String = "") {
         self.canCancel = canCancel
         self.logoImage = logoImage
         self.backgroundColor = backgroundColor
 		self.enableSignup = enableSignup
+		self.enableSignupForward = enableSignupForward
+		self.signupForwardURL = signupForwardURL
     }
 }
 

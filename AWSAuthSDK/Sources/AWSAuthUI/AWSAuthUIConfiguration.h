@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
  @brief Enables the signup button
  **/
 @property (atomic) BOOL enableSignup;
+@property (atomic) BOOL enableSignupForward;
+@property (atomic, strong) NSString *signupForwardURL;
 // ADDED BY TOM !!! *****************************
 
 

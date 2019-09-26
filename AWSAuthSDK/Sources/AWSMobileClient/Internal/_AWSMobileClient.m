@@ -148,6 +148,8 @@ signInUIConfiguration:(SignInUIOptions *)signInUIConfiguration
         parameters[@"navigationController"] = navController;
         parameters[@"canCancel"] = signInUIConfiguration.canCancel ? @"YES" : @"NO";
 		parameters[@"enableSignup"] = signInUIConfiguration.enableSignup ? @"YES" : @"NO";
+		parameters[@"enableSignupForward"] = signInUIConfiguration.enableSignupForward ? @"YES" : @"NO";
+		parameters[@"signupForwardURL"] = signInUIConfiguration.signupForwardURL;
 
         [NSClassFromString(@"AWSAuthUIViewController") performSelector:@selector(presentViewControllerWithConfig:completionHandler:)
                                                             withObject:(id)parameters
