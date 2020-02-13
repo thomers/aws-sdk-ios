@@ -146,7 +146,7 @@ id<AWSUIConfiguration> config = nil;
     
     NSString *userName = [self.tableDelegate getValueForCell:self.userNameRow forTableView:self.tableView];
     NSString *password = [self.tableDelegate getValueForCell:self.passwordRow forTableView:self.tableView];
-	if ([userName isEqualToString:@""] || [password isEqualToString:@""] || ![AWSUserPoolsUIHelper isValidEmail:userName]) {
+	if ([userName isEqualToString:@""] || [password isEqualToString:@""] || ![AWSAuthUIHelper isValidEmail:userName]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Missing Information"
                                                                                  message:@"Please enter a valid Email and password."
                                                                           preferredStyle:UIAlertControllerStyleAlert];

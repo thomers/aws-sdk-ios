@@ -51,7 +51,7 @@ import Foundation
         self.primaryColor = primaryColor
         self.disableSignUpButton = disableSignUpButton
 
-		self.enableSignup = enableSignup
+		self.signupForwardURL = signupForwardURL
 		self.enableSignupForward = enableSignupForward
 
 		}
