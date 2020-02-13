@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
 #import "AWSConnectResources.h"
 
 static NSString *const AWSInfoConnect = @"Connect";
-NSString *const AWSConnectSDKVersion = @"2.11.1";
+NSString *const AWSConnectSDKVersion = @"2.12.7";
 
 
 @interface AWSConnectResponseSerializer : AWSJSONResponseSerializer
@@ -492,6 +492,98 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     }];
 }
 
+- (AWSTask<AWSConnectListContactFlowsResponse *> *)listContactFlows:(AWSConnectListContactFlowsRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/contact-flows-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListContactFlows"
+                   outputClass:[AWSConnectListContactFlowsResponse class]];
+}
+
+- (void)listContactFlows:(AWSConnectListContactFlowsRequest *)request
+     completionHandler:(void (^)(AWSConnectListContactFlowsResponse *response, NSError *error))completionHandler {
+    [[self listContactFlows:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListContactFlowsResponse *> * _Nonnull task) {
+        AWSConnectListContactFlowsResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListHoursOfOperationsResponse *> *)listHoursOfOperations:(AWSConnectListHoursOfOperationsRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/hours-of-operations-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListHoursOfOperations"
+                   outputClass:[AWSConnectListHoursOfOperationsResponse class]];
+}
+
+- (void)listHoursOfOperations:(AWSConnectListHoursOfOperationsRequest *)request
+     completionHandler:(void (^)(AWSConnectListHoursOfOperationsResponse *response, NSError *error))completionHandler {
+    [[self listHoursOfOperations:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListHoursOfOperationsResponse *> * _Nonnull task) {
+        AWSConnectListHoursOfOperationsResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListPhoneNumbersResponse *> *)listPhoneNumbers:(AWSConnectListPhoneNumbersRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/phone-numbers-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListPhoneNumbers"
+                   outputClass:[AWSConnectListPhoneNumbersResponse class]];
+}
+
+- (void)listPhoneNumbers:(AWSConnectListPhoneNumbersRequest *)request
+     completionHandler:(void (^)(AWSConnectListPhoneNumbersResponse *response, NSError *error))completionHandler {
+    [[self listPhoneNumbers:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListPhoneNumbersResponse *> * _Nonnull task) {
+        AWSConnectListPhoneNumbersResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListQueuesResponse *> *)listQueues:(AWSConnectListQueuesRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/queues-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListQueues"
+                   outputClass:[AWSConnectListQueuesResponse class]];
+}
+
+- (void)listQueues:(AWSConnectListQueuesRequest *)request
+     completionHandler:(void (^)(AWSConnectListQueuesResponse *response, NSError *error))completionHandler {
+    [[self listQueues:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListQueuesResponse *> * _Nonnull task) {
+        AWSConnectListQueuesResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
 - (AWSTask<AWSConnectListRoutingProfilesResponse *> *)listRoutingProfiles:(AWSConnectListRoutingProfilesRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodGET
@@ -528,6 +620,29 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
      completionHandler:(void (^)(AWSConnectListSecurityProfilesResponse *response, NSError *error))completionHandler {
     [[self listSecurityProfiles:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListSecurityProfilesResponse *> * _Nonnull task) {
         AWSConnectListSecurityProfilesResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListTagsForResourceResponse *> *)listTagsForResource:(AWSConnectListTagsForResourceRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/tags/{resourceArn}"
+                  targetPrefix:@""
+                 operationName:@"ListTagsForResource"
+                   outputClass:[AWSConnectListTagsForResourceResponse class]];
+}
+
+- (void)listTagsForResource:(AWSConnectListTagsForResourceRequest *)request
+     completionHandler:(void (^)(AWSConnectListTagsForResourceResponse *response, NSError *error))completionHandler {
+    [[self listTagsForResource:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListTagsForResourceResponse *> * _Nonnull task) {
+        AWSConnectListTagsForResourceResponse *result = task.result;
         NSError *error = task.error;
 
         if (completionHandler) {
@@ -584,6 +699,29 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
     }];
 }
 
+- (AWSTask<AWSConnectStartChatContactResponse *> *)startChatContact:(AWSConnectStartChatContactRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodPUT
+                     URLString:@"/contact/chat"
+                  targetPrefix:@""
+                 operationName:@"StartChatContact"
+                   outputClass:[AWSConnectStartChatContactResponse class]];
+}
+
+- (void)startChatContact:(AWSConnectStartChatContactRequest *)request
+     completionHandler:(void (^)(AWSConnectStartChatContactResponse *response, NSError *error))completionHandler {
+    [[self startChatContact:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectStartChatContactResponse *> * _Nonnull task) {
+        AWSConnectStartChatContactResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
 - (AWSTask<AWSConnectStartOutboundVoiceContactResponse *> *)startOutboundVoiceContact:(AWSConnectStartOutboundVoiceContactRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodPUT
@@ -624,6 +762,50 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
         if (completionHandler) {
             completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask *)tagResource:(AWSConnectTagResourceRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodPOST
+                     URLString:@"/tags/{resourceArn}"
+                  targetPrefix:@""
+                 operationName:@"TagResource"
+                   outputClass:nil];
+}
+
+- (void)tagResource:(AWSConnectTagResourceRequest *)request
+     completionHandler:(void (^)(NSError *error))completionHandler {
+    [[self tagResource:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask *)untagResource:(AWSConnectUntagResourceRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodDELETE
+                     URLString:@"/tags/{resourceArn}"
+                  targetPrefix:@""
+                 operationName:@"UntagResource"
+                   outputClass:nil];
+}
+
+- (void)untagResource:(AWSConnectUntagResourceRequest *)request
+     completionHandler:(void (^)(NSError *error))completionHandler {
+    [[self untagResource:request] continueWithBlock:^id _Nullable(AWSTask * _Nonnull task) {
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(error);
         }
 
         return nil;

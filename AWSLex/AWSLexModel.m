@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -187,6 +187,7 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
 	return @{
              @"botAlias" : @"botAlias",
              @"botName" : @"botName",
+             @"checkpointLabelFilter" : @"checkpointLabelFilter",
              @"userId" : @"userId",
              };
 }
@@ -218,6 +219,7 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
+             @"checkpointLabel" : @"checkpointLabel",
              @"confirmationStatus" : @"confirmationStatus",
              @"dialogActionType" : @"dialogActionType",
              @"fulfillmentState" : @"fulfillmentState",
@@ -345,7 +347,9 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
              @"intentName" : @"intentName",
              @"message" : @"message",
              @"messageFormat" : @"messageFormat",
+             @"sentimentResponse" : @"sentimentResponse",
              @"sessionAttributes" : @"sessionAttributes",
+             @"sessionId" : @"sessionId",
              @"slotToElicit" : @"slotToElicit",
              @"slots" : @"slots",
              };
@@ -449,7 +453,9 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
              @"message" : @"message",
              @"messageFormat" : @"messageFormat",
              @"responseCard" : @"responseCard",
+             @"sentimentResponse" : @"sentimentResponse",
              @"sessionAttributes" : @"sessionAttributes",
+             @"sessionId" : @"sessionId",
              @"slotToElicit" : @"slotToElicit",
              @"slots" : @"slots",
              };
@@ -531,6 +537,10 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
     return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSLexResponseCard class]];
 }
 
++ (NSValueTransformer *)sentimentResponseJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSLexSentimentResponse class]];
+}
+
 @end
 
 @implementation AWSLexPutSessionRequest
@@ -541,6 +551,7 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
              @"botAlias" : @"botAlias",
              @"botName" : @"botName",
              @"dialogAction" : @"dialogAction",
+             @"recentIntentSummaryView" : @"recentIntentSummaryView",
              @"sessionAttributes" : @"sessionAttributes",
              @"userId" : @"userId",
              };
@@ -548,6 +559,10 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
 
 + (NSValueTransformer *)dialogActionJSONTransformer {
     return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSLexDialogAction class]];
+}
+
++ (NSValueTransformer *)recentIntentSummaryViewJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSLexIntentSummary class]];
 }
 
 @end
@@ -671,6 +686,17 @@ NSString *const AWSLexErrorDomain = @"com.amazonaws.AWSLexErrorDomain";
 
 + (NSValueTransformer *)genericAttachmentsJSONTransformer {
     return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSLexGenericAttachment class]];
+}
+
+@end
+
+@implementation AWSLexSentimentResponse
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"sentimentLabel" : @"sentimentLabel",
+             @"sentimentScore" : @"sentimentScore",
+             };
 }
 
 @end

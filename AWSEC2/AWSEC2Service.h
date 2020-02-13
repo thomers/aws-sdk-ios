@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -200,6 +200,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)acceptReservedInstancesExchangeQuote:(AWSEC2AcceptReservedInstancesExchangeQuoteRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AcceptReservedInstancesExchangeQuoteResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Accepts a transit gateway peering attachment request. The peering attachment must be in the <code>pendingAcceptance</code> state.</p>
+ 
+ @param request A container for the necessary parameters to execute the AcceptTransitGatewayPeeringAttachment service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2AcceptTransitGatewayPeeringAttachmentResult`.
+ 
+ @see AWSEC2AcceptTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2AcceptTransitGatewayPeeringAttachmentResult
+ */
+- (AWSTask<AWSEC2AcceptTransitGatewayPeeringAttachmentResult *> *)acceptTransitGatewayPeeringAttachment:(AWSEC2AcceptTransitGatewayPeeringAttachmentRequest *)request;
+
+/**
+ <p>Accepts a transit gateway peering attachment request. The peering attachment must be in the <code>pendingAcceptance</code> state.</p>
+ 
+ @param request A container for the necessary parameters to execute the AcceptTransitGatewayPeeringAttachment service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2AcceptTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2AcceptTransitGatewayPeeringAttachmentResult
+ */
+- (void)acceptTransitGatewayPeeringAttachment:(AWSEC2AcceptTransitGatewayPeeringAttachmentRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AcceptTransitGatewayPeeringAttachmentResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Accepts a request to attach a VPC to a transit gateway.</p><p>The VPC attachment must be in the <code>pendingAcceptance</code> state. Use <a>DescribeTransitGatewayVpcAttachments</a> to view your pending VPC attachment requests. Use <a>RejectTransitGatewayVpcAttachment</a> to reject a VPC attachment request.</p>
  
  @param request A container for the necessary parameters to execute the AcceptTransitGatewayVpcAttachment service method.
@@ -275,7 +300,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)acceptVpcPeeringConnection:(AWSEC2AcceptVpcPeeringConnectionRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AcceptVpcPeeringConnectionResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Advertises an IPv4 address range that is provisioned for use with your AWS resources through bring your own IP addresses (BYOIP).</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>We recommend that you stop advertising the BYOIP CIDR from other locations when you advertise it from AWS. To minimize down time, you can configure your AWS resources to use an address from a BYOIP CIDR before it is advertised, and then simultaneously stop advertising it from the current location and start advertising it through AWS.</p><p>It can take a few minutes before traffic to the specified addresses starts routing to AWS because of BGP propagation delays.</p><p>To stop advertising the BYOIP CIDR, use <a>WithdrawByoipCidr</a>.</p>
+ <p>Advertises an IPv4 or IPv6 address range that is provisioned for use with your AWS resources through bring your own IP addresses (BYOIP).</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>We recommend that you stop advertising the BYOIP CIDR from other locations when you advertise it from AWS. To minimize down time, you can configure your AWS resources to use an address from a BYOIP CIDR before it is advertised, and then simultaneously stop advertising it from the current location and start advertising it through AWS.</p><p>It can take a few minutes before traffic to the specified addresses starts routing to AWS because of BGP propagation delays.</p><p>To stop advertising the BYOIP CIDR, use <a>WithdrawByoipCidr</a>.</p>
  
  @param request A container for the necessary parameters to execute the AdvertiseByoipCidr service method.
 
@@ -287,7 +312,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2AdvertiseByoipCidrResult *> *)advertiseByoipCidr:(AWSEC2AdvertiseByoipCidrRequest *)request;
 
 /**
- <p>Advertises an IPv4 address range that is provisioned for use with your AWS resources through bring your own IP addresses (BYOIP).</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>We recommend that you stop advertising the BYOIP CIDR from other locations when you advertise it from AWS. To minimize down time, you can configure your AWS resources to use an address from a BYOIP CIDR before it is advertised, and then simultaneously stop advertising it from the current location and start advertising it through AWS.</p><p>It can take a few minutes before traffic to the specified addresses starts routing to AWS because of BGP propagation delays.</p><p>To stop advertising the BYOIP CIDR, use <a>WithdrawByoipCidr</a>.</p>
+ <p>Advertises an IPv4 or IPv6 address range that is provisioned for use with your AWS resources through bring your own IP addresses (BYOIP).</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>We recommend that you stop advertising the BYOIP CIDR from other locations when you advertise it from AWS. To minimize down time, you can configure your AWS resources to use an address from a BYOIP CIDR before it is advertised, and then simultaneously stop advertising it from the current location and start advertising it through AWS.</p><p>It can take a few minutes before traffic to the specified addresses starts routing to AWS because of BGP propagation delays.</p><p>To stop advertising the BYOIP CIDR, use <a>WithdrawByoipCidr</a>.</p>
  
  @param request A container for the necessary parameters to execute the AdvertiseByoipCidr service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -325,7 +350,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)allocateAddress:(AWSEC2AllocateAddressRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AllocateAddressResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Allocates a Dedicated Host to your account. At a minimum, specify the instance size type, Availability Zone, and quantity of hosts to allocate.</p>
+ <p>Allocates a Dedicated Host to your account. At a minimum, specify the supported instance type or instance family, the Availability Zone in which to allocate the host, and the number of hosts to allocate.</p>
  
  @param request A container for the necessary parameters to execute the AllocateHosts service method.
 
@@ -337,7 +362,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2AllocateHostsResult *> *)allocateHosts:(AWSEC2AllocateHostsRequest *)request;
 
 /**
- <p>Allocates a Dedicated Host to your account. At a minimum, specify the instance size type, Availability Zone, and quantity of hosts to allocate.</p>
+ <p>Allocates a Dedicated Host to your account. At a minimum, specify the supported instance type or instance family, the Availability Zone in which to allocate the host, and the number of hosts to allocate.</p>
  
  @param request A container for the necessary parameters to execute the AllocateHosts service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -425,7 +450,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)assignPrivateIpAddresses:(AWSEC2AssignPrivateIpAddressesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AssignPrivateIpAddressesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Associates an Elastic IP address with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account.</p><p>An Elastic IP address is for use in either the EC2-Classic platform or in a VPC. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">Elastic IP Addresses</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>[EC2-Classic, VPC in an EC2-VPC-only account] If the Elastic IP address is already associated with a different instance, it is disassociated from that instance and associated with the specified instance. If you associate an Elastic IP address with an instance that has an existing Elastic IP address, the existing address is disassociated from the instance, but remains allocated to your account.</p><p>[VPC in an EC2-Classic account] If you don't specify a private IP address, the Elastic IP address is associated with the primary IP address. If the Elastic IP address is already associated with a different instance or a network interface, you get an error unless you allow reassociation. You cannot associate an Elastic IP address with an instance or network interface that has an existing Elastic IP address.</p><important><p>This is an idempotent operation. If you perform the operation more than once, Amazon EC2 doesn't return an error, and you may be charged for each time the Elastic IP address is remapped to the same instance. For more information, see the <i>Elastic IP Addresses</i> section of <a href="http://aws.amazon.com/ec2/pricing/">Amazon EC2 Pricing</a>.</p></important>
+ <p>Associates an Elastic IP address with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account.</p><p>An Elastic IP address is for use in either the EC2-Classic platform or in a VPC. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">Elastic IP Addresses</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>[EC2-Classic, VPC in an EC2-VPC-only account] If the Elastic IP address is already associated with a different instance, it is disassociated from that instance and associated with the specified instance. If you associate an Elastic IP address with an instance that has an existing Elastic IP address, the existing address is disassociated from the instance, but remains allocated to your account.</p><p>[VPC in an EC2-Classic account] If you don't specify a private IP address, the Elastic IP address is associated with the primary IP address. If the Elastic IP address is already associated with a different instance or a network interface, you get an error unless you allow reassociation. You cannot associate an Elastic IP address with an instance or network interface that has an existing Elastic IP address.</p><p>You cannot associate an Elastic IP address with an interface in a different network border group.</p><important><p>This is an idempotent operation. If you perform the operation more than once, Amazon EC2 doesn't return an error, and you may be charged for each time the Elastic IP address is remapped to the same instance. For more information, see the <i>Elastic IP Addresses</i> section of <a href="http://aws.amazon.com/ec2/pricing/">Amazon EC2 Pricing</a>.</p></important>
  
  @param request A container for the necessary parameters to execute the AssociateAddress service method.
 
@@ -437,7 +462,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2AssociateAddressResult *> *)associateAddress:(AWSEC2AssociateAddressRequest *)request;
 
 /**
- <p>Associates an Elastic IP address with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account.</p><p>An Elastic IP address is for use in either the EC2-Classic platform or in a VPC. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">Elastic IP Addresses</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>[EC2-Classic, VPC in an EC2-VPC-only account] If the Elastic IP address is already associated with a different instance, it is disassociated from that instance and associated with the specified instance. If you associate an Elastic IP address with an instance that has an existing Elastic IP address, the existing address is disassociated from the instance, but remains allocated to your account.</p><p>[VPC in an EC2-Classic account] If you don't specify a private IP address, the Elastic IP address is associated with the primary IP address. If the Elastic IP address is already associated with a different instance or a network interface, you get an error unless you allow reassociation. You cannot associate an Elastic IP address with an instance or network interface that has an existing Elastic IP address.</p><important><p>This is an idempotent operation. If you perform the operation more than once, Amazon EC2 doesn't return an error, and you may be charged for each time the Elastic IP address is remapped to the same instance. For more information, see the <i>Elastic IP Addresses</i> section of <a href="http://aws.amazon.com/ec2/pricing/">Amazon EC2 Pricing</a>.</p></important>
+ <p>Associates an Elastic IP address with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account.</p><p>An Elastic IP address is for use in either the EC2-Classic platform or in a VPC. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html">Elastic IP Addresses</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>[EC2-Classic, VPC in an EC2-VPC-only account] If the Elastic IP address is already associated with a different instance, it is disassociated from that instance and associated with the specified instance. If you associate an Elastic IP address with an instance that has an existing Elastic IP address, the existing address is disassociated from the instance, but remains allocated to your account.</p><p>[VPC in an EC2-Classic account] If you don't specify a private IP address, the Elastic IP address is associated with the primary IP address. If the Elastic IP address is already associated with a different instance or a network interface, you get an error unless you allow reassociation. You cannot associate an Elastic IP address with an instance or network interface that has an existing Elastic IP address.</p><p>You cannot associate an Elastic IP address with an interface in a different network border group.</p><important><p>This is an idempotent operation. If you perform the operation more than once, Amazon EC2 doesn't return an error, and you may be charged for each time the Elastic IP address is remapped to the same instance. For more information, see the <i>Elastic IP Addresses</i> section of <a href="http://aws.amazon.com/ec2/pricing/">Amazon EC2 Pricing</a>.</p></important>
  
  @param request A container for the necessary parameters to execute the AssociateAddress service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -522,7 +547,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)associateIamInstanceProfile:(AWSEC2AssociateIamInstanceProfileRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AssociateIamInstanceProfileResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Associates a subnet with a route table. The subnet and route table must be in the same VPC. This association causes traffic originating from the subnet to be routed according to the routes in the route table. The action returns an association ID, which you need in order to disassociate the route table from the subnet later. A route table can be associated with multiple subnets.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Associates a subnet in your VPC or an internet gateway or virtual private gateway attached to your VPC with a route table in your VPC. This association causes traffic from the subnet or gateway to be routed according to the routes in the route table. The action returns an association ID, which you need in order to disassociate the route table later. A route table can be associated with multiple subnets.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the AssociateRouteTable service method.
 
@@ -534,7 +559,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2AssociateRouteTableResult *> *)associateRouteTable:(AWSEC2AssociateRouteTableRequest *)request;
 
 /**
- <p>Associates a subnet with a route table. The subnet and route table must be in the same VPC. This association causes traffic originating from the subnet to be routed according to the routes in the route table. The action returns an association ID, which you need in order to disassociate the route table from the subnet later. A route table can be associated with multiple subnets.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Associates a subnet in your VPC or an internet gateway or virtual private gateway attached to your VPC with a route table in your VPC. This association causes traffic from the subnet or gateway to be routed according to the routes in the route table. The action returns an association ID, which you need in order to disassociate the route table later. A route table can be associated with multiple subnets.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the AssociateRouteTable service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -572,6 +597,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)associateSubnetCidrBlock:(AWSEC2AssociateSubnetCidrBlockRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AssociateSubnetCidrBlockResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Associates the specified subnets and transit gateway attachments with the specified transit gateway multicast domain.</p><p>The transit gateway attachment must be in the available state before you can add a resource. Use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGatewayAttachments.html">DescribeTransitGatewayAttachments</a> to see the state of the attachment.</p>
+ 
+ @param request A container for the necessary parameters to execute the AssociateTransitGatewayMulticastDomain service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2AssociateTransitGatewayMulticastDomainResult`.
+ 
+ @see AWSEC2AssociateTransitGatewayMulticastDomainRequest
+ @see AWSEC2AssociateTransitGatewayMulticastDomainResult
+ */
+- (AWSTask<AWSEC2AssociateTransitGatewayMulticastDomainResult *> *)associateTransitGatewayMulticastDomain:(AWSEC2AssociateTransitGatewayMulticastDomainRequest *)request;
+
+/**
+ <p>Associates the specified subnets and transit gateway attachments with the specified transit gateway multicast domain.</p><p>The transit gateway attachment must be in the available state before you can add a resource. Use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGatewayAttachments.html">DescribeTransitGatewayAttachments</a> to see the state of the attachment.</p>
+ 
+ @param request A container for the necessary parameters to execute the AssociateTransitGatewayMulticastDomain service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2AssociateTransitGatewayMulticastDomainRequest
+ @see AWSEC2AssociateTransitGatewayMulticastDomainResult
+ */
+- (void)associateTransitGatewayMulticastDomain:(AWSEC2AssociateTransitGatewayMulticastDomainRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AssociateTransitGatewayMulticastDomainResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Associates the specified attachment with the specified transit gateway route table. You can associate only one route table with an attachment.</p>
  
  @param request A container for the necessary parameters to execute the AssociateTransitGatewayRouteTable service method.
@@ -597,7 +647,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)associateTransitGatewayRouteTable:(AWSEC2AssociateTransitGatewayRouteTableRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AssociateTransitGatewayRouteTableResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Associates a CIDR block with your VPC. You can associate a secondary IPv4 CIDR block, or you can associate an Amazon-provided IPv6 CIDR block. The IPv6 CIDR block size is fixed at /56.</p><p>For more information about associating CIDR blocks with your VPC and applicable restrictions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing">VPC and Subnet Sizing</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Associates a CIDR block with your VPC. You can associate a secondary IPv4 CIDR block, an Amazon-provided IPv6 CIDR block, or an IPv6 CIDR block from an IPv6 address pool that you provisioned through bring your own IP addresses (<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">BYOIP</a>). The IPv6 CIDR block size is fixed at /56.</p><p>For more information about associating CIDR blocks with your VPC and applicable restrictions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing">VPC and Subnet Sizing</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the AssociateVpcCidrBlock service method.
 
@@ -609,7 +659,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2AssociateVpcCidrBlockResult *> *)associateVpcCidrBlock:(AWSEC2AssociateVpcCidrBlockRequest *)request;
 
 /**
- <p>Associates a CIDR block with your VPC. You can associate a secondary IPv4 CIDR block, or you can associate an Amazon-provided IPv6 CIDR block. The IPv6 CIDR block size is fixed at /56.</p><p>For more information about associating CIDR blocks with your VPC and applicable restrictions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing">VPC and Subnet Sizing</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Associates a CIDR block with your VPC. You can associate a secondary IPv4 CIDR block, an Amazon-provided IPv6 CIDR block, or an IPv6 CIDR block from an IPv6 address pool that you provisioned through bring your own IP addresses (<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">BYOIP</a>). The IPv6 CIDR block size is fixed at /56.</p><p>For more information about associating CIDR blocks with your VPC and applicable restrictions, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing">VPC and Subnet Sizing</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the AssociateVpcCidrBlock service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -647,7 +697,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)attachClassicLinkVpc:(AWSEC2AttachClassicLinkVpcRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2AttachClassicLinkVpcResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Attaches an internet gateway to a VPC, enabling connectivity between the internet and the VPC. For more information about your VPC and internet gateway, see the <a href="https://docs.aws.amazon.com/vpc/latest/userguide/">Amazon Virtual Private Cloud User Guide</a>.</p>
+ <p>Attaches an internet gateway or a virtual private gateway to a VPC, enabling connectivity between the internet and the VPC. For more information about your VPC and internet gateway, see the <a href="https://docs.aws.amazon.com/vpc/latest/userguide/">Amazon Virtual Private Cloud User Guide</a>.</p>
  
  @param request A container for the necessary parameters to execute the AttachInternetGateway service method.
 
@@ -658,7 +708,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask *)attachInternetGateway:(AWSEC2AttachInternetGatewayRequest *)request;
 
 /**
- <p>Attaches an internet gateway to a VPC, enabling connectivity between the internet and the VPC. For more information about your VPC and internet gateway, see the <a href="https://docs.aws.amazon.com/vpc/latest/userguide/">Amazon Virtual Private Cloud User Guide</a>.</p>
+ <p>Attaches an internet gateway or a virtual private gateway to a VPC, enabling connectivity between the internet and the VPC. For more information about your VPC and internet gateway, see the <a href="https://docs.aws.amazon.com/vpc/latest/userguide/">Amazon Virtual Private Cloud User Guide</a>.</p>
  
  @param request A container for the necessary parameters to execute the AttachInternetGateway service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1207,7 +1257,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createClientVpnRoute:(AWSEC2CreateClientVpnRouteRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateClientVpnRouteResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Provides information to AWS about your VPN customer gateway device. The customer gateway is the appliance at your end of the VPN connection. (The device on the AWS side of the VPN connection is the virtual private gateway.) You must provide the Internet-routable IP address of the customer gateway's external interface. The IP address must be static and can be behind a device performing network address translation (NAT).</p><p>For devices that use Border Gateway Protocol (BGP), you can also provide the device's BGP Autonomous System Number (ASN). You can use an existing ASN assigned to your network. If you don't have an ASN already, you can use a private ASN (in the 64512 - 65534 range).</p><note><p>Amazon EC2 supports all 2-byte ASN numbers in the range of 1 - 65534, with the exception of 7224, which is reserved in the <code>us-east-1</code> Region, and 9059, which is reserved in the <code>eu-west-1</code> Region.</p></note><p>For more information, see <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN</a> in the <i>AWS Site-to-Site VPN User Guide</i>.</p><important><p>You cannot create more than one customer gateway with the same VPN type, IP address, and BGP ASN parameter values. If you run an identical request more than one time, the first request creates the customer gateway, and subsequent requests return information about the existing customer gateway. The subsequent requests do not create new customer gateway resources.</p></important>
+ <p>Provides information to AWS about your VPN customer gateway device. The customer gateway is the appliance at your end of the VPN connection. (The device on the AWS side of the VPN connection is the virtual private gateway.) You must provide the Internet-routable IP address of the customer gateway's external interface. The IP address must be static and can be behind a device performing network address translation (NAT).</p><p>For devices that use Border Gateway Protocol (BGP), you can also provide the device's BGP Autonomous System Number (ASN). You can use an existing ASN assigned to your network. If you don't have an ASN already, you can use a private ASN (in the 64512 - 65534 range).</p><note><p>Amazon EC2 supports all 2-byte ASN numbers in the range of 1 - 65534, with the exception of 7224, which is reserved in the <code>us-east-1</code> Region, and 9059, which is reserved in the <code>eu-west-1</code> Region.</p></note><p>For more information, see <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN</a> in the <i>AWS Site-to-Site VPN User Guide</i>.</p><important><p>To create more than one customer gateway with the same VPN type, IP address, and BGP ASN, specify a unique device name for each customer gateway. Identical requests return information about the existing customer gateway and do not create new customer gateways.</p></important>
  
  @param request A container for the necessary parameters to execute the CreateCustomerGateway service method.
 
@@ -1219,7 +1269,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateCustomerGatewayResult *> *)createCustomerGateway:(AWSEC2CreateCustomerGatewayRequest *)request;
 
 /**
- <p>Provides information to AWS about your VPN customer gateway device. The customer gateway is the appliance at your end of the VPN connection. (The device on the AWS side of the VPN connection is the virtual private gateway.) You must provide the Internet-routable IP address of the customer gateway's external interface. The IP address must be static and can be behind a device performing network address translation (NAT).</p><p>For devices that use Border Gateway Protocol (BGP), you can also provide the device's BGP Autonomous System Number (ASN). You can use an existing ASN assigned to your network. If you don't have an ASN already, you can use a private ASN (in the 64512 - 65534 range).</p><note><p>Amazon EC2 supports all 2-byte ASN numbers in the range of 1 - 65534, with the exception of 7224, which is reserved in the <code>us-east-1</code> Region, and 9059, which is reserved in the <code>eu-west-1</code> Region.</p></note><p>For more information, see <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN</a> in the <i>AWS Site-to-Site VPN User Guide</i>.</p><important><p>You cannot create more than one customer gateway with the same VPN type, IP address, and BGP ASN parameter values. If you run an identical request more than one time, the first request creates the customer gateway, and subsequent requests return information about the existing customer gateway. The subsequent requests do not create new customer gateway resources.</p></important>
+ <p>Provides information to AWS about your VPN customer gateway device. The customer gateway is the appliance at your end of the VPN connection. (The device on the AWS side of the VPN connection is the virtual private gateway.) You must provide the Internet-routable IP address of the customer gateway's external interface. The IP address must be static and can be behind a device performing network address translation (NAT).</p><p>For devices that use Border Gateway Protocol (BGP), you can also provide the device's BGP Autonomous System Number (ASN). You can use an existing ASN assigned to your network. If you don't have an ASN already, you can use a private ASN (in the 64512 - 65534 range).</p><note><p>Amazon EC2 supports all 2-byte ASN numbers in the range of 1 - 65534, with the exception of 7224, which is reserved in the <code>us-east-1</code> Region, and 9059, which is reserved in the <code>eu-west-1</code> Region.</p></note><p>For more information, see <a href="https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html">AWS Site-to-Site VPN</a> in the <i>AWS Site-to-Site VPN User Guide</i>.</p><important><p>To create more than one customer gateway with the same VPN type, IP address, and BGP ASN, specify a unique device name for each customer gateway. Identical requests return information about the existing customer gateway and do not create new customer gateways.</p></important>
  
  @param request A container for the necessary parameters to execute the CreateCustomerGateway service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1557,6 +1607,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createLaunchTemplateVersion:(AWSEC2CreateLaunchTemplateVersionRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateLaunchTemplateVersionResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Creates a static route for the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateLocalGatewayRoute service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2CreateLocalGatewayRouteResult`.
+ 
+ @see AWSEC2CreateLocalGatewayRouteRequest
+ @see AWSEC2CreateLocalGatewayRouteResult
+ */
+- (AWSTask<AWSEC2CreateLocalGatewayRouteResult *> *)createLocalGatewayRoute:(AWSEC2CreateLocalGatewayRouteRequest *)request;
+
+/**
+ <p>Creates a static route for the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateLocalGatewayRoute service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2CreateLocalGatewayRouteRequest
+ @see AWSEC2CreateLocalGatewayRouteResult
+ */
+- (void)createLocalGatewayRoute:(AWSEC2CreateLocalGatewayRouteRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateLocalGatewayRouteResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Associates the specified VPC with the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateLocalGatewayRouteTableVpcAssociation service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2CreateLocalGatewayRouteTableVpcAssociationResult`.
+ 
+ @see AWSEC2CreateLocalGatewayRouteTableVpcAssociationRequest
+ @see AWSEC2CreateLocalGatewayRouteTableVpcAssociationResult
+ */
+- (AWSTask<AWSEC2CreateLocalGatewayRouteTableVpcAssociationResult *> *)createLocalGatewayRouteTableVpcAssociation:(AWSEC2CreateLocalGatewayRouteTableVpcAssociationRequest *)request;
+
+/**
+ <p>Associates the specified VPC with the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateLocalGatewayRouteTableVpcAssociation service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2CreateLocalGatewayRouteTableVpcAssociationRequest
+ @see AWSEC2CreateLocalGatewayRouteTableVpcAssociationResult
+ */
+- (void)createLocalGatewayRouteTableVpcAssociation:(AWSEC2CreateLocalGatewayRouteTableVpcAssociationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateLocalGatewayRouteTableVpcAssociationResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Creates a NAT gateway in the specified public subnet. This action creates a network interface in the specified subnet with a private IP address from the IP address range of the subnet. Internet-bound traffic from a private subnet can be routed to the NAT gateway, therefore enabling instances in the private subnet to connect to the internet. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html">NAT Gateways</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateNatGateway service method.
@@ -1726,7 +1826,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createReservedInstancesListing:(AWSEC2CreateReservedInstancesListingRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateReservedInstancesListingResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a route in a route table within a VPC.</p><p>You must specify one of the following targets: internet gateway or virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, or egress-only internet gateway.</p><p>When determining how to route traffic, we use the route with the most specific match. For example, traffic is destined for the IPv4 address <code>192.0.2.3</code>, and the route table includes the following two IPv4 routes:</p><ul><li><p><code>192.0.2.0/24</code> (goes to some target A)</p></li><li><p><code>192.0.2.0/28</code> (goes to some target B)</p></li></ul><p>Both routes apply to the traffic destined for <code>192.0.2.3</code>. However, the second route in the list covers a smaller number of IP addresses and is therefore more specific, so we use that route to determine where to target the traffic.</p><p>For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Creates a route in a route table within a VPC.</p><p>You must specify one of the following targets: internet gateway or virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, egress-only internet gateway, or transit gateway.</p><p>When determining how to route traffic, we use the route with the most specific match. For example, traffic is destined for the IPv4 address <code>192.0.2.3</code>, and the route table includes the following two IPv4 routes:</p><ul><li><p><code>192.0.2.0/24</code> (goes to some target A)</p></li><li><p><code>192.0.2.0/28</code> (goes to some target B)</p></li></ul><p>Both routes apply to the traffic destined for <code>192.0.2.3</code>. However, the second route in the list covers a smaller number of IP addresses and is therefore more specific, so we use that route to determine where to target the traffic.</p><p>For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateRoute service method.
 
@@ -1738,7 +1838,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateRouteResult *> *)createRoute:(AWSEC2CreateRouteRequest *)request;
 
 /**
- <p>Creates a route in a route table within a VPC.</p><p>You must specify one of the following targets: internet gateway or virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, or egress-only internet gateway.</p><p>When determining how to route traffic, we use the route with the most specific match. For example, traffic is destined for the IPv4 address <code>192.0.2.3</code>, and the route table includes the following two IPv4 routes:</p><ul><li><p><code>192.0.2.0/24</code> (goes to some target A)</p></li><li><p><code>192.0.2.0/28</code> (goes to some target B)</p></li></ul><p>Both routes apply to the traffic destined for <code>192.0.2.3</code>. However, the second route in the list covers a smaller number of IP addresses and is therefore more specific, so we use that route to determine where to target the traffic.</p><p>For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Creates a route in a route table within a VPC.</p><p>You must specify one of the following targets: internet gateway or virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, egress-only internet gateway, or transit gateway.</p><p>When determining how to route traffic, we use the route with the most specific match. For example, traffic is destined for the IPv4 address <code>192.0.2.3</code>, and the route table includes the following two IPv4 routes:</p><ul><li><p><code>192.0.2.0/24</code> (goes to some target A)</p></li><li><p><code>192.0.2.0/28</code> (goes to some target B)</p></li></ul><p>Both routes apply to the traffic destined for <code>192.0.2.3</code>. However, the second route in the list covers a smaller number of IP addresses and is therefore more specific, so we use that route to determine where to target the traffic.</p><p>For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateRoute service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1826,7 +1926,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createSnapshot:(AWSEC2CreateSnapshotRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2Snapshot * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the paramaters. </p>
+ <p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the parameters. </p>
  
  @param request A container for the necessary parameters to execute the CreateSnapshots service method.
 
@@ -1838,7 +1938,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateSnapshotsResult *> *)createSnapshots:(AWSEC2CreateSnapshotsRequest *)request;
 
 /**
- <p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the paramaters. </p>
+ <p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the parameters. </p>
  
  @param request A container for the necessary parameters to execute the CreateSnapshots service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1923,7 +2023,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createTags:(AWSEC2CreateTagsRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a Traffic Mirror filter.</p><p>A Traffic Mirror filter is a set of rules that defines the traffic to mirror.</p><p>By default, no traffic is mirrored. To mirror traffic, use <a>CreateTrafficMirrorFilterRule</a> to add Traffic Mirror rules to the filter. The rules you add define what traffic gets mirrored. You can also use <a>ModifyTrafficMirrorFilterNetworkServices</a> to mirror supported network services.</p>
+ <p>Creates a Traffic Mirror filter.</p><p>A Traffic Mirror filter is a set of rules that defines the traffic to mirror.</p><p>By default, no traffic is mirrored. To mirror traffic, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorFilterRule.htm">CreateTrafficMirrorFilterRule</a> to add Traffic Mirror rules to the filter. The rules you add define what traffic gets mirrored. You can also use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyTrafficMirrorFilterNetworkServices.html">ModifyTrafficMirrorFilterNetworkServices</a> to mirror supported network services.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorFilter service method.
 
@@ -1935,7 +2035,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateTrafficMirrorFilterResult *> *)createTrafficMirrorFilter:(AWSEC2CreateTrafficMirrorFilterRequest *)request;
 
 /**
- <p>Creates a Traffic Mirror filter.</p><p>A Traffic Mirror filter is a set of rules that defines the traffic to mirror.</p><p>By default, no traffic is mirrored. To mirror traffic, use <a>CreateTrafficMirrorFilterRule</a> to add Traffic Mirror rules to the filter. The rules you add define what traffic gets mirrored. You can also use <a>ModifyTrafficMirrorFilterNetworkServices</a> to mirror supported network services.</p>
+ <p>Creates a Traffic Mirror filter.</p><p>A Traffic Mirror filter is a set of rules that defines the traffic to mirror.</p><p>By default, no traffic is mirrored. To mirror traffic, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorFilterRule.htm">CreateTrafficMirrorFilterRule</a> to add Traffic Mirror rules to the filter. The rules you add define what traffic gets mirrored. You can also use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyTrafficMirrorFilterNetworkServices.html">ModifyTrafficMirrorFilterNetworkServices</a> to mirror supported network services.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorFilter service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1948,7 +2048,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createTrafficMirrorFilter:(AWSEC2CreateTrafficMirrorFilterRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateTrafficMirrorFilterResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a Traffic Mirror rule. </p><p>A Traffic Mirror rule defines the Traffic Mirror source traffic to mirror.</p><p>You need the Traffic Mirror filter ID when you create the rule.</p>
+ <p>Creates a Traffic Mirror filter rule. </p><p>A Traffic Mirror rule defines the Traffic Mirror source traffic to mirror.</p><p>You need the Traffic Mirror filter ID when you create the rule.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorFilterRule service method.
 
@@ -1960,7 +2060,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateTrafficMirrorFilterRuleResult *> *)createTrafficMirrorFilterRule:(AWSEC2CreateTrafficMirrorFilterRuleRequest *)request;
 
 /**
- <p>Creates a Traffic Mirror rule. </p><p>A Traffic Mirror rule defines the Traffic Mirror source traffic to mirror.</p><p>You need the Traffic Mirror filter ID when you create the rule.</p>
+ <p>Creates a Traffic Mirror filter rule. </p><p>A Traffic Mirror rule defines the Traffic Mirror source traffic to mirror.</p><p>You need the Traffic Mirror filter ID when you create the rule.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorFilterRule service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1973,7 +2073,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createTrafficMirrorFilterRule:(AWSEC2CreateTrafficMirrorFilterRuleRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateTrafficMirrorFilterRuleResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a Traffic Mirror session.</p><p>A Traffic Mirror session actively copies packets from a Traffic Mirror source to a Traffic Mirror target. Create a filter, and then assign it to the session to define a subset of the traffic to mirror, for example all TCP traffic.</p><p>The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in a different VPC connected via VPC peering or a transit gateway. </p><p>By default, no traffic is mirrored. Use <a>CreateTrafficMirrorFilter</a> to create filter rules that specify the traffic to mirror.</p>
+ <p>Creates a Traffic Mirror session.</p><p>A Traffic Mirror session actively copies packets from a Traffic Mirror source to a Traffic Mirror target. Create a filter, and then assign it to the session to define a subset of the traffic to mirror, for example all TCP traffic.</p><p>The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in a different VPC connected via VPC peering or a transit gateway. </p><p>By default, no traffic is mirrored. Use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorFilter.htm">CreateTrafficMirrorFilter</a> to create filter rules that specify the traffic to mirror.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorSession service method.
 
@@ -1985,7 +2085,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateTrafficMirrorSessionResult *> *)createTrafficMirrorSession:(AWSEC2CreateTrafficMirrorSessionRequest *)request;
 
 /**
- <p>Creates a Traffic Mirror session.</p><p>A Traffic Mirror session actively copies packets from a Traffic Mirror source to a Traffic Mirror target. Create a filter, and then assign it to the session to define a subset of the traffic to mirror, for example all TCP traffic.</p><p>The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in a different VPC connected via VPC peering or a transit gateway. </p><p>By default, no traffic is mirrored. Use <a>CreateTrafficMirrorFilter</a> to create filter rules that specify the traffic to mirror.</p>
+ <p>Creates a Traffic Mirror session.</p><p>A Traffic Mirror session actively copies packets from a Traffic Mirror source to a Traffic Mirror target. Create a filter, and then assign it to the session to define a subset of the traffic to mirror, for example all TCP traffic.</p><p>The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in a different VPC connected via VPC peering or a transit gateway. </p><p>By default, no traffic is mirrored. Use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorFilter.htm">CreateTrafficMirrorFilter</a> to create filter rules that specify the traffic to mirror.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorSession service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -1998,7 +2098,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createTrafficMirrorSession:(AWSEC2CreateTrafficMirrorSessionRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateTrafficMirrorSessionResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a target for your Traffic Mirror session.</p><p>A Traffic Mirror target is the destination for mirrored traffic. The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in different VPCs connected via VPC peering or a transit gateway.</p><p>A Traffic Mirror target can be a network interface, or a Network Load Balancer.</p><p>To use the target in a Traffic Mirror session, use <a>CreateTrafficMirrorSession</a>.</p>
+ <p>Creates a target for your Traffic Mirror session.</p><p>A Traffic Mirror target is the destination for mirrored traffic. The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in different VPCs connected via VPC peering or a transit gateway.</p><p>A Traffic Mirror target can be a network interface, or a Network Load Balancer.</p><p>To use the target in a Traffic Mirror session, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorSession.htm">CreateTrafficMirrorSession</a>.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorTarget service method.
 
@@ -2010,7 +2110,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateTrafficMirrorTargetResult *> *)createTrafficMirrorTarget:(AWSEC2CreateTrafficMirrorTargetRequest *)request;
 
 /**
- <p>Creates a target for your Traffic Mirror session.</p><p>A Traffic Mirror target is the destination for mirrored traffic. The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in different VPCs connected via VPC peering or a transit gateway.</p><p>A Traffic Mirror target can be a network interface, or a Network Load Balancer.</p><p>To use the target in a Traffic Mirror session, use <a>CreateTrafficMirrorSession</a>.</p>
+ <p>Creates a target for your Traffic Mirror session.</p><p>A Traffic Mirror target is the destination for mirrored traffic. The Traffic Mirror source and the Traffic Mirror target (monitoring appliances) can be in the same VPC, or in different VPCs connected via VPC peering or a transit gateway.</p><p>A Traffic Mirror target can be a network interface, or a Network Load Balancer.</p><p>To use the target in a Traffic Mirror session, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorSession.htm">CreateTrafficMirrorSession</a>.</p>
  
  @param request A container for the necessary parameters to execute the CreateTrafficMirrorTarget service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -2046,6 +2146,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2CreateTransitGatewayResult
  */
 - (void)createTransitGateway:(AWSEC2CreateTransitGatewayRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateTransitGatewayResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Creates a multicast domain using the specified transit gateway.</p><p>The transit gateway must be in the available state before you create a domain. Use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGateways.html">DescribeTransitGateways</a> to see the state of transit gateway.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateTransitGatewayMulticastDomain service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2CreateTransitGatewayMulticastDomainResult`.
+ 
+ @see AWSEC2CreateTransitGatewayMulticastDomainRequest
+ @see AWSEC2CreateTransitGatewayMulticastDomainResult
+ */
+- (AWSTask<AWSEC2CreateTransitGatewayMulticastDomainResult *> *)createTransitGatewayMulticastDomain:(AWSEC2CreateTransitGatewayMulticastDomainRequest *)request;
+
+/**
+ <p>Creates a multicast domain using the specified transit gateway.</p><p>The transit gateway must be in the available state before you create a domain. Use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGateways.html">DescribeTransitGateways</a> to see the state of transit gateway.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateTransitGatewayMulticastDomain service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2CreateTransitGatewayMulticastDomainRequest
+ @see AWSEC2CreateTransitGatewayMulticastDomainResult
+ */
+- (void)createTransitGatewayMulticastDomain:(AWSEC2CreateTransitGatewayMulticastDomainRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateTransitGatewayMulticastDomainResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Requests a transit gateway peering attachment between the specified transit gateway (requester) and a peer transit gateway (accepter). The transit gateways must be in different Regions. The peer transit gateway can be in your account or a different AWS account. </p><p>After you create the peering attachment, the owner of the accepter transit gateway must accept the attachment request.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateTransitGatewayPeeringAttachment service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2CreateTransitGatewayPeeringAttachmentResult`.
+ 
+ @see AWSEC2CreateTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2CreateTransitGatewayPeeringAttachmentResult
+ */
+- (AWSTask<AWSEC2CreateTransitGatewayPeeringAttachmentResult *> *)createTransitGatewayPeeringAttachment:(AWSEC2CreateTransitGatewayPeeringAttachmentRequest *)request;
+
+/**
+ <p>Requests a transit gateway peering attachment between the specified transit gateway (requester) and a peer transit gateway (accepter). The transit gateways must be in different Regions. The peer transit gateway can be in your account or a different AWS account. </p><p>After you create the peering attachment, the owner of the accepter transit gateway must accept the attachment request.</p>
+ 
+ @param request A container for the necessary parameters to execute the CreateTransitGatewayPeeringAttachment service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2CreateTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2CreateTransitGatewayPeeringAttachmentResult
+ */
+- (void)createTransitGatewayPeeringAttachment:(AWSEC2CreateTransitGatewayPeeringAttachmentRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateTransitGatewayPeeringAttachmentResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Creates a static route for the specified transit gateway route table.</p>
@@ -2148,7 +2298,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createVolume:(AWSEC2CreateVolumeRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2Volume * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses). For more information about how large to make your VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">Your VPC and Subnets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can optionally request an Amazon-provided IPv6 CIDR block for the VPC. The IPv6 CIDR block uses a /56 prefix length, and is allocated from Amazon's pool of IPv6 addresses. You cannot choose the IPv6 range for your VPC.</p><p>By default, each instance you launch in the VPC has the default DHCP options, which include only a default DNS server that we provide (AmazonProvidedDNS). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html">DHCP Options Sets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can specify the instance tenancy value for the VPC when you create it. You can't change this value for the VPC after you create it. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html">Dedicated Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses). For more information about how large to make your VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">Your VPC and Subnets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can optionally request an IPv6 CIDR block for the VPC. You can request an Amazon-provided IPv6 CIDR block from Amazon's pool of IPv6 addresses, or an IPv6 CIDR block from an IPv6 address pool that you provisioned through bring your own IP addresses (<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">BYOIP</a>).</p><p>By default, each instance you launch in the VPC has the default DHCP options, which include only a default DNS server that we provide (AmazonProvidedDNS). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html">DHCP Options Sets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can specify the instance tenancy value for the VPC when you create it. You can't change this value for the VPC after you create it. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html">Dedicated Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateVpc service method.
 
@@ -2160,7 +2310,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateVpcResult *> *)createVpc:(AWSEC2CreateVpcRequest *)request;
 
 /**
- <p>Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses). For more information about how large to make your VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">Your VPC and Subnets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can optionally request an Amazon-provided IPv6 CIDR block for the VPC. The IPv6 CIDR block uses a /56 prefix length, and is allocated from Amazon's pool of IPv6 addresses. You cannot choose the IPv6 range for your VPC.</p><p>By default, each instance you launch in the VPC has the default DHCP options, which include only a default DNS server that we provide (AmazonProvidedDNS). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html">DHCP Options Sets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can specify the instance tenancy value for the VPC when you create it. You can't change this value for the VPC after you create it. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html">Dedicated Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses). For more information about how large to make your VPC, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html">Your VPC and Subnets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can optionally request an IPv6 CIDR block for the VPC. You can request an Amazon-provided IPv6 CIDR block from Amazon's pool of IPv6 addresses, or an IPv6 CIDR block from an IPv6 address pool that you provisioned through bring your own IP addresses (<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">BYOIP</a>).</p><p>By default, each instance you launch in the VPC has the default DHCP options, which include only a default DNS server that we provide (AmazonProvidedDNS). For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html">DHCP Options Sets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can specify the instance tenancy value for the VPC when you create it. You can't change this value for the VPC after you create it. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html">Dedicated Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateVpc service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -2173,7 +2323,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createVpc:(AWSEC2CreateVpcRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateVpcResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a VPC endpoint for a specified service. An endpoint enables you to create a private connection between your VPC and the service. The service may be provided by AWS, an AWS Marketplace partner, or another AWS account. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html">VPC Endpoints</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>A <code>gateway</code> endpoint serves as a target for a route in your route table for traffic destined for the AWS service. You can specify an endpoint policy to attach to the endpoint that will control access to the service from your VPC. You can also specify the VPC route tables that use the endpoint.</p><p>An <code>interface</code> endpoint is a network interface in your subnet that serves as an endpoint for communicating with the specified service. You can specify the subnets in which to create an endpoint, and the security groups to associate with the endpoint network interface.</p><p>Use <a>DescribeVpcEndpointServices</a> to get a list of supported services.</p>
+ <p>Creates a VPC endpoint for a specified service. An endpoint enables you to create a private connection between your VPC and the service. The service may be provided by AWS, an AWS Marketplace Partner, or another AWS account. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html">VPC Endpoints</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>A <code>gateway</code> endpoint serves as a target for a route in your route table for traffic destined for the AWS service. You can specify an endpoint policy to attach to the endpoint, which will control access to the service from your VPC. You can also specify the VPC route tables that use the endpoint.</p><p>An <code>interface</code> endpoint is a network interface in your subnet that serves as an endpoint for communicating with the specified service. You can specify the subnets in which to create an endpoint, and the security groups to associate with the endpoint network interface.</p><p>Use <a>DescribeVpcEndpointServices</a> to get a list of supported services.</p>
  
  @param request A container for the necessary parameters to execute the CreateVpcEndpoint service method.
 
@@ -2185,7 +2335,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateVpcEndpointResult *> *)createVpcEndpoint:(AWSEC2CreateVpcEndpointRequest *)request;
 
 /**
- <p>Creates a VPC endpoint for a specified service. An endpoint enables you to create a private connection between your VPC and the service. The service may be provided by AWS, an AWS Marketplace partner, or another AWS account. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html">VPC Endpoints</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>A <code>gateway</code> endpoint serves as a target for a route in your route table for traffic destined for the AWS service. You can specify an endpoint policy to attach to the endpoint that will control access to the service from your VPC. You can also specify the VPC route tables that use the endpoint.</p><p>An <code>interface</code> endpoint is a network interface in your subnet that serves as an endpoint for communicating with the specified service. You can specify the subnets in which to create an endpoint, and the security groups to associate with the endpoint network interface.</p><p>Use <a>DescribeVpcEndpointServices</a> to get a list of supported services.</p>
+ <p>Creates a VPC endpoint for a specified service. An endpoint enables you to create a private connection between your VPC and the service. The service may be provided by AWS, an AWS Marketplace Partner, or another AWS account. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html">VPC Endpoints</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>A <code>gateway</code> endpoint serves as a target for a route in your route table for traffic destined for the AWS service. You can specify an endpoint policy to attach to the endpoint, which will control access to the service from your VPC. You can also specify the VPC route tables that use the endpoint.</p><p>An <code>interface</code> endpoint is a network interface in your subnet that serves as an endpoint for communicating with the specified service. You can specify the subnets in which to create an endpoint, and the security groups to associate with the endpoint network interface.</p><p>Use <a>DescribeVpcEndpointServices</a> to get a list of supported services.</p>
  
  @param request A container for the necessary parameters to execute the CreateVpcEndpoint service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -2223,7 +2373,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)createVpcEndpointConnectionNotification:(AWSEC2CreateVpcEndpointConnectionNotificationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2CreateVpcEndpointConnectionNotificationResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Creates a VPC endpoint service configuration to which service consumers (AWS accounts, IAM users, and IAM roles) can connect. Service consumers can create an interface VPC endpoint to connect to your service.</p><p>To create an endpoint service configuration, you must first create a Network Load Balancer for your service. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html">VPC Endpoint Services</a> in the <i>Amazon Virtual Private Cloud User Guide</i>. </p>
+ <p>Creates a VPC endpoint service configuration to which service consumers (AWS accounts, IAM users, and IAM roles) can connect. Service consumers can create an interface VPC endpoint to connect to your service.</p><p>To create an endpoint service configuration, you must first create a Network Load Balancer for your service. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html">VPC Endpoint Services</a> in the <i>Amazon Virtual Private Cloud User Guide</i>. </p><p>If you set the private DNS name, you must prove that you own the private DNS domain name. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html">VPC Endpoint Service Private DNS Name Verification</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateVpcEndpointServiceConfiguration service method.
 
@@ -2235,7 +2385,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2CreateVpcEndpointServiceConfigurationResult *> *)createVpcEndpointServiceConfiguration:(AWSEC2CreateVpcEndpointServiceConfigurationRequest *)request;
 
 /**
- <p>Creates a VPC endpoint service configuration to which service consumers (AWS accounts, IAM users, and IAM roles) can connect. Service consumers can create an interface VPC endpoint to connect to your service.</p><p>To create an endpoint service configuration, you must first create a Network Load Balancer for your service. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html">VPC Endpoint Services</a> in the <i>Amazon Virtual Private Cloud User Guide</i>. </p>
+ <p>Creates a VPC endpoint service configuration to which service consumers (AWS accounts, IAM users, and IAM roles) can connect. Service consumers can create an interface VPC endpoint to connect to your service.</p><p>To create an endpoint service configuration, you must first create a Network Load Balancer for your service. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html">VPC Endpoint Services</a> in the <i>Amazon Virtual Private Cloud User Guide</i>. </p><p>If you set the private DNS name, you must prove that you own the private DNS domain name. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html">VPC Endpoint Service Private DNS Name Verification</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the CreateVpcEndpointServiceConfiguration service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -2633,6 +2783,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)deleteLaunchTemplateVersions:(AWSEC2DeleteLaunchTemplateVersionsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteLaunchTemplateVersionsResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Deletes the specified route from the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteLocalGatewayRoute service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeleteLocalGatewayRouteResult`.
+ 
+ @see AWSEC2DeleteLocalGatewayRouteRequest
+ @see AWSEC2DeleteLocalGatewayRouteResult
+ */
+- (AWSTask<AWSEC2DeleteLocalGatewayRouteResult *> *)deleteLocalGatewayRoute:(AWSEC2DeleteLocalGatewayRouteRequest *)request;
+
+/**
+ <p>Deletes the specified route from the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteLocalGatewayRoute service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeleteLocalGatewayRouteRequest
+ @see AWSEC2DeleteLocalGatewayRouteResult
+ */
+- (void)deleteLocalGatewayRoute:(AWSEC2DeleteLocalGatewayRouteRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteLocalGatewayRouteResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Deletes the specified association between a VPC and local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteLocalGatewayRouteTableVpcAssociation service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeleteLocalGatewayRouteTableVpcAssociationResult`.
+ 
+ @see AWSEC2DeleteLocalGatewayRouteTableVpcAssociationRequest
+ @see AWSEC2DeleteLocalGatewayRouteTableVpcAssociationResult
+ */
+- (AWSTask<AWSEC2DeleteLocalGatewayRouteTableVpcAssociationResult *> *)deleteLocalGatewayRouteTableVpcAssociation:(AWSEC2DeleteLocalGatewayRouteTableVpcAssociationRequest *)request;
+
+/**
+ <p>Deletes the specified association between a VPC and local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteLocalGatewayRouteTableVpcAssociation service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeleteLocalGatewayRouteTableVpcAssociationRequest
+ @see AWSEC2DeleteLocalGatewayRouteTableVpcAssociationResult
+ */
+- (void)deleteLocalGatewayRouteTableVpcAssociation:(AWSEC2DeleteLocalGatewayRouteTableVpcAssociationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteLocalGatewayRouteTableVpcAssociationResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Deletes the specified NAT gateway. Deleting a NAT gateway disassociates its Elastic IP address, but does not release the address from your account. Deleting a NAT gateway does not delete any NAT gateway routes in your route tables.</p>
  
  @param request A container for the necessary parameters to execute the DeleteNatGateway service method.
@@ -2769,6 +2969,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2DeletePlacementGroupRequest
  */
 - (void)deletePlacementGroup:(AWSEC2DeletePlacementGroupRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Deletes the queued purchases for the specified Reserved Instances.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteQueuedReservedInstances service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeleteQueuedReservedInstancesResult`.
+ 
+ @see AWSEC2DeleteQueuedReservedInstancesRequest
+ @see AWSEC2DeleteQueuedReservedInstancesResult
+ */
+- (AWSTask<AWSEC2DeleteQueuedReservedInstancesResult *> *)deleteQueuedReservedInstances:(AWSEC2DeleteQueuedReservedInstancesRequest *)request;
+
+/**
+ <p>Deletes the queued purchases for the specified Reserved Instances.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteQueuedReservedInstances service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeleteQueuedReservedInstancesRequest
+ @see AWSEC2DeleteQueuedReservedInstancesResult
+ */
+- (void)deleteQueuedReservedInstances:(AWSEC2DeleteQueuedReservedInstancesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteQueuedReservedInstancesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Deletes the specified route from the specified route table.</p>
@@ -3048,6 +3273,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2DeleteTransitGatewayResult
  */
 - (void)deleteTransitGateway:(AWSEC2DeleteTransitGatewayRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteTransitGatewayResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Deletes the specified transit gateway multicast domain.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteTransitGatewayMulticastDomain service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeleteTransitGatewayMulticastDomainResult`.
+ 
+ @see AWSEC2DeleteTransitGatewayMulticastDomainRequest
+ @see AWSEC2DeleteTransitGatewayMulticastDomainResult
+ */
+- (AWSTask<AWSEC2DeleteTransitGatewayMulticastDomainResult *> *)deleteTransitGatewayMulticastDomain:(AWSEC2DeleteTransitGatewayMulticastDomainRequest *)request;
+
+/**
+ <p>Deletes the specified transit gateway multicast domain.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteTransitGatewayMulticastDomain service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeleteTransitGatewayMulticastDomainRequest
+ @see AWSEC2DeleteTransitGatewayMulticastDomainResult
+ */
+- (void)deleteTransitGatewayMulticastDomain:(AWSEC2DeleteTransitGatewayMulticastDomainRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteTransitGatewayMulticastDomainResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Deletes a transit gateway peering attachment.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteTransitGatewayPeeringAttachment service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeleteTransitGatewayPeeringAttachmentResult`.
+ 
+ @see AWSEC2DeleteTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2DeleteTransitGatewayPeeringAttachmentResult
+ */
+- (AWSTask<AWSEC2DeleteTransitGatewayPeeringAttachmentResult *> *)deleteTransitGatewayPeeringAttachment:(AWSEC2DeleteTransitGatewayPeeringAttachmentRequest *)request;
+
+/**
+ <p>Deletes a transit gateway peering attachment.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeleteTransitGatewayPeeringAttachment service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeleteTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2DeleteTransitGatewayPeeringAttachmentResult
+ */
+- (void)deleteTransitGatewayPeeringAttachment:(AWSEC2DeleteTransitGatewayPeeringAttachmentRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeleteTransitGatewayPeeringAttachmentResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Deletes the specified route from the specified transit gateway route table.</p>
@@ -3382,7 +3657,57 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)deregisterImage:(AWSEC2DeregisterImageRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes attributes of your AWS account. The following are the supported account attributes:</p><ul><li><p><code>supported-platforms</code>: Indicates whether your account can launch instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.</p></li><li><p><code>default-vpc</code>: The ID of the default VPC for your account, or <code>none</code>.</p></li><li><p><code>max-instances</code>: The maximum number of On-Demand Instances that you can run.</p></li><li><p><code>vpc-max-security-groups-per-interface</code>: The maximum number of security groups that you can assign to a network interface.</p></li><li><p><code>max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-Classic. </p></li><li><p><code>vpc-max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-VPC.</p></li></ul>
+ <p>Deregisters the specified members (network interfaces) from the transit gateway multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeregisterTransitGatewayMulticastGroupMembers service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeregisterTransitGatewayMulticastGroupMembersResult`.
+ 
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupMembersRequest
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupMembersResult
+ */
+- (AWSTask<AWSEC2DeregisterTransitGatewayMulticastGroupMembersResult *> *)deregisterTransitGatewayMulticastGroupMembers:(AWSEC2DeregisterTransitGatewayMulticastGroupMembersRequest *)request;
+
+/**
+ <p>Deregisters the specified members (network interfaces) from the transit gateway multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeregisterTransitGatewayMulticastGroupMembers service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupMembersRequest
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupMembersResult
+ */
+- (void)deregisterTransitGatewayMulticastGroupMembers:(AWSEC2DeregisterTransitGatewayMulticastGroupMembersRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeregisterTransitGatewayMulticastGroupMembersResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Deregisters the specified sources (network interfaces) from the transit gateway multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeregisterTransitGatewayMulticastGroupSources service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DeregisterTransitGatewayMulticastGroupSourcesResult`.
+ 
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupSourcesRequest
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupSourcesResult
+ */
+- (AWSTask<AWSEC2DeregisterTransitGatewayMulticastGroupSourcesResult *> *)deregisterTransitGatewayMulticastGroupSources:(AWSEC2DeregisterTransitGatewayMulticastGroupSourcesRequest *)request;
+
+/**
+ <p>Deregisters the specified sources (network interfaces) from the transit gateway multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the DeregisterTransitGatewayMulticastGroupSources service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupSourcesRequest
+ @see AWSEC2DeregisterTransitGatewayMulticastGroupSourcesResult
+ */
+- (void)deregisterTransitGatewayMulticastGroupSources:(AWSEC2DeregisterTransitGatewayMulticastGroupSourcesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DeregisterTransitGatewayMulticastGroupSourcesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes attributes of your AWS account. The following are the supported account attributes:</p><ul><li><p><code>supported-platforms</code>: Indicates whether your account can launch instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.</p></li><li><p><code>default-vpc</code>: The ID of the default VPC for your account, or <code>none</code>.</p></li><li><p><code>max-instances</code>: This attribute is no longer supported. The returned value does not reflect your actual vCPU limit for running On-Demand Instances. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits">On-Demand Instance Limits</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p></li><li><p><code>vpc-max-security-groups-per-interface</code>: The maximum number of security groups that you can assign to a network interface.</p></li><li><p><code>max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-Classic. </p></li><li><p><code>vpc-max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-VPC.</p></li></ul>
  
  @param request A container for the necessary parameters to execute the DescribeAccountAttributes service method.
 
@@ -3394,7 +3719,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeAccountAttributesResult *> *)describeAccountAttributes:(AWSEC2DescribeAccountAttributesRequest *)request;
 
 /**
- <p>Describes attributes of your AWS account. The following are the supported account attributes:</p><ul><li><p><code>supported-platforms</code>: Indicates whether your account can launch instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.</p></li><li><p><code>default-vpc</code>: The ID of the default VPC for your account, or <code>none</code>.</p></li><li><p><code>max-instances</code>: The maximum number of On-Demand Instances that you can run.</p></li><li><p><code>vpc-max-security-groups-per-interface</code>: The maximum number of security groups that you can assign to a network interface.</p></li><li><p><code>max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-Classic. </p></li><li><p><code>vpc-max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-VPC.</p></li></ul>
+ <p>Describes attributes of your AWS account. The following are the supported account attributes:</p><ul><li><p><code>supported-platforms</code>: Indicates whether your account can launch instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.</p></li><li><p><code>default-vpc</code>: The ID of the default VPC for your account, or <code>none</code>.</p></li><li><p><code>max-instances</code>: This attribute is no longer supported. The returned value does not reflect your actual vCPU limit for running On-Demand Instances. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-on-demand-instances.html#ec2-on-demand-instances-limits">On-Demand Instance Limits</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p></li><li><p><code>vpc-max-security-groups-per-interface</code>: The maximum number of security groups that you can assign to a network interface.</p></li><li><p><code>max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-Classic. </p></li><li><p><code>vpc-max-elastic-ips</code>: The maximum number of Elastic IP addresses that you can allocate for use with EC2-VPC.</p></li></ul>
  
  @param request A container for the necessary parameters to execute the DescribeAccountAttributes service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -3457,7 +3782,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeAggregateIdFormat:(AWSEC2DescribeAggregateIdFormatRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeAggregateIdFormatResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes the Availability Zones that are available to you. The results include zones only for the Region you're currently using. If there is an event impacting an Availability Zone, you can use this request to view the state and any provided message for that Availability Zone.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">Regions and Availability Zones</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Describes the Availability Zones and Local Zones that are available to you. If there is an event impacting an Availability Zone or Local Zone, you can use this request to view the state and any provided messages for that Availability Zone or Local Zone.</p><p>For more information about Availability Zones and Local Zones, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">Regions and Availability Zones</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeAvailabilityZones service method.
 
@@ -3469,7 +3794,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeAvailabilityZonesResult *> *)describeAvailabilityZones:(AWSEC2DescribeAvailabilityZonesRequest *)request;
 
 /**
- <p>Describes the Availability Zones that are available to you. The results include zones only for the Region you're currently using. If there is an event impacting an Availability Zone, you can use this request to view the state and any provided message for that Availability Zone.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">Regions and Availability Zones</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Describes the Availability Zones and Local Zones that are available to you. If there is an event impacting an Availability Zone or Local Zone, you can use this request to view the state and any provided messages for that Availability Zone or Local Zone.</p><p>For more information about Availability Zones and Local Zones, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">Regions and Availability Zones</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeAvailabilityZones service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -3507,7 +3832,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeBundleTasks:(AWSEC2DescribeBundleTasksRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeBundleTasksResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes the IP address ranges that were specified in calls to <a>ProvisionByoipCidr</a>.</p><p>To describe the address pools that were created when you provisioned the address ranges, use <a>DescribePublicIpv4Pools</a>.</p>
+ <p>Describes the IP address ranges that were specified in calls to <a>ProvisionByoipCidr</a>.</p><p>To describe the address pools that were created when you provisioned the address ranges, use <a>DescribePublicIpv4Pools</a> or <a>DescribeIpv6Pools</a>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeByoipCidrs service method.
 
@@ -3519,7 +3844,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeByoipCidrsResult *> *)describeByoipCidrs:(AWSEC2DescribeByoipCidrsRequest *)request;
 
 /**
- <p>Describes the IP address ranges that were specified in calls to <a>ProvisionByoipCidr</a>.</p><p>To describe the address pools that were created when you provisioned the address ranges, use <a>DescribePublicIpv4Pools</a>.</p>
+ <p>Describes the IP address ranges that were specified in calls to <a>ProvisionByoipCidr</a>.</p><p>To describe the address pools that were created when you provisioned the address ranges, use <a>DescribePublicIpv4Pools</a> or <a>DescribeIpv6Pools</a>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeByoipCidrs service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -3707,6 +4032,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeClientVpnTargetNetworks:(AWSEC2DescribeClientVpnTargetNetworksRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeClientVpnTargetNetworksResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Describes the specified customer-owned address pools or all of your customer-owned address pools.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeCoipPools service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeCoipPoolsResult`.
+ 
+ @see AWSEC2DescribeCoipPoolsRequest
+ @see AWSEC2DescribeCoipPoolsResult
+ */
+- (AWSTask<AWSEC2DescribeCoipPoolsResult *> *)describeCoipPools:(AWSEC2DescribeCoipPoolsRequest *)request;
+
+/**
+ <p>Describes the specified customer-owned address pools or all of your customer-owned address pools.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeCoipPools service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeCoipPoolsRequest
+ @see AWSEC2DescribeCoipPoolsResult
+ */
+- (void)describeCoipPools:(AWSEC2DescribeCoipPoolsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeCoipPoolsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Describes the specified conversion tasks or all your conversion tasks. For more information, see the <a href="https://docs.aws.amazon.com/vm-import/latest/userguide/">VM Import/Export User Guide</a>.</p><p>For information about the import manifest referenced by this API action, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html">VM Import Manifest</a>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeConversionTasks service method.
@@ -3882,7 +4232,32 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeExportTasks:(AWSEC2DescribeExportTasksRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeExportTasksResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes the events for the specified EC2 Fleet during the specified time.</p>
+ <p>Describes the state of fast snapshot restores for your snapshots.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeFastSnapshotRestores service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeFastSnapshotRestoresResult`.
+ 
+ @see AWSEC2DescribeFastSnapshotRestoresRequest
+ @see AWSEC2DescribeFastSnapshotRestoresResult
+ */
+- (AWSTask<AWSEC2DescribeFastSnapshotRestoresResult *> *)describeFastSnapshotRestores:(AWSEC2DescribeFastSnapshotRestoresRequest *)request;
+
+/**
+ <p>Describes the state of fast snapshot restores for your snapshots.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeFastSnapshotRestores service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeFastSnapshotRestoresRequest
+ @see AWSEC2DescribeFastSnapshotRestoresResult
+ */
+- (void)describeFastSnapshotRestores:(AWSEC2DescribeFastSnapshotRestoresRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeFastSnapshotRestoresResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the events for the specified EC2 Fleet during the specified time.</p><p>EC2 Fleet events are delayed by up to 30 seconds before they can be described. This ensures that you can query by the last evaluated time and not miss a recorded event. EC2 Fleet events are available for 48 hours.</p>
  
  @param request A container for the necessary parameters to execute the DescribeFleetHistory service method.
 
@@ -3894,7 +4269,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeFleetHistoryResult *> *)describeFleetHistory:(AWSEC2DescribeFleetHistoryRequest *)request;
 
 /**
- <p>Describes the events for the specified EC2 Fleet during the specified time.</p>
+ <p>Describes the events for the specified EC2 Fleet during the specified time.</p><p>EC2 Fleet events are delayed by up to 30 seconds before they can be described. This ensures that you can query by the last evaluated time and not miss a recorded event. EC2 Fleet events are available for 48 hours.</p>
  
  @param request A container for the necessary parameters to execute the DescribeFleetHistory service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -3932,7 +4307,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeFleetInstances:(AWSEC2DescribeFleetInstancesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeFleetInstancesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes the specified EC2 Fleets or all your EC2 Fleets.</p>
+ <p>Describes the specified EC2 Fleets or all of your EC2 Fleets.</p>
  
  @param request A container for the necessary parameters to execute the DescribeFleets service method.
 
@@ -3944,7 +4319,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeFleetsResult *> *)describeFleets:(AWSEC2DescribeFleetsRequest *)request;
 
 /**
- <p>Describes the specified EC2 Fleets or all your EC2 Fleets.</p>
+ <p>Describes the specified EC2 Fleets or all of your EC2 Fleets.</p>
  
  @param request A container for the necessary parameters to execute the DescribeFleets service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -4032,7 +4407,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeFpgaImages:(AWSEC2DescribeFpgaImagesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeFpgaImagesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes the Dedicated Host reservations that are available to purchase.</p><p>The results describe all the Dedicated Host reservation offerings, including offerings that may not match the instance family and Region of your Dedicated Hosts. When purchasing an offering, ensure that the instance family and Region of the offering matches that of the Dedicated Hosts with which it is to be associated. For more information about supported instance types, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html">Dedicated Hosts Overview</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>. </p>
+ <p>Describes the Dedicated Host reservations that are available to purchase.</p><p>The results describe all of the Dedicated Host reservation offerings, including offerings that might not match the instance family and Region of your Dedicated Hosts. When purchasing an offering, ensure that the instance family and Region of the offering matches that of the Dedicated Hosts with which it is to be associated. For more information about supported instance types, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html">Dedicated Hosts Overview</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>. </p>
  
  @param request A container for the necessary parameters to execute the DescribeHostReservationOfferings service method.
 
@@ -4044,7 +4419,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeHostReservationOfferingsResult *> *)describeHostReservationOfferings:(AWSEC2DescribeHostReservationOfferingsRequest *)request;
 
 /**
- <p>Describes the Dedicated Host reservations that are available to purchase.</p><p>The results describe all the Dedicated Host reservation offerings, including offerings that may not match the instance family and Region of your Dedicated Hosts. When purchasing an offering, ensure that the instance family and Region of the offering matches that of the Dedicated Hosts with which it is to be associated. For more information about supported instance types, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html">Dedicated Hosts Overview</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>. </p>
+ <p>Describes the Dedicated Host reservations that are available to purchase.</p><p>The results describe all of the Dedicated Host reservation offerings, including offerings that might not match the instance family and Region of your Dedicated Hosts. When purchasing an offering, ensure that the instance family and Region of the offering matches that of the Dedicated Hosts with which it is to be associated. For more information about supported instance types, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html">Dedicated Hosts Overview</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>. </p>
  
  @param request A container for the necessary parameters to execute the DescribeHostReservationOfferings service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -4307,7 +4682,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeInstanceAttribute:(AWSEC2DescribeInstanceAttributeRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2InstanceAttribute * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Describes the credit option for CPU usage of the specified T2 or T3 instances. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>If you do not specify an instance ID, Amazon EC2 returns T2 and T3 instances with the <code>unlimited</code> credit option, as well as instances that were previously configured as T2 or T3 with the <code>unlimited</code> credit option. For example, if you resize a T2 instance, while it is configured as <code>unlimited</code>, to an M4 instance, Amazon EC2 returns the M4 instance.</p><p>If you specify one or more instance IDs, Amazon EC2 returns the credit option (<code>standard</code> or <code>unlimited</code>) of those instances. If you specify an instance ID that is not valid, such as an instance that is not a T2 or T3 instance, an error is returned.</p><p>Recently terminated instances might appear in the returned results. This interval is usually less than one hour.</p><p>If an Availability Zone is experiencing a service disruption and you specify instance IDs in the affected zone, or do not specify any instance IDs at all, the call fails. If you specify only instance IDs in an unaffected zone, the call works normally.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Describes the credit option for CPU usage of the specified burstable performance instances. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>If you do not specify an instance ID, Amazon EC2 returns burstable performance instances with the <code>unlimited</code> credit option, as well as instances that were previously configured as T2, T3, and T3a with the <code>unlimited</code> credit option. For example, if you resize a T2 instance, while it is configured as <code>unlimited</code>, to an M4 instance, Amazon EC2 returns the M4 instance.</p><p>If you specify one or more instance IDs, Amazon EC2 returns the credit option (<code>standard</code> or <code>unlimited</code>) of those instances. If you specify an instance ID that is not valid, such as an instance that is not a burstable performance instance, an error is returned.</p><p>Recently terminated instances might appear in the returned results. This interval is usually less than one hour.</p><p>If an Availability Zone is experiencing a service disruption and you specify instance IDs in the affected zone, or do not specify any instance IDs at all, the call fails. If you specify only instance IDs in an unaffected zone, the call works normally.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeInstanceCreditSpecifications service method.
 
@@ -4319,7 +4694,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2DescribeInstanceCreditSpecificationsResult *> *)describeInstanceCreditSpecifications:(AWSEC2DescribeInstanceCreditSpecificationsRequest *)request;
 
 /**
- <p>Describes the credit option for CPU usage of the specified T2 or T3 instances. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>If you do not specify an instance ID, Amazon EC2 returns T2 and T3 instances with the <code>unlimited</code> credit option, as well as instances that were previously configured as T2 or T3 with the <code>unlimited</code> credit option. For example, if you resize a T2 instance, while it is configured as <code>unlimited</code>, to an M4 instance, Amazon EC2 returns the M4 instance.</p><p>If you specify one or more instance IDs, Amazon EC2 returns the credit option (<code>standard</code> or <code>unlimited</code>) of those instances. If you specify an instance ID that is not valid, such as an instance that is not a T2 or T3 instance, an error is returned.</p><p>Recently terminated instances might appear in the returned results. This interval is usually less than one hour.</p><p>If an Availability Zone is experiencing a service disruption and you specify instance IDs in the affected zone, or do not specify any instance IDs at all, the call fails. If you specify only instance IDs in an unaffected zone, the call works normally.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Describes the credit option for CPU usage of the specified burstable performance instances. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>If you do not specify an instance ID, Amazon EC2 returns burstable performance instances with the <code>unlimited</code> credit option, as well as instances that were previously configured as T2, T3, and T3a with the <code>unlimited</code> credit option. For example, if you resize a T2 instance, while it is configured as <code>unlimited</code>, to an M4 instance, Amazon EC2 returns the M4 instance.</p><p>If you specify one or more instance IDs, Amazon EC2 returns the credit option (<code>standard</code> or <code>unlimited</code>) of those instances. If you specify an instance ID that is not valid, such as an instance that is not a burstable performance instance, an error is returned.</p><p>Recently terminated instances might appear in the returned results. This interval is usually less than one hour.</p><p>If an Availability Zone is experiencing a service disruption and you specify instance IDs in the affected zone, or do not specify any instance IDs at all, the call fails. If you specify only instance IDs in an unaffected zone, the call works normally.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the DescribeInstanceCreditSpecifications service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -4355,6 +4730,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2DescribeInstanceStatusResult
  */
 - (void)describeInstanceStatus:(AWSEC2DescribeInstanceStatusRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeInstanceStatusResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Returns a list of all instance types offered. The results can be filtered by location (Region or Availability Zone). If no location is specified, the instance types offered in the current Region are returned.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeInstanceTypeOfferings service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeInstanceTypeOfferingsResult`.
+ 
+ @see AWSEC2DescribeInstanceTypeOfferingsRequest
+ @see AWSEC2DescribeInstanceTypeOfferingsResult
+ */
+- (AWSTask<AWSEC2DescribeInstanceTypeOfferingsResult *> *)describeInstanceTypeOfferings:(AWSEC2DescribeInstanceTypeOfferingsRequest *)request;
+
+/**
+ <p>Returns a list of all instance types offered. The results can be filtered by location (Region or Availability Zone). If no location is specified, the instance types offered in the current Region are returned.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeInstanceTypeOfferings service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeInstanceTypeOfferingsRequest
+ @see AWSEC2DescribeInstanceTypeOfferingsResult
+ */
+- (void)describeInstanceTypeOfferings:(AWSEC2DescribeInstanceTypeOfferingsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeInstanceTypeOfferingsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Returns a list of all instance types offered in your current AWS Region. The results can be filtered by the attributes of the instance types.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeInstanceTypes service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeInstanceTypesResult`.
+ 
+ @see AWSEC2DescribeInstanceTypesRequest
+ @see AWSEC2DescribeInstanceTypesResult
+ */
+- (AWSTask<AWSEC2DescribeInstanceTypesResult *> *)describeInstanceTypes:(AWSEC2DescribeInstanceTypesRequest *)request;
+
+/**
+ <p>Returns a list of all instance types offered in your current AWS Region. The results can be filtered by the attributes of the instance types.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeInstanceTypes service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeInstanceTypesRequest
+ @see AWSEC2DescribeInstanceTypesResult
+ */
+- (void)describeInstanceTypes:(AWSEC2DescribeInstanceTypesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeInstanceTypesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Describes the specified instances or all of AWS account's instances.</p><p>If you specify one or more instance IDs, Amazon EC2 returns information for those instances. If you do not specify instance IDs, Amazon EC2 returns information for all relevant instances. If you specify an instance ID that is not valid, an error is returned. If you specify an instance that you do not own, it is not included in the returned results.</p><p>Recently terminated instances might appear in the returned results. This interval is usually less than one hour.</p><p>If you describe instances in the rare case where an Availability Zone is experiencing a service disruption and you specify instance IDs that are in the affected zone, or do not specify any instance IDs at all, the call fails. If you describe instances and specify only instance IDs that are in an unaffected zone, the call works normally.</p>
@@ -4405,6 +4830,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2DescribeInternetGatewaysResult
  */
 - (void)describeInternetGateways:(AWSEC2DescribeInternetGatewaysRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeInternetGatewaysResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes your IPv6 address pools.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeIpv6Pools service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeIpv6PoolsResult`.
+ 
+ @see AWSEC2DescribeIpv6PoolsRequest
+ @see AWSEC2DescribeIpv6PoolsResult
+ */
+- (AWSTask<AWSEC2DescribeIpv6PoolsResult *> *)describeIpv6Pools:(AWSEC2DescribeIpv6PoolsRequest *)request;
+
+/**
+ <p>Describes your IPv6 address pools.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeIpv6Pools service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeIpv6PoolsRequest
+ @see AWSEC2DescribeIpv6PoolsResult
+ */
+- (void)describeIpv6Pools:(AWSEC2DescribeIpv6PoolsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeIpv6PoolsResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Describes the specified key pairs or all of your key pairs.</p><p>For more information about key pairs, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">Key Pairs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
@@ -4480,6 +4930,156 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2DescribeLaunchTemplatesResult
  */
 - (void)describeLaunchTemplates:(AWSEC2DescribeLaunchTemplatesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLaunchTemplatesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the associations between virtual interface groups and local gateway route tables.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResult`.
+ 
+ @see AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest
+ @see AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResult
+ */
+- (AWSTask<AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResult *> *)describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations:(AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest *)request;
+
+/**
+ <p>Describes the associations between virtual interface groups and local gateway route tables.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest
+ @see AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResult
+ */
+- (void)describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations:(AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the specified associations between VPCs and local gateway route tables.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayRouteTableVpcAssociations service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsResult`.
+ 
+ @see AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsRequest
+ @see AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsResult
+ */
+- (AWSTask<AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsResult *> *)describeLocalGatewayRouteTableVpcAssociations:(AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsRequest *)request;
+
+/**
+ <p>Describes the specified associations between VPCs and local gateway route tables.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayRouteTableVpcAssociations service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsRequest
+ @see AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsResult
+ */
+- (void)describeLocalGatewayRouteTableVpcAssociations:(AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes one or more local gateway route tables. By default, all local gateway route tables are described. Alternatively, you can filter the results.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayRouteTables service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeLocalGatewayRouteTablesResult`.
+ 
+ @see AWSEC2DescribeLocalGatewayRouteTablesRequest
+ @see AWSEC2DescribeLocalGatewayRouteTablesResult
+ */
+- (AWSTask<AWSEC2DescribeLocalGatewayRouteTablesResult *> *)describeLocalGatewayRouteTables:(AWSEC2DescribeLocalGatewayRouteTablesRequest *)request;
+
+/**
+ <p>Describes one or more local gateway route tables. By default, all local gateway route tables are described. Alternatively, you can filter the results.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayRouteTables service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeLocalGatewayRouteTablesRequest
+ @see AWSEC2DescribeLocalGatewayRouteTablesResult
+ */
+- (void)describeLocalGatewayRouteTables:(AWSEC2DescribeLocalGatewayRouteTablesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLocalGatewayRouteTablesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the specified local gateway virtual interface groups.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayVirtualInterfaceGroups service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsResult`.
+ 
+ @see AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsRequest
+ @see AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsResult
+ */
+- (AWSTask<AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsResult *> *)describeLocalGatewayVirtualInterfaceGroups:(AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsRequest *)request;
+
+/**
+ <p>Describes the specified local gateway virtual interface groups.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayVirtualInterfaceGroups service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsRequest
+ @see AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsResult
+ */
+- (void)describeLocalGatewayVirtualInterfaceGroups:(AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the specified local gateway virtual interfaces.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayVirtualInterfaces service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeLocalGatewayVirtualInterfacesResult`.
+ 
+ @see AWSEC2DescribeLocalGatewayVirtualInterfacesRequest
+ @see AWSEC2DescribeLocalGatewayVirtualInterfacesResult
+ */
+- (AWSTask<AWSEC2DescribeLocalGatewayVirtualInterfacesResult *> *)describeLocalGatewayVirtualInterfaces:(AWSEC2DescribeLocalGatewayVirtualInterfacesRequest *)request;
+
+/**
+ <p>Describes the specified local gateway virtual interfaces.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGatewayVirtualInterfaces service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeLocalGatewayVirtualInterfacesRequest
+ @see AWSEC2DescribeLocalGatewayVirtualInterfacesResult
+ */
+- (void)describeLocalGatewayVirtualInterfaces:(AWSEC2DescribeLocalGatewayVirtualInterfacesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLocalGatewayVirtualInterfacesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes one or more local gateways. By default, all local gateways are described. Alternatively, you can filter the results.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGateways service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeLocalGatewaysResult`.
+ 
+ @see AWSEC2DescribeLocalGatewaysRequest
+ @see AWSEC2DescribeLocalGatewaysResult
+ */
+- (AWSTask<AWSEC2DescribeLocalGatewaysResult *> *)describeLocalGateways:(AWSEC2DescribeLocalGatewaysRequest *)request;
+
+/**
+ <p>Describes one or more local gateways. By default, all local gateways are described. Alternatively, you can filter the results.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeLocalGateways service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeLocalGatewaysRequest
+ @see AWSEC2DescribeLocalGatewaysResult
+ */
+- (void)describeLocalGateways:(AWSEC2DescribeLocalGatewaysRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeLocalGatewaysResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Describes your Elastic IP addresses that are being moved to the EC2-VPC platform, or that are being restored to the EC2-Classic platform. This request does not return information about any other Elastic IP addresses in your account.</p>
@@ -5357,6 +5957,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)describeTransitGatewayAttachments:(AWSEC2DescribeTransitGatewayAttachmentsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeTransitGatewayAttachmentsResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Describes one or more transit gateway multicast domains.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeTransitGatewayMulticastDomains service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeTransitGatewayMulticastDomainsResult`.
+ 
+ @see AWSEC2DescribeTransitGatewayMulticastDomainsRequest
+ @see AWSEC2DescribeTransitGatewayMulticastDomainsResult
+ */
+- (AWSTask<AWSEC2DescribeTransitGatewayMulticastDomainsResult *> *)describeTransitGatewayMulticastDomains:(AWSEC2DescribeTransitGatewayMulticastDomainsRequest *)request;
+
+/**
+ <p>Describes one or more transit gateway multicast domains.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeTransitGatewayMulticastDomains service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeTransitGatewayMulticastDomainsRequest
+ @see AWSEC2DescribeTransitGatewayMulticastDomainsResult
+ */
+- (void)describeTransitGatewayMulticastDomains:(AWSEC2DescribeTransitGatewayMulticastDomainsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeTransitGatewayMulticastDomainsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes your transit gateway peering attachments.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeTransitGatewayPeeringAttachments service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DescribeTransitGatewayPeeringAttachmentsResult`.
+ 
+ @see AWSEC2DescribeTransitGatewayPeeringAttachmentsRequest
+ @see AWSEC2DescribeTransitGatewayPeeringAttachmentsResult
+ */
+- (AWSTask<AWSEC2DescribeTransitGatewayPeeringAttachmentsResult *> *)describeTransitGatewayPeeringAttachments:(AWSEC2DescribeTransitGatewayPeeringAttachmentsRequest *)request;
+
+/**
+ <p>Describes your transit gateway peering attachments.</p>
+ 
+ @param request A container for the necessary parameters to execute the DescribeTransitGatewayPeeringAttachments service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DescribeTransitGatewayPeeringAttachmentsRequest
+ @see AWSEC2DescribeTransitGatewayPeeringAttachmentsResult
+ */
+- (void)describeTransitGatewayPeeringAttachments:(AWSEC2DescribeTransitGatewayPeeringAttachmentsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DescribeTransitGatewayPeeringAttachmentsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Describes one or more transit gateway route tables. By default, all transit gateway route tables are described. Alternatively, you can filter the results.</p>
  
  @param request A container for the necessary parameters to execute the DescribeTransitGatewayRouteTables service method.
@@ -5998,6 +6648,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)disableEbsEncryptionByDefault:(AWSEC2DisableEbsEncryptionByDefaultRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DisableEbsEncryptionByDefaultResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Disables fast snapshot restores for the specified snapshots in the specified Availability Zones.</p>
+ 
+ @param request A container for the necessary parameters to execute the DisableFastSnapshotRestores service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DisableFastSnapshotRestoresResult`.
+ 
+ @see AWSEC2DisableFastSnapshotRestoresRequest
+ @see AWSEC2DisableFastSnapshotRestoresResult
+ */
+- (AWSTask<AWSEC2DisableFastSnapshotRestoresResult *> *)disableFastSnapshotRestores:(AWSEC2DisableFastSnapshotRestoresRequest *)request;
+
+/**
+ <p>Disables fast snapshot restores for the specified snapshots in the specified Availability Zones.</p>
+ 
+ @param request A container for the necessary parameters to execute the DisableFastSnapshotRestores service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DisableFastSnapshotRestoresRequest
+ @see AWSEC2DisableFastSnapshotRestoresResult
+ */
+- (void)disableFastSnapshotRestores:(AWSEC2DisableFastSnapshotRestoresRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DisableFastSnapshotRestoresResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Disables the specified resource attachment from propagating routes to the specified propagation route table.</p>
  
  @param request A container for the necessary parameters to execute the DisableTransitGatewayRouteTablePropagation service method.
@@ -6214,6 +6889,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)disassociateSubnetCidrBlock:(AWSEC2DisassociateSubnetCidrBlockRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DisassociateSubnetCidrBlockResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Disassociates the specified subnets from the transit gateway multicast domain. </p>
+ 
+ @param request A container for the necessary parameters to execute the DisassociateTransitGatewayMulticastDomain service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2DisassociateTransitGatewayMulticastDomainResult`.
+ 
+ @see AWSEC2DisassociateTransitGatewayMulticastDomainRequest
+ @see AWSEC2DisassociateTransitGatewayMulticastDomainResult
+ */
+- (AWSTask<AWSEC2DisassociateTransitGatewayMulticastDomainResult *> *)disassociateTransitGatewayMulticastDomain:(AWSEC2DisassociateTransitGatewayMulticastDomainRequest *)request;
+
+/**
+ <p>Disassociates the specified subnets from the transit gateway multicast domain. </p>
+ 
+ @param request A container for the necessary parameters to execute the DisassociateTransitGatewayMulticastDomain service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2DisassociateTransitGatewayMulticastDomainRequest
+ @see AWSEC2DisassociateTransitGatewayMulticastDomainResult
+ */
+- (void)disassociateTransitGatewayMulticastDomain:(AWSEC2DisassociateTransitGatewayMulticastDomainRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2DisassociateTransitGatewayMulticastDomainResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Disassociates a resource attachment from a transit gateway route table.</p>
  
  @param request A container for the necessary parameters to execute the DisassociateTransitGatewayRouteTable service method.
@@ -6287,6 +6987,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2EnableEbsEncryptionByDefaultResult
  */
 - (void)enableEbsEncryptionByDefault:(AWSEC2EnableEbsEncryptionByDefaultRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2EnableEbsEncryptionByDefaultResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Enables fast snapshot restores for the specified snapshots in the specified Availability Zones.</p><p>You get the full benefit of fast snapshot restores after they enter the <code>enabled</code> state. To get the current state of fast snapshot restores, use <a>DescribeFastSnapshotRestores</a>. To disable fast snapshot restores, use <a>DisableFastSnapshotRestores</a>.</p>
+ 
+ @param request A container for the necessary parameters to execute the EnableFastSnapshotRestores service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2EnableFastSnapshotRestoresResult`.
+ 
+ @see AWSEC2EnableFastSnapshotRestoresRequest
+ @see AWSEC2EnableFastSnapshotRestoresResult
+ */
+- (AWSTask<AWSEC2EnableFastSnapshotRestoresResult *> *)enableFastSnapshotRestores:(AWSEC2EnableFastSnapshotRestoresRequest *)request;
+
+/**
+ <p>Enables fast snapshot restores for the specified snapshots in the specified Availability Zones.</p><p>You get the full benefit of fast snapshot restores after they enter the <code>enabled</code> state. To get the current state of fast snapshot restores, use <a>DescribeFastSnapshotRestores</a>. To disable fast snapshot restores, use <a>DisableFastSnapshotRestores</a>.</p>
+ 
+ @param request A container for the necessary parameters to execute the EnableFastSnapshotRestores service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2EnableFastSnapshotRestoresRequest
+ @see AWSEC2EnableFastSnapshotRestoresResult
+ */
+- (void)enableFastSnapshotRestores:(AWSEC2EnableFastSnapshotRestoresRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2EnableFastSnapshotRestoresResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Enables the specified attachment to propagate routes to the specified propagation route table.</p>
@@ -6508,6 +7233,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)exportTransitGatewayRoutes:(AWSEC2ExportTransitGatewayRoutesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ExportTransitGatewayRoutesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Gets information about the IPv6 CIDR block associations for a specified IPv6 address pool.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetAssociatedIpv6PoolCidrs service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2GetAssociatedIpv6PoolCidrsResult`.
+ 
+ @see AWSEC2GetAssociatedIpv6PoolCidrsRequest
+ @see AWSEC2GetAssociatedIpv6PoolCidrsResult
+ */
+- (AWSTask<AWSEC2GetAssociatedIpv6PoolCidrsResult *> *)getAssociatedIpv6PoolCidrs:(AWSEC2GetAssociatedIpv6PoolCidrsRequest *)request;
+
+/**
+ <p>Gets information about the IPv6 CIDR block associations for a specified IPv6 address pool.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetAssociatedIpv6PoolCidrs service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2GetAssociatedIpv6PoolCidrsRequest
+ @see AWSEC2GetAssociatedIpv6PoolCidrsResult
+ */
+- (void)getAssociatedIpv6PoolCidrs:(AWSEC2GetAssociatedIpv6PoolCidrsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetAssociatedIpv6PoolCidrsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Gets usage information about a Capacity Reservation. If the Capacity Reservation is shared, it shows usage information for the Capacity Reservation owner and each AWS account that is currently using the shared capacity. If the Capacity Reservation is not shared, it shows only the Capacity Reservation owner's usage.</p>
  
  @param request A container for the necessary parameters to execute the GetCapacityReservationUsage service method.
@@ -6531,6 +7281,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2GetCapacityReservationUsageResult
  */
 - (void)getCapacityReservationUsage:(AWSEC2GetCapacityReservationUsageRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetCapacityReservationUsageResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the allocations from the specified customer-owned address pool.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetCoipPoolUsage service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2GetCoipPoolUsageResult`.
+ 
+ @see AWSEC2GetCoipPoolUsageRequest
+ @see AWSEC2GetCoipPoolUsageResult
+ */
+- (AWSTask<AWSEC2GetCoipPoolUsageResult *> *)getCoipPoolUsage:(AWSEC2GetCoipPoolUsageRequest *)request;
+
+/**
+ <p>Describes the allocations from the specified customer-owned address pool.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetCoipPoolUsage service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2GetCoipPoolUsageRequest
+ @see AWSEC2GetCoipPoolUsageResult
+ */
+- (void)getCoipPoolUsage:(AWSEC2GetCoipPoolUsageRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetCoipPoolUsageResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Gets the console output for the specified instance. For Linux instances, the instance console output displays the exact console output that would normally be displayed on a physical monitor attached to a computer. For Windows instances, the instance console output includes the last three system event log errors.</p><p>By default, the console output returns buffered information that was posted shortly after an instance transition state (start, stop, reboot, or terminate). This information is available for at least one hour after the most recent post. Only the most recent 64 KB of console output is available.</p><p>You can optionally retrieve the latest serial console output at any time during the instance lifecycle. This option is supported on instance types that use the Nitro hypervisor.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html#instance-console-console-output">Instance Console Output</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
@@ -6581,6 +7356,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2GetConsoleScreenshotResult
  */
 - (void)getConsoleScreenshot:(AWSEC2GetConsoleScreenshotRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetConsoleScreenshotResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Describes the default credit option for CPU usage of a burstable performance instance family.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetDefaultCreditSpecification service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2GetDefaultCreditSpecificationResult`.
+ 
+ @see AWSEC2GetDefaultCreditSpecificationRequest
+ @see AWSEC2GetDefaultCreditSpecificationResult
+ */
+- (AWSTask<AWSEC2GetDefaultCreditSpecificationResult *> *)getDefaultCreditSpecification:(AWSEC2GetDefaultCreditSpecificationRequest *)request;
+
+/**
+ <p>Describes the default credit option for CPU usage of a burstable performance instance family.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetDefaultCreditSpecification service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2GetDefaultCreditSpecificationRequest
+ @see AWSEC2GetDefaultCreditSpecificationResult
+ */
+- (void)getDefaultCreditSpecification:(AWSEC2GetDefaultCreditSpecificationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetDefaultCreditSpecificationResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Describes the default customer master key (CMK) for EBS encryption by default for your account in this Region. You can change the default CMK for encryption by default using <a>ModifyEbsDefaultKmsKeyId</a> or <a>ResetEbsDefaultKmsKeyId</a>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
@@ -6756,6 +7556,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2GetTransitGatewayAttachmentPropagationsResult
  */
 - (void)getTransitGatewayAttachmentPropagations:(AWSEC2GetTransitGatewayAttachmentPropagationsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetTransitGatewayAttachmentPropagationsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Gets information about the associations for the transit gateway multicast domain.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetTransitGatewayMulticastDomainAssociations service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2GetTransitGatewayMulticastDomainAssociationsResult`.
+ 
+ @see AWSEC2GetTransitGatewayMulticastDomainAssociationsRequest
+ @see AWSEC2GetTransitGatewayMulticastDomainAssociationsResult
+ */
+- (AWSTask<AWSEC2GetTransitGatewayMulticastDomainAssociationsResult *> *)getTransitGatewayMulticastDomainAssociations:(AWSEC2GetTransitGatewayMulticastDomainAssociationsRequest *)request;
+
+/**
+ <p>Gets information about the associations for the transit gateway multicast domain.</p>
+ 
+ @param request A container for the necessary parameters to execute the GetTransitGatewayMulticastDomainAssociations service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2GetTransitGatewayMulticastDomainAssociationsRequest
+ @see AWSEC2GetTransitGatewayMulticastDomainAssociationsResult
+ */
+- (void)getTransitGatewayMulticastDomainAssociations:(AWSEC2GetTransitGatewayMulticastDomainAssociationsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2GetTransitGatewayMulticastDomainAssociationsResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Gets information about the associations for the specified transit gateway route table.</p>
@@ -7008,7 +7833,32 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)modifyClientVpnEndpoint:(AWSEC2ModifyClientVpnEndpointRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyClientVpnEndpointResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Changes the default customer master key (CMK) for EBS encryption by default for your account in this Region.</p><p>AWS creates a unique AWS managed CMK in each Region for use with encryption by default. If you change the default CMK to a customer managed CMK, it is used instead of the AWS managed CMK. To reset the default CMK to the AWS managed CMK for EBS, use <a>ResetEbsDefaultKmsKeyId</a>.</p><p>If you delete or disable the customer managed CMK that you specified for use with encryption by default, your instances will fail to launch.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Modifies the default credit option for CPU usage of burstable performance instances. The default credit option is set at the account level per AWS Region, and is specified per instance family. All new burstable performance instances in the account launch using the default credit option.</p><p><code>ModifyDefaultCreditSpecification</code> is an asynchronous operation, which works at an AWS Region level and modifies the credit option for each Availability Zone. All zones in a Region are updated within five minutes. But if instances are launched during this operation, they might not get the new credit option until the zone is updated. To verify whether the update has occurred, you can call <code>GetDefaultCreditSpecification</code> and check <code>DefaultCreditSpecification</code> for updates.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ 
+ @param request A container for the necessary parameters to execute the ModifyDefaultCreditSpecification service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2ModifyDefaultCreditSpecificationResult`.
+ 
+ @see AWSEC2ModifyDefaultCreditSpecificationRequest
+ @see AWSEC2ModifyDefaultCreditSpecificationResult
+ */
+- (AWSTask<AWSEC2ModifyDefaultCreditSpecificationResult *> *)modifyDefaultCreditSpecification:(AWSEC2ModifyDefaultCreditSpecificationRequest *)request;
+
+/**
+ <p>Modifies the default credit option for CPU usage of burstable performance instances. The default credit option is set at the account level per AWS Region, and is specified per instance family. All new burstable performance instances in the account launch using the default credit option.</p><p><code>ModifyDefaultCreditSpecification</code> is an asynchronous operation, which works at an AWS Region level and modifies the credit option for each Availability Zone. All zones in a Region are updated within five minutes. But if instances are launched during this operation, they might not get the new credit option until the zone is updated. To verify whether the update has occurred, you can call <code>GetDefaultCreditSpecification</code> and check <code>DefaultCreditSpecification</code> for updates.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ 
+ @param request A container for the necessary parameters to execute the ModifyDefaultCreditSpecification service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2ModifyDefaultCreditSpecificationRequest
+ @see AWSEC2ModifyDefaultCreditSpecificationResult
+ */
+- (void)modifyDefaultCreditSpecification:(AWSEC2ModifyDefaultCreditSpecificationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyDefaultCreditSpecificationResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Changes the default customer master key (CMK) for EBS encryption by default for your account in this Region.</p><p>AWS creates a unique AWS managed CMK in each Region for use with encryption by default. If you change the default CMK to a symmetric customer managed CMK, it is used instead of the AWS managed CMK. To reset the default CMK to the AWS managed CMK for EBS, use <a>ResetEbsDefaultKmsKeyId</a>. Amazon EBS does not support asymmetric CMKs.</p><p>If you delete or disable the customer managed CMK that you specified for use with encryption by default, your instances will fail to launch.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyEbsDefaultKmsKeyId service method.
 
@@ -7020,7 +7870,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ModifyEbsDefaultKmsKeyIdResult *> *)modifyEbsDefaultKmsKeyId:(AWSEC2ModifyEbsDefaultKmsKeyIdRequest *)request;
 
 /**
- <p>Changes the default customer master key (CMK) for EBS encryption by default for your account in this Region.</p><p>AWS creates a unique AWS managed CMK in each Region for use with encryption by default. If you change the default CMK to a customer managed CMK, it is used instead of the AWS managed CMK. To reset the default CMK to the AWS managed CMK for EBS, use <a>ResetEbsDefaultKmsKeyId</a>.</p><p>If you delete or disable the customer managed CMK that you specified for use with encryption by default, your instances will fail to launch.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Changes the default customer master key (CMK) for EBS encryption by default for your account in this Region.</p><p>AWS creates a unique AWS managed CMK in each Region for use with encryption by default. If you change the default CMK to a symmetric customer managed CMK, it is used instead of the AWS managed CMK. To reset the default CMK to the AWS managed CMK for EBS, use <a>ResetEbsDefaultKmsKeyId</a>. Amazon EBS does not support asymmetric CMKs.</p><p>If you delete or disable the customer managed CMK that you specified for use with encryption by default, your instances will fail to launch.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyEbsDefaultKmsKeyId service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7033,7 +7883,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)modifyEbsDefaultKmsKeyId:(AWSEC2ModifyEbsDefaultKmsKeyIdRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyEbsDefaultKmsKeyIdResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Modifies the specified EC2 Fleet.</p><p>You can only modify an EC2 Fleet request of type <code>maintain</code>.</p><p>While the EC2 Fleet is being modified, it is in the <code>modifying</code> state.</p><p>To scale up your EC2 Fleet, increase its target capacity. The EC2 Fleet launches the additional Spot Instances according to the allocation strategy for the EC2 Fleet request. If the allocation strategy is <code>lowestPrice</code>, the EC2 Fleet launches instances using the Spot Instance pool with the lowest price. If the allocation strategy is <code>diversified</code>, the EC2 Fleet distributes the instances across the Spot Instance pools. If the allocation strategy is <code>capacityOptimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p><p>To scale down your EC2 Fleet, decrease its target capacity. First, the EC2 Fleet cancels any open requests that exceed the new target capacity. You can request that the EC2 Fleet terminate Spot Instances until the size of the fleet no longer exceeds the new target capacity. If the allocation strategy is <code>lowestPrice</code>, the EC2 Fleet terminates the instances with the highest price per unit. If the allocation strategy is <code>capacityOptimized</code>, the EC2 Fleet terminates the instances in the Spot Instance pools that have the least available Spot Instance capacity. If the allocation strategy is <code>diversified</code>, the EC2 Fleet terminates instances across the Spot Instance pools. Alternatively, you can request that the EC2 Fleet keep the fleet at its current size, but not replace any Spot Instances that are interrupted or that you terminate manually.</p><p>If you are finished with your EC2 Fleet for now, but will use it again later, you can set the target capacity to 0.</p>
+ <p>Modifies the specified EC2 Fleet.</p><p>You can only modify an EC2 Fleet request of type <code>maintain</code>.</p><p>While the EC2 Fleet is being modified, it is in the <code>modifying</code> state.</p><p>To scale up your EC2 Fleet, increase its target capacity. The EC2 Fleet launches the additional Spot Instances according to the allocation strategy for the EC2 Fleet request. If the allocation strategy is <code>lowest-price</code>, the EC2 Fleet launches instances using the Spot Instance pool with the lowest price. If the allocation strategy is <code>diversified</code>, the EC2 Fleet distributes the instances across the Spot Instance pools. If the allocation strategy is <code>capacity-optimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p><p>To scale down your EC2 Fleet, decrease its target capacity. First, the EC2 Fleet cancels any open requests that exceed the new target capacity. You can request that the EC2 Fleet terminate Spot Instances until the size of the fleet no longer exceeds the new target capacity. If the allocation strategy is <code>lowest-price</code>, the EC2 Fleet terminates the instances with the highest price per unit. If the allocation strategy is <code>capacity-optimized</code>, the EC2 Fleet terminates the instances in the Spot Instance pools that have the least available Spot Instance capacity. If the allocation strategy is <code>diversified</code>, the EC2 Fleet terminates instances across the Spot Instance pools. Alternatively, you can request that the EC2 Fleet keep the fleet at its current size, but not replace any Spot Instances that are interrupted or that you terminate manually.</p><p>If you are finished with your EC2 Fleet for now, but will use it again later, you can set the target capacity to 0.</p>
  
  @param request A container for the necessary parameters to execute the ModifyFleet service method.
 
@@ -7045,7 +7895,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ModifyFleetResult *> *)modifyFleet:(AWSEC2ModifyFleetRequest *)request;
 
 /**
- <p>Modifies the specified EC2 Fleet.</p><p>You can only modify an EC2 Fleet request of type <code>maintain</code>.</p><p>While the EC2 Fleet is being modified, it is in the <code>modifying</code> state.</p><p>To scale up your EC2 Fleet, increase its target capacity. The EC2 Fleet launches the additional Spot Instances according to the allocation strategy for the EC2 Fleet request. If the allocation strategy is <code>lowestPrice</code>, the EC2 Fleet launches instances using the Spot Instance pool with the lowest price. If the allocation strategy is <code>diversified</code>, the EC2 Fleet distributes the instances across the Spot Instance pools. If the allocation strategy is <code>capacityOptimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p><p>To scale down your EC2 Fleet, decrease its target capacity. First, the EC2 Fleet cancels any open requests that exceed the new target capacity. You can request that the EC2 Fleet terminate Spot Instances until the size of the fleet no longer exceeds the new target capacity. If the allocation strategy is <code>lowestPrice</code>, the EC2 Fleet terminates the instances with the highest price per unit. If the allocation strategy is <code>capacityOptimized</code>, the EC2 Fleet terminates the instances in the Spot Instance pools that have the least available Spot Instance capacity. If the allocation strategy is <code>diversified</code>, the EC2 Fleet terminates instances across the Spot Instance pools. Alternatively, you can request that the EC2 Fleet keep the fleet at its current size, but not replace any Spot Instances that are interrupted or that you terminate manually.</p><p>If you are finished with your EC2 Fleet for now, but will use it again later, you can set the target capacity to 0.</p>
+ <p>Modifies the specified EC2 Fleet.</p><p>You can only modify an EC2 Fleet request of type <code>maintain</code>.</p><p>While the EC2 Fleet is being modified, it is in the <code>modifying</code> state.</p><p>To scale up your EC2 Fleet, increase its target capacity. The EC2 Fleet launches the additional Spot Instances according to the allocation strategy for the EC2 Fleet request. If the allocation strategy is <code>lowest-price</code>, the EC2 Fleet launches instances using the Spot Instance pool with the lowest price. If the allocation strategy is <code>diversified</code>, the EC2 Fleet distributes the instances across the Spot Instance pools. If the allocation strategy is <code>capacity-optimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p><p>To scale down your EC2 Fleet, decrease its target capacity. First, the EC2 Fleet cancels any open requests that exceed the new target capacity. You can request that the EC2 Fleet terminate Spot Instances until the size of the fleet no longer exceeds the new target capacity. If the allocation strategy is <code>lowest-price</code>, the EC2 Fleet terminates the instances with the highest price per unit. If the allocation strategy is <code>capacity-optimized</code>, the EC2 Fleet terminates the instances in the Spot Instance pools that have the least available Spot Instance capacity. If the allocation strategy is <code>diversified</code>, the EC2 Fleet terminates instances across the Spot Instance pools. Alternatively, you can request that the EC2 Fleet keep the fleet at its current size, but not replace any Spot Instances that are interrupted or that you terminate manually.</p><p>If you are finished with your EC2 Fleet for now, but will use it again later, you can set the target capacity to 0.</p>
  
  @param request A container for the necessary parameters to execute the ModifyFleet service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7083,7 +7933,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)modifyFpgaImageAttribute:(AWSEC2ModifyFpgaImageAttributeRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyFpgaImageAttributeResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Modify the auto-placement setting of a Dedicated Host. When auto-placement is enabled, any instances that you launch with a tenancy of <code>host</code> but without a specific host ID are placed onto any available Dedicated Host in your account that has auto-placement enabled. When auto-placement is disabled, you need to provide a host ID to have the instance launch onto a specific host. If no host ID is provided, the instance is launched onto a suitable host with auto-placement enabled.</p>
+ <p>Modify the auto-placement setting of a Dedicated Host. When auto-placement is enabled, any instances that you launch with a tenancy of <code>host</code> but without a specific host ID are placed onto any available Dedicated Host in your account that has auto-placement enabled. When auto-placement is disabled, you need to provide a host ID to have the instance launch onto a specific host. If no host ID is provided, the instance is launched onto a suitable host with auto-placement enabled.</p><p>You can also use this API action to modify a Dedicated Host to support either multiple instance types in an instance family, or to support a specific instance type only.</p>
  
  @param request A container for the necessary parameters to execute the ModifyHosts service method.
 
@@ -7095,7 +7945,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ModifyHostsResult *> *)modifyHosts:(AWSEC2ModifyHostsRequest *)request;
 
 /**
- <p>Modify the auto-placement setting of a Dedicated Host. When auto-placement is enabled, any instances that you launch with a tenancy of <code>host</code> but without a specific host ID are placed onto any available Dedicated Host in your account that has auto-placement enabled. When auto-placement is disabled, you need to provide a host ID to have the instance launch onto a specific host. If no host ID is provided, the instance is launched onto a suitable host with auto-placement enabled.</p>
+ <p>Modify the auto-placement setting of a Dedicated Host. When auto-placement is enabled, any instances that you launch with a tenancy of <code>host</code> but without a specific host ID are placed onto any available Dedicated Host in your account that has auto-placement enabled. When auto-placement is disabled, you need to provide a host ID to have the instance launch onto a specific host. If no host ID is provided, the instance is launched onto a suitable host with auto-placement enabled.</p><p>You can also use this API action to modify a Dedicated Host to support either multiple instance types in an instance family, or to support a specific instance type only.</p>
  
  @param request A container for the necessary parameters to execute the ModifyHosts service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7221,7 +8071,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)modifyInstanceCapacityReservationAttributes:(AWSEC2ModifyInstanceCapacityReservationAttributesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyInstanceCapacityReservationAttributesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Modifies the credit option for CPU usage on a running or stopped T2 or T3 instance. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Modifies the credit option for CPU usage on a running or stopped burstable performance instance. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyInstanceCreditSpecification service method.
 
@@ -7233,7 +8083,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ModifyInstanceCreditSpecificationResult *> *)modifyInstanceCreditSpecification:(AWSEC2ModifyInstanceCreditSpecificationRequest *)request;
 
 /**
- <p>Modifies the credit option for CPU usage on a running or stopped T2 or T3 instance. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Modifies the credit option for CPU usage on a running or stopped burstable performance instance. The credit options are <code>standard</code> and <code>unlimited</code>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html">Burstable Performance Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyInstanceCreditSpecification service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7269,6 +8119,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2ModifyInstanceEventStartTimeResult
  */
 - (void)modifyInstanceEventStartTime:(AWSEC2ModifyInstanceEventStartTimeRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyInstanceEventStartTimeResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Modify the instance metadata parameters on a running or stopped instance. When you modify the parameters on a stopped instance, they are applied when the instance is started. When you modify the parameters on a running instance, the API responds with a state of “pending”. After the parameter modifications are successfully applied to the instance, the state of the modifications changes from “pending” to “applied” in subsequent describe-instances API calls. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata and User Data</a>.</p>
+ 
+ @param request A container for the necessary parameters to execute the ModifyInstanceMetadataOptions service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2ModifyInstanceMetadataOptionsResult`.
+ 
+ @see AWSEC2ModifyInstanceMetadataOptionsRequest
+ @see AWSEC2ModifyInstanceMetadataOptionsResult
+ */
+- (AWSTask<AWSEC2ModifyInstanceMetadataOptionsResult *> *)modifyInstanceMetadataOptions:(AWSEC2ModifyInstanceMetadataOptionsRequest *)request;
+
+/**
+ <p>Modify the instance metadata parameters on a running or stopped instance. When you modify the parameters on a stopped instance, they are applied when the instance is started. When you modify the parameters on a running instance, the API responds with a state of “pending”. After the parameter modifications are successfully applied to the instance, the state of the modifications changes from “pending” to “applied” in subsequent describe-instances API calls. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata and User Data</a>.</p>
+ 
+ @param request A container for the necessary parameters to execute the ModifyInstanceMetadataOptions service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2ModifyInstanceMetadataOptionsRequest
+ @see AWSEC2ModifyInstanceMetadataOptionsResult
+ */
+- (void)modifyInstanceMetadataOptions:(AWSEC2ModifyInstanceMetadataOptionsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyInstanceMetadataOptionsResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Modifies the placement attributes for a specified instance. You can do the following:</p><ul><li><p>Modify the affinity between an instance and a <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html">Dedicated Host</a>. When affinity is set to <code>host</code> and the instance is not associated with a specific Dedicated Host, the next time the instance is launched, it is automatically associated with the host on which it lands. If the instance is restarted or rebooted, this relationship persists.</p></li><li><p>Change the Dedicated Host with which an instance is associated.</p></li><li><p>Change the instance tenancy of an instance from <code>host</code> to <code>dedicated</code>, or from <code>dedicated</code> to <code>host</code>.</p></li><li><p>Move an instance to or from a <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">placement group</a>.</p></li></ul><p>At least one attribute for affinity, host ID, tenancy, or placement group name must be specified in the request. Affinity and tenancy can be modified in the same request.</p><p>To modify the host ID, tenancy, placement group, or partition for an instance, the instance must be in the <code>stopped</code> state.</p>
@@ -7437,7 +8312,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)modifySubnetAttribute:(AWSEC2ModifySubnetAttributeRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
 
 /**
- <p>Allows or restricts mirroring network services.</p><p> By default, Amazon DNS network services are not eligible for Traffic Mirror. Use <code>AddNetworkServices</code> to add network services to a Traffic Mirror filter. When a network service is added to the Traffic Mirror filter, all traffic related to that network service will be mirrored. When you no longer want to mirror network services, use <code>RemoveNetworkServices</code> to remove the network services from the Traffic Mirror filter. </p><p>FFor information about filter rule properties, see <a href="https://docs.aws.amazon.com/vpc/latest/mirroring/traffic-mirroring-considerations.html#traffic-mirroring-network-services">Network Services</a> in the <i>Traffic Mirroring User Guide </i>.</p>
+ <p>Allows or restricts mirroring network services.</p><p> By default, Amazon DNS network services are not eligible for Traffic Mirror. Use <code>AddNetworkServices</code> to add network services to a Traffic Mirror filter. When a network service is added to the Traffic Mirror filter, all traffic related to that network service will be mirrored. When you no longer want to mirror network services, use <code>RemoveNetworkServices</code> to remove the network services from the Traffic Mirror filter. </p><p>For information about filter rule properties, see <a href="https://docs.aws.amazon.com/vpc/latest/mirroring/traffic-mirroring-considerations.html">Network Services</a> in the <i>Traffic Mirroring User Guide </i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyTrafficMirrorFilterNetworkServices service method.
 
@@ -7449,7 +8324,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ModifyTrafficMirrorFilterNetworkServicesResult *> *)modifyTrafficMirrorFilterNetworkServices:(AWSEC2ModifyTrafficMirrorFilterNetworkServicesRequest *)request;
 
 /**
- <p>Allows or restricts mirroring network services.</p><p> By default, Amazon DNS network services are not eligible for Traffic Mirror. Use <code>AddNetworkServices</code> to add network services to a Traffic Mirror filter. When a network service is added to the Traffic Mirror filter, all traffic related to that network service will be mirrored. When you no longer want to mirror network services, use <code>RemoveNetworkServices</code> to remove the network services from the Traffic Mirror filter. </p><p>FFor information about filter rule properties, see <a href="https://docs.aws.amazon.com/vpc/latest/mirroring/traffic-mirroring-considerations.html#traffic-mirroring-network-services">Network Services</a> in the <i>Traffic Mirroring User Guide </i>.</p>
+ <p>Allows or restricts mirroring network services.</p><p> By default, Amazon DNS network services are not eligible for Traffic Mirror. Use <code>AddNetworkServices</code> to add network services to a Traffic Mirror filter. When a network service is added to the Traffic Mirror filter, all traffic related to that network service will be mirrored. When you no longer want to mirror network services, use <code>RemoveNetworkServices</code> to remove the network services from the Traffic Mirror filter. </p><p>For information about filter rule properties, see <a href="https://docs.aws.amazon.com/vpc/latest/mirroring/traffic-mirroring-considerations.html">Network Services</a> in the <i>Traffic Mirroring User Guide </i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyTrafficMirrorFilterNetworkServices service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7656,7 +8531,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)modifyVpcEndpointConnectionNotification:(AWSEC2ModifyVpcEndpointConnectionNotificationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2ModifyVpcEndpointConnectionNotificationResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Modifies the attributes of your VPC endpoint service configuration. You can change the Network Load Balancers for your service, and you can specify whether acceptance is required for requests to connect to your endpoint service through an interface VPC endpoint.</p>
+ <p>Modifies the attributes of your VPC endpoint service configuration. You can change the Network Load Balancers for your service, and you can specify whether acceptance is required for requests to connect to your endpoint service through an interface VPC endpoint.</p><p>If you set or modify the private DNS name, you must prove that you own the private DNS domain name. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html">VPC Endpoint Service Private DNS Name Verification</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyVpcEndpointServiceConfiguration service method.
 
@@ -7668,7 +8543,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ModifyVpcEndpointServiceConfigurationResult *> *)modifyVpcEndpointServiceConfiguration:(AWSEC2ModifyVpcEndpointServiceConfigurationRequest *)request;
 
 /**
- <p>Modifies the attributes of your VPC endpoint service configuration. You can change the Network Load Balancers for your service, and you can specify whether acceptance is required for requests to connect to your endpoint service through an interface VPC endpoint.</p>
+ <p>Modifies the attributes of your VPC endpoint service configuration. You can change the Network Load Balancers for your service, and you can specify whether acceptance is required for requests to connect to your endpoint service through an interface VPC endpoint.</p><p>If you set or modify the private DNS name, you must prove that you own the private DNS domain name. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html">VPC Endpoint Service Private DNS Name Verification</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ModifyVpcEndpointServiceConfiguration service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7881,7 +8756,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)moveAddressToVpc:(AWSEC2MoveAddressToVpcRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2MoveAddressToVpcResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Provisions an address range for use with your AWS resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be advertised using <a>AdvertiseByoipCidr</a>.</p><p>AWS verifies that you own the address range and are authorized to advertise it. You must ensure that the address range is registered to you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and 14618 to advertise the address range. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>Provisioning an address range is an asynchronous operation, so the call returns immediately, but the address range is not ready to use until its status changes from <code>pending-provision</code> to <code>provisioned</code>. To monitor the status of an address range, use <a>DescribeByoipCidrs</a>. To allocate an Elastic IP address from your address pool, use <a>AllocateAddress</a> with either the specific address from the address pool or the ID of the address pool.</p>
+ <p>Provisions an IPv4 or IPv6 address range for use with your AWS resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be advertised using <a>AdvertiseByoipCidr</a>.</p><p>AWS verifies that you own the address range and are authorized to advertise it. You must ensure that the address range is registered to you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and 14618 to advertise the address range. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>Provisioning an address range is an asynchronous operation, so the call returns immediately, but the address range is not ready to use until its status changes from <code>pending-provision</code> to <code>provisioned</code>. To monitor the status of an address range, use <a>DescribeByoipCidrs</a>. To allocate an Elastic IP address from your IPv4 address pool, use <a>AllocateAddress</a> with either the specific address from the address pool or the ID of the address pool.</p>
  
  @param request A container for the necessary parameters to execute the ProvisionByoipCidr service method.
 
@@ -7893,7 +8768,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ProvisionByoipCidrResult *> *)provisionByoipCidr:(AWSEC2ProvisionByoipCidrRequest *)request;
 
 /**
- <p>Provisions an address range for use with your AWS resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be advertised using <a>AdvertiseByoipCidr</a>.</p><p>AWS verifies that you own the address range and are authorized to advertise it. You must ensure that the address range is registered to you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and 14618 to advertise the address range. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>Provisioning an address range is an asynchronous operation, so the call returns immediately, but the address range is not ready to use until its status changes from <code>pending-provision</code> to <code>provisioned</code>. To monitor the status of an address range, use <a>DescribeByoipCidrs</a>. To allocate an Elastic IP address from your address pool, use <a>AllocateAddress</a> with either the specific address from the address pool or the ID of the address pool.</p>
+ <p>Provisions an IPv4 or IPv6 address range for use with your AWS resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be advertised using <a>AdvertiseByoipCidr</a>.</p><p>AWS verifies that you own the address range and are authorized to advertise it. You must ensure that the address range is registered to you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and 14618 to advertise the address range. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>Provisioning an address range is an asynchronous operation, so the call returns immediately, but the address range is not ready to use until its status changes from <code>pending-provision</code> to <code>provisioned</code>. To monitor the status of an address range, use <a>DescribeByoipCidrs</a>. To allocate an Elastic IP address from your IPv4 address pool, use <a>AllocateAddress</a> with either the specific address from the address pool or the ID of the address pool.</p>
  
  @param request A container for the necessary parameters to execute the ProvisionByoipCidr service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -7931,7 +8806,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)purchaseHostReservation:(AWSEC2PurchaseHostReservationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2PurchaseHostReservationResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Purchases a Reserved Instance for use with your account. With Reserved Instances, you pay a lower hourly rate compared to On-Demand instance pricing.</p><p>Use <a>DescribeReservedInstancesOfferings</a> to get a list of Reserved Instance offerings that match your specifications. After you've purchased a Reserved Instance, you can check for your new Reserved Instance with <a>DescribeReservedInstances</a>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html">Reserved Instances</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html">Reserved Instance Marketplace</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Purchases a Reserved Instance for use with your account. With Reserved Instances, you pay a lower hourly rate compared to On-Demand instance pricing.</p><p>Use <a>DescribeReservedInstancesOfferings</a> to get a list of Reserved Instance offerings that match your specifications. After you've purchased a Reserved Instance, you can check for your new Reserved Instance with <a>DescribeReservedInstances</a>.</p><p>To queue a purchase for a future date and time, specify a purchase time. If you do not specify a purchase time, the default is the current time.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html">Reserved Instances</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html">Reserved Instance Marketplace</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the PurchaseReservedInstancesOffering service method.
 
@@ -7943,7 +8818,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2PurchaseReservedInstancesOfferingResult *> *)purchaseReservedInstancesOffering:(AWSEC2PurchaseReservedInstancesOfferingRequest *)request;
 
 /**
- <p>Purchases a Reserved Instance for use with your account. With Reserved Instances, you pay a lower hourly rate compared to On-Demand instance pricing.</p><p>Use <a>DescribeReservedInstancesOfferings</a> to get a list of Reserved Instance offerings that match your specifications. After you've purchased a Reserved Instance, you can check for your new Reserved Instance with <a>DescribeReservedInstances</a>.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html">Reserved Instances</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html">Reserved Instance Marketplace</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Purchases a Reserved Instance for use with your account. With Reserved Instances, you pay a lower hourly rate compared to On-Demand instance pricing.</p><p>Use <a>DescribeReservedInstancesOfferings</a> to get a list of Reserved Instance offerings that match your specifications. After you've purchased a Reserved Instance, you can check for your new Reserved Instance with <a>DescribeReservedInstances</a>.</p><p>To queue a purchase for a future date and time, specify a purchase time. If you do not specify a purchase time, the default is the current time.</p><p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html">Reserved Instances</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html">Reserved Instance Marketplace</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the PurchaseReservedInstancesOffering service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -8003,7 +8878,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)rebootInstances:(AWSEC2RebootInstancesRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
 
 /**
- <p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html">Creating Your Own AMIs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><note><p>For Amazon EBS-backed instances, <a>CreateImage</a> creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p></note><p>You can also use <code>RegisterImage</code> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html">Launching a Linux Instance from a Backup</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p><p>Some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. Creating an AMI from an EBS snapshot does not maintain this billing code, and instances launched from such an AMI are not able to connect to package update infrastructure. If you purchase a Reserved Instance offering for one of these Linux distributions and launch instances using an AMI that does not contain the required billing code, your Reserved Instance is not applied to these instances.</p><p>To create an AMI for operating systems that require a billing code, see <a>CreateImage</a>.</p><p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>
+ <p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html">Creating Your Own AMIs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><note><p>For Amazon EBS-backed instances, <a>CreateImage</a> creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p></note><p>You can also use <code>RegisterImage</code> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html">Launching a Linux Instance from a Backup</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p><p>Windows and some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. To create a new AMI for operating systems that require a billing product code, instead of instead of registering the AMI, do the following to preserve the billing product code association:</p><ol><li><p>Launch an instance from an existing AMI with that billing product code.</p></li><li><p>Customize the instance.</p></li><li><p>Create an AMI from the instance using <a>CreateImage</a>.</p></li></ol><p>If you purchase a Reserved Instance to apply to an On-Demand Instance that was launched from an AMI with a billing product code, make sure that the Reserved Instance has the matching billing product code. If you purchase a Reserved Instance without the matching billing product code, the Reserved Instance will not be applied to the On-Demand Instance. </p><p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>
  
  @param request A container for the necessary parameters to execute the RegisterImage service method.
 
@@ -8015,7 +8890,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2RegisterImageResult *> *)registerImage:(AWSEC2RegisterImageRequest *)request;
 
 /**
- <p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html">Creating Your Own AMIs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><note><p>For Amazon EBS-backed instances, <a>CreateImage</a> creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p></note><p>You can also use <code>RegisterImage</code> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html">Launching a Linux Instance from a Backup</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p><p>Some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. Creating an AMI from an EBS snapshot does not maintain this billing code, and instances launched from such an AMI are not able to connect to package update infrastructure. If you purchase a Reserved Instance offering for one of these Linux distributions and launch instances using an AMI that does not contain the required billing code, your Reserved Instance is not applied to these instances.</p><p>To create an AMI for operating systems that require a billing code, see <a>CreateImage</a>.</p><p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>
+ <p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html">Creating Your Own AMIs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><note><p>For Amazon EBS-backed instances, <a>CreateImage</a> creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p></note><p>You can also use <code>RegisterImage</code> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html">Launching a Linux Instance from a Backup</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p><p>Windows and some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. To create a new AMI for operating systems that require a billing product code, instead of instead of registering the AMI, do the following to preserve the billing product code association:</p><ol><li><p>Launch an instance from an existing AMI with that billing product code.</p></li><li><p>Customize the instance.</p></li><li><p>Create an AMI from the instance using <a>CreateImage</a>.</p></li></ol><p>If you purchase a Reserved Instance to apply to an On-Demand Instance that was launched from an AMI with a billing product code, make sure that the Reserved Instance has the matching billing product code. If you purchase a Reserved Instance without the matching billing product code, the Reserved Instance will not be applied to the On-Demand Instance. </p><p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>
  
  @param request A container for the necessary parameters to execute the RegisterImage service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -8026,6 +8901,81 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2RegisterImageResult
  */
 - (void)registerImage:(AWSEC2RegisterImageRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2RegisterImageResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Registers members (network interfaces) with the transit gateway multicast group. A member is a network interface associated with a supported EC2 instance that receives multicast traffic. For information about supported instances, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits">Multicast Consideration</a> in <i>Amazon VPC Transit Gateways</i>.</p><p>After you add the members, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html">SearchTransitGatewayMulticastGroups</a> to verify that the members were added to the transit gateway multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the RegisterTransitGatewayMulticastGroupMembers service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2RegisterTransitGatewayMulticastGroupMembersResult`.
+ 
+ @see AWSEC2RegisterTransitGatewayMulticastGroupMembersRequest
+ @see AWSEC2RegisterTransitGatewayMulticastGroupMembersResult
+ */
+- (AWSTask<AWSEC2RegisterTransitGatewayMulticastGroupMembersResult *> *)registerTransitGatewayMulticastGroupMembers:(AWSEC2RegisterTransitGatewayMulticastGroupMembersRequest *)request;
+
+/**
+ <p>Registers members (network interfaces) with the transit gateway multicast group. A member is a network interface associated with a supported EC2 instance that receives multicast traffic. For information about supported instances, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits">Multicast Consideration</a> in <i>Amazon VPC Transit Gateways</i>.</p><p>After you add the members, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html">SearchTransitGatewayMulticastGroups</a> to verify that the members were added to the transit gateway multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the RegisterTransitGatewayMulticastGroupMembers service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2RegisterTransitGatewayMulticastGroupMembersRequest
+ @see AWSEC2RegisterTransitGatewayMulticastGroupMembersResult
+ */
+- (void)registerTransitGatewayMulticastGroupMembers:(AWSEC2RegisterTransitGatewayMulticastGroupMembersRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2RegisterTransitGatewayMulticastGroupMembersResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Registers sources (network interfaces) with the specified transit gateway multicast group.</p><p>A multicast source is a network interface attached to a supported instance that sends multicast traffic. For information about supported instances, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits">Multicast Considerations</a> in <i>Amazon VPC Transit Gateways</i>.</p><p>After you add the source, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html">SearchTransitGatewayMulticastGroups</a> to verify that the source was added to the multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the RegisterTransitGatewayMulticastGroupSources service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2RegisterTransitGatewayMulticastGroupSourcesResult`.
+ 
+ @see AWSEC2RegisterTransitGatewayMulticastGroupSourcesRequest
+ @see AWSEC2RegisterTransitGatewayMulticastGroupSourcesResult
+ */
+- (AWSTask<AWSEC2RegisterTransitGatewayMulticastGroupSourcesResult *> *)registerTransitGatewayMulticastGroupSources:(AWSEC2RegisterTransitGatewayMulticastGroupSourcesRequest *)request;
+
+/**
+ <p>Registers sources (network interfaces) with the specified transit gateway multicast group.</p><p>A multicast source is a network interface attached to a supported instance that sends multicast traffic. For information about supported instances, see <a href="https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits">Multicast Considerations</a> in <i>Amazon VPC Transit Gateways</i>.</p><p>After you add the source, use <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html">SearchTransitGatewayMulticastGroups</a> to verify that the source was added to the multicast group.</p>
+ 
+ @param request A container for the necessary parameters to execute the RegisterTransitGatewayMulticastGroupSources service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2RegisterTransitGatewayMulticastGroupSourcesRequest
+ @see AWSEC2RegisterTransitGatewayMulticastGroupSourcesResult
+ */
+- (void)registerTransitGatewayMulticastGroupSources:(AWSEC2RegisterTransitGatewayMulticastGroupSourcesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2RegisterTransitGatewayMulticastGroupSourcesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Rejects a transit gateway peering attachment request.</p>
+ 
+ @param request A container for the necessary parameters to execute the RejectTransitGatewayPeeringAttachment service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2RejectTransitGatewayPeeringAttachmentResult`.
+ 
+ @see AWSEC2RejectTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2RejectTransitGatewayPeeringAttachmentResult
+ */
+- (AWSTask<AWSEC2RejectTransitGatewayPeeringAttachmentResult *> *)rejectTransitGatewayPeeringAttachment:(AWSEC2RejectTransitGatewayPeeringAttachmentRequest *)request;
+
+/**
+ <p>Rejects a transit gateway peering attachment request.</p>
+ 
+ @param request A container for the necessary parameters to execute the RejectTransitGatewayPeeringAttachment service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2RejectTransitGatewayPeeringAttachmentRequest
+ @see AWSEC2RejectTransitGatewayPeeringAttachmentResult
+ */
+- (void)rejectTransitGatewayPeeringAttachment:(AWSEC2RejectTransitGatewayPeeringAttachmentRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2RejectTransitGatewayPeeringAttachmentResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Rejects a request to attach a VPC to a transit gateway.</p><p>The VPC attachment must be in the <code>pendingAcceptance</code> state. Use <a>DescribeTransitGatewayVpcAttachments</a> to view your pending VPC attachment requests. Use <a>AcceptTransitGatewayVpcAttachment</a> to accept a VPC attachment request.</p>
@@ -8222,7 +9172,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)replaceNetworkAclEntry:(AWSEC2ReplaceNetworkAclEntryRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
 
 /**
- <p>Replaces an existing route within a route table in a VPC. You must provide only one of the following: internet gateway or virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, or egress-only internet gateway.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Replaces an existing route within a route table in a VPC. You must provide only one of the following: internet gateway, virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, egress-only internet gateway, or transit gateway.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ReplaceRoute service method.
 
@@ -8233,7 +9183,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask *)replaceRoute:(AWSEC2ReplaceRouteRequest *)request;
 
 /**
- <p>Replaces an existing route within a route table in a VPC. You must provide only one of the following: internet gateway or virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, or egress-only internet gateway.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
+ <p>Replaces an existing route within a route table in a VPC. You must provide only one of the following: internet gateway, virtual private gateway, NAT instance, NAT gateway, VPC peering connection, network interface, egress-only internet gateway, or transit gateway.</p><p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>
  
  @param request A container for the necessary parameters to execute the ReplaceRoute service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -8244,7 +9194,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)replaceRoute:(AWSEC2ReplaceRouteRequest *)request completionHandler:(void (^ _Nullable)(NSError * _Nullable error))completionHandler;
 
 /**
- <p>Changes the route table associated with a given subnet in a VPC. After the operation completes, the subnet uses the routes in the new route table it's associated with. For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can also use ReplaceRouteTableAssociation to change which table is the main route table in the VPC. You just specify the main route table's association ID and the route table to be the new main route table.</p>
+ <p>Changes the route table associated with a given subnet, internet gateway, or virtual private gateway in a VPC. After the operation completes, the subnet or gateway uses the routes in the new route table. For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can also use this operation to change which table is the main route table in the VPC. Specify the main route table's association ID and the route table ID of the new main route table.</p>
  
  @param request A container for the necessary parameters to execute the ReplaceRouteTableAssociation service method.
 
@@ -8256,7 +9206,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2ReplaceRouteTableAssociationResult *> *)replaceRouteTableAssociation:(AWSEC2ReplaceRouteTableAssociationRequest *)request;
 
 /**
- <p>Changes the route table associated with a given subnet in a VPC. After the operation completes, the subnet uses the routes in the new route table it's associated with. For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can also use ReplaceRouteTableAssociation to change which table is the main route table in the VPC. You just specify the main route table's association ID and the route table to be the new main route table.</p>
+ <p>Changes the route table associated with a given subnet, internet gateway, or virtual private gateway in a VPC. After the operation completes, the subnet or gateway uses the routes in the new route table. For more information about route tables, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route Tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p><p>You can also use this operation to change which table is the main route table in the VPC. Specify the main route table's association ID and the route table ID of the new main route table.</p>
  
  @param request A container for the necessary parameters to execute the ReplaceRouteTableAssociation service method.
  @param completionHandler The completion handler to call when the load request is complete.
@@ -8648,6 +9598,56 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)runScheduledInstances:(AWSEC2RunScheduledInstancesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2RunScheduledInstancesResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
+ <p>Searches for routes in the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the SearchLocalGatewayRoutes service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2SearchLocalGatewayRoutesResult`.
+ 
+ @see AWSEC2SearchLocalGatewayRoutesRequest
+ @see AWSEC2SearchLocalGatewayRoutesResult
+ */
+- (AWSTask<AWSEC2SearchLocalGatewayRoutesResult *> *)searchLocalGatewayRoutes:(AWSEC2SearchLocalGatewayRoutesRequest *)request;
+
+/**
+ <p>Searches for routes in the specified local gateway route table.</p>
+ 
+ @param request A container for the necessary parameters to execute the SearchLocalGatewayRoutes service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2SearchLocalGatewayRoutesRequest
+ @see AWSEC2SearchLocalGatewayRoutesResult
+ */
+- (void)searchLocalGatewayRoutes:(AWSEC2SearchLocalGatewayRoutesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2SearchLocalGatewayRoutesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Searches one or more transit gateway multicast groups and returns the group membership information.</p>
+ 
+ @param request A container for the necessary parameters to execute the SearchTransitGatewayMulticastGroups service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2SearchTransitGatewayMulticastGroupsResult`.
+ 
+ @see AWSEC2SearchTransitGatewayMulticastGroupsRequest
+ @see AWSEC2SearchTransitGatewayMulticastGroupsResult
+ */
+- (AWSTask<AWSEC2SearchTransitGatewayMulticastGroupsResult *> *)searchTransitGatewayMulticastGroups:(AWSEC2SearchTransitGatewayMulticastGroupsRequest *)request;
+
+/**
+ <p>Searches one or more transit gateway multicast groups and returns the group membership information.</p>
+ 
+ @param request A container for the necessary parameters to execute the SearchTransitGatewayMulticastGroups service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2SearchTransitGatewayMulticastGroupsRequest
+ @see AWSEC2SearchTransitGatewayMulticastGroupsResult
+ */
+- (void)searchTransitGatewayMulticastGroups:(AWSEC2SearchTransitGatewayMulticastGroupsRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2SearchTransitGatewayMulticastGroupsResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
  <p>Searches for routes in the specified transit gateway route table.</p>
  
  @param request A container for the necessary parameters to execute the SearchTransitGatewayRoutes service method.
@@ -8718,6 +9718,31 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
  @see AWSEC2StartInstancesResult
  */
 - (void)startInstances:(AWSEC2StartInstancesRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2StartInstancesResult * _Nullable response, NSError * _Nullable error))completionHandler;
+
+/**
+ <p>Initiates the verification process to prove that the service provider owns the private DNS name domain for the endpoint service.</p><p>The service provider must successfully perform the verification before the consumer can use the name to access the service.</p><p>Before the service provider runs this command, they must add a record to the DNS server. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/ndpoint-services-dns-validation.html#add-dns-txt-record">Adding a TXT Record to Your Domain's DNS Server </a> in the <i>Amazon VPC User Guide</i>.</p>
+ 
+ @param request A container for the necessary parameters to execute the StartVpcEndpointServicePrivateDnsVerification service method.
+
+ @return An instance of `AWSTask`. On successful execution, `task.result` will contain an instance of `AWSEC2StartVpcEndpointServicePrivateDnsVerificationResult`.
+ 
+ @see AWSEC2StartVpcEndpointServicePrivateDnsVerificationRequest
+ @see AWSEC2StartVpcEndpointServicePrivateDnsVerificationResult
+ */
+- (AWSTask<AWSEC2StartVpcEndpointServicePrivateDnsVerificationResult *> *)startVpcEndpointServicePrivateDnsVerification:(AWSEC2StartVpcEndpointServicePrivateDnsVerificationRequest *)request;
+
+/**
+ <p>Initiates the verification process to prove that the service provider owns the private DNS name domain for the endpoint service.</p><p>The service provider must successfully perform the verification before the consumer can use the name to access the service.</p><p>Before the service provider runs this command, they must add a record to the DNS server. For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/ndpoint-services-dns-validation.html#add-dns-txt-record">Adding a TXT Record to Your Domain's DNS Server </a> in the <i>Amazon VPC User Guide</i>.</p>
+ 
+ @param request A container for the necessary parameters to execute the StartVpcEndpointServicePrivateDnsVerification service method.
+ @param completionHandler The completion handler to call when the load request is complete.
+                          `response` - A response object, or `nil` if the request failed.
+                          `error` - An error object that indicates why the request failed, or `nil` if the request was successful.
+ 
+ @see AWSEC2StartVpcEndpointServicePrivateDnsVerificationRequest
+ @see AWSEC2StartVpcEndpointServicePrivateDnsVerificationResult
+ */
+- (void)startVpcEndpointServicePrivateDnsVerification:(AWSEC2StartVpcEndpointServicePrivateDnsVerificationRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2StartVpcEndpointServicePrivateDnsVerificationResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
  <p>Stops an Amazon EBS-backed instance.</p><p>You can use the Stop action to hibernate an instance if the instance is <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#enabling-hibernation">enabled for hibernation</a> and it meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>We don't charge usage for a stopped instance, or data transfer fees; however, your root partition Amazon EBS volume remains and continues to persist your data, and you are charged for Amazon EBS volume usage. Every time you start your Windows instance, Amazon EC2 charges you for a full instance hour. If you stop and restart your Windows instance, a new instance hour begins and Amazon EC2 charges you for another full instance hour even if you are still within the same 60-minute period when it was stopped. Every time you start your Linux instance, Amazon EC2 charges a one-minute minimum for instance usage, and thereafter charges per second for instance usage.</p><p>You can't start, stop, or hibernate Spot Instances, and you can't stop or hibernate instance store-backed instances. For information about using hibernation for Spot Instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html#hibernate-spot-instances">Hibernating Interrupted Spot Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>When you stop or hibernate an instance, we shut it down. You can restart your instance at any time. Before stopping or hibernating an instance, make sure it is in a state from which it can be restarted. Stopping an instance does not preserve data stored in RAM, but hibernating an instance does preserve data stored in RAM. If an instance cannot hibernate successfully, a normal shutdown occurs.</p><p>Stopping and hibernating an instance is different to rebooting or terminating it. For example, when you stop or hibernate an instance, the root device and any other devices attached to the instance persist. When you terminate an instance, the root device and any other devices attached during the instance launch are automatically deleted. For more information about the differences between rebooting, stopping, hibernating, and terminating instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html">Instance Lifecycle</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p><p>When you stop an instance, we attempt to shut it down forcibly after a short while. If your instance appears stuck in the stopping state after a period of time, there may be an issue with the underlying host computer. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html">Troubleshooting Stopping Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
@@ -8917,7 +9942,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (void)updateSecurityGroupRuleDescriptionsIngress:(AWSEC2UpdateSecurityGroupRuleDescriptionsIngressRequest *)request completionHandler:(void (^ _Nullable)(AWSEC2UpdateSecurityGroupRuleDescriptionsIngressResult * _Nullable response, NSError * _Nullable error))completionHandler;
 
 /**
- <p>Stops advertising an IPv4 address range that is provisioned as an address pool.</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>It can take a few minutes before traffic to the specified addresses stops routing to AWS because of BGP propagation delays.</p>
+ <p>Stops advertising an address range that is provisioned as an address pool.</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>It can take a few minutes before traffic to the specified addresses stops routing to AWS because of BGP propagation delays.</p>
  
  @param request A container for the necessary parameters to execute the WithdrawByoipCidr service method.
 
@@ -8929,7 +9954,7 @@ FOUNDATION_EXPORT NSString *const AWSEC2SDKVersion;
 - (AWSTask<AWSEC2WithdrawByoipCidrResult *> *)withdrawByoipCidr:(AWSEC2WithdrawByoipCidrRequest *)request;
 
 /**
- <p>Stops advertising an IPv4 address range that is provisioned as an address pool.</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>It can take a few minutes before traffic to the specified addresses stops routing to AWS because of BGP propagation delays.</p>
+ <p>Stops advertising an address range that is provisioned as an address pool.</p><p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p><p>It can take a few minutes before traffic to the specified addresses stops routing to AWS because of BGP propagation delays.</p>
  
  @param request A container for the necessary parameters to execute the WithdrawByoipCidr service method.
  @param completionHandler The completion handler to call when the load request is complete.

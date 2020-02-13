@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -97,6 +97,7 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
 @class AWSLexPutSessionRequest;
 @class AWSLexPutSessionResponse;
 @class AWSLexResponseCard;
+@class AWSLexSentimentResponse;
 
 /**
  <p>Represents an option to be shown on the client platform (Facebook, Slack, etc.)</p>
@@ -262,6 +263,11 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
 @property (nonatomic, strong) NSString * _Nullable botName;
 
 /**
+ <p>A string used to filter the intents returned in the <code>recentIntentSummaryView</code> structure. </p><p>When you specify a filter, only intents with their <code>checkpointLabel</code> field set to that string are returned.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable checkpointLabelFilter;
+
+/**
  <p>The ID of the client application user. Amazon Lex uses this to identify a user's conversation with your bot. </p>
  */
 @property (nonatomic, strong) NSString * _Nullable userId;
@@ -280,7 +286,7 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
 @property (nonatomic, strong) AWSLexDialogAction * _Nullable dialogAction;
 
 /**
- <p>An array of information about the intents used in the session. The array can contain a maximum of three summaries. If more than three intents are used in the session, the <code>recentIntentSummaryView</code> operation contains information about the last three intents used.</p>
+ <p>An array of information about the intents used in the session. The array can contain a maximum of three summaries. If more than three intents are used in the session, the <code>recentIntentSummaryView</code> operation contains information about the last three intents used.</p><p>If you set the <code>checkpointLabelFilter</code> parameter in the request, the array contains only the intents with the specified label.</p>
  */
 @property (nonatomic, strong) NSArray<AWSLexIntentSummary *> * _Nullable recentIntentSummaryView;
 
@@ -302,6 +308,11 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
  */
 @interface AWSLexIntentSummary : AWSModel
 
+
+/**
+ <p>A user-defined label that identifies a particular intent. You can use this label to return to a previous intent. </p><p>Use the <code>checkpointLabelFilter</code> parameter of the <code>GetSessionRequest</code> operation to filter the intents returned by the operation to those with only the specified label.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable checkpointLabel;
 
 /**
  <p>The status of the intent after the user responds to the confirmation prompt. If the user confirms the intent, Amazon Lex sets this field to <code>Confirmed</code>. If the user denies the intent, Amazon Lex sets this value to <code>Denied</code>. The possible values are:</p><ul><li><p><code>Confirmed</code> - The user has responded "Yes" to the confirmation prompt, confirming that the intent is complete and that it is ready to be fulfilled.</p></li><li><p><code>Denied</code> - The user has responded "No" to the confirmation prompt.</p></li><li><p><code>None</code> - The user has never been prompted for confirmation; or, the user was prompted but did not confirm or deny the prompt.</p></li></ul>
@@ -425,9 +436,19 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
 @property (nonatomic, assign) AWSLexMessageFormatType messageFormat;
 
 /**
+ <p>The sentiment expressed in and utterance.</p><p>When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains the result of the analysis.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable sentimentResponse;
+
+/**
  <p> Map of key/value pairs representing the session-specific context information. </p>
  */
 @property (nonatomic, strong) NSDictionary<NSString *, NSString *> * _Nullable sessionAttributes;
+
+/**
+ <p>The unique identifier for the session.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable sessionId;
 
 /**
  <p> If the <code>dialogState</code> value is <code>ElicitSlot</code>, returns the name of the slot for which Amazon Lex is eliciting a value. </p>
@@ -511,9 +532,19 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
 @property (nonatomic, strong) AWSLexResponseCard * _Nullable responseCard;
 
 /**
+ <p>The sentiment expressed in and utterance.</p><p>When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains the result of the analysis.</p>
+ */
+@property (nonatomic, strong) AWSLexSentimentResponse * _Nullable sentimentResponse;
+
+/**
  <p>A map of key-value pairs representing the session-specific context information.</p>
  */
 @property (nonatomic, strong) NSDictionary<NSString *, NSString *> * _Nullable sessionAttributes;
+
+/**
+ <p>A unique identifier for the session.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable sessionId;
 
 /**
  <p>If the <code>dialogState</code> value is <code>ElicitSlot</code>, returns the name of the slot for which Amazon Lex is eliciting a value. </p>
@@ -552,6 +583,11 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
  <p>Sets the next action that the bot should take to fulfill the conversation.</p>
  */
 @property (nonatomic, strong) AWSLexDialogAction * _Nullable dialogAction;
+
+/**
+ <p>A summary of the recent intents for the bot. You can use the intent summary view to set a checkpoint label on an intent and modify attributes of intents. You can also use it to remove or add intent summary objects to the list.</p><p>An intent that you modify or add to the list must make sense for the bot. For example, the intent name must be valid for the bot. You must provide valid values for:</p><ul><li><p><code>intentName</code></p></li><li><p>slot names</p></li><li><p><code>slotToElict</code></p></li></ul><p>If you send the <code>recentIntentSummaryView</code> parameter in a <code>PutSession</code> request, the contents of the new summary view replaces the old summary view. For example, if a <code>GetSession</code> request returns three intents in the summary view and you call <code>PutSession</code> with one intent in the summary view, the next call to <code>GetSession</code> will only return one intent.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSLexIntentSummary *> * _Nullable recentIntentSummaryView;
 
 /**
  <p>Map of key/value pairs representing the session-specific context information. It contains application information passed between Amazon Lex and a client application.</p>
@@ -643,6 +679,24 @@ typedef NS_ENUM(NSInteger, AWSLexMessageFormatType) {
  <p>The version of the response card format.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable version;
+
+@end
+
+/**
+ <p>The sentiment expressed in an utterance.</p><p>When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field structure contains the result of the analysis.</p>
+ */
+@interface AWSLexSentimentResponse : AWSModel
+
+
+/**
+ <p>The inferred sentiment that Amazon Comprehend has the highest confidence in.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable sentimentLabel;
+
+/**
+ <p>The likelihood that the sentiment was correctly inferred.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable sentimentScore;
 
 @end
 

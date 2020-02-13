@@ -41,34 +41,20 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
 
 // new signIn screen which allows optional federation
 + (void)presentViewControllerWithConfig:(NSMutableDictionary<NSString *, id> *)configDictionary
-                                    completionHandler:(AWSAuthUIExtendedCompletionHandler)completionHandler {
+                      completionHandler:(AWSAuthUIExtendedCompletionHandler)completionHandler {
     
     UINavigationController *navigationController = (UINavigationController *)configDictionary[@"navigationController"];
     AWSAuthUIConfiguration *config = [AWSAuthUIViewController getDefaultAuthUIConfiguration];
     if(configDictionary[@"canCancel"]) {
         NSString *canCancelValue = (NSString *)configDictionary[@"canCancel"];
-        if ([canCancelValue isEqual: @"YES"]) {
-            [config setCanCancel:true];
-        } else {
-            [config setCanCancel:false];
-        }
-        
+        [config setCanCancel:[canCancelValue isEqual: @"YES"]];
     }
-    if(configDictionary[@"logoImage"]) {
+    if (configDictionary[@"logoImage"]) {
         [config setLogoImage:(UIImage *)configDictionary[@"logoImage"]];
     }
-    if(configDictionary[@"backgroundColor"]) {
+    if (configDictionary[@"backgroundColor"]) {
         [config setBackgroundColor:(UIColor *)configDictionary[@"backgroundColor"]];
     }
-	
-	if(configDictionary[@"enableSignup"]) {
-		NSString *enableSignupValue = (NSString *)configDictionary[@"enableSignup"];
-		if ([enableSignupValue isEqual: @"YES"]) {
-			[config setEnableSignup:true];
-		} else {
-			[config setEnableSignup:false];
-		}
-	}
 
 	if(configDictionary[@"enableSignupForward"]) {
 		NSString *enableSignupValue = (NSString *)configDictionary[@"enableSignupForward"];
@@ -83,6 +69,22 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
 		[config setSignupForwardURL:(NSString *)configDictionary[@"signupForwardURL"]];
 	}
 	
+    if(configDictionary[@"disableSignUpButton"]) {
+        NSString *disableSignUpButtonValue = (NSString *)configDictionary[@"disableSignUpButton"];
+        if ([disableSignUpButtonValue isEqual: @"YES"]) {
+            [config setDisableSignUpButton:true];
+        } else {
+            [config setDisableSignUpButton:false];
+        }
+    }
+                        
+    if (configDictionary[@"secondaryBackgroundColor"]) {
+        [config setSecondaryBackgroundColor:(UIColor *)configDictionary[@"secondaryBackgroundColor"]];
+    }
+    if (configDictionary[@"primaryColor"]) {
+        [config setPrimaryColor:(UIColor *)configDictionary[@"primaryColor"]];
+    }
+    
     [[AWSSignInManager sharedInstance] setDontFederate];
     
     AWSDDLogDebug(@"Presenting SignInViewController");
@@ -98,8 +100,8 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
         
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
 		navController.modalPresentationStyle = UIModalPresentationFullScreen;
-		
-        [navigationController presentViewController:navController
+
+		[navigationController presentViewController:navController
                                            animated:YES
                                          completion:nil];
     });
@@ -124,7 +126,8 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
 		
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
 		navController.modalPresentationStyle = UIModalPresentationFullScreen;
-        [navigationController presentViewController:navController
+
+		[navigationController presentViewController:navController
                                            animated:YES
                                          completion:nil];
     });

@@ -48,6 +48,11 @@
       "AWSConnectTests": {}
     }
   },
+  "ConnectParticipant": {
+    "test_list": {
+      "AWSConnectParticipantTests": {}
+    }
+  },
   "Core": {
     "test_list": {
       "AWSCoreTests": {}
@@ -84,6 +89,11 @@
       }
     }
   },
+  "IoTFreeRTOSOTATests": {
+    "test_list": {
+      "AWSIoTFreeRTOSOTATests": {}
+    }
+  },
   "KMS": {
     "test_list": {
       "AWSKMSTests": {
@@ -98,6 +108,11 @@
       "AWSKinesisTests": {},
       "AWSKinesisVideoArchivedMediaTests": {},
       "AWSKinesisVideoTests": {}
+    }
+  },
+  "KinesisVideoSignaling": {
+    "test_list": {
+      "AWSKinesisVideoSignalingTests": {}
     }
   },
   "Lambda": {
@@ -257,6 +272,11 @@
   "Transcribe": {
     "test_list": {
       "AWSTranscribeTests": {}
+    }
+  },
+  "TranscribeStreaming": {
+    "test_list": {
+      "AWSTranscribeStreamingTests": {}
     }
   },
   "Translate": {

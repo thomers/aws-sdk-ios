@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -92,6 +92,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] acceptReservedInstancesExchangeQuote:[AWSEC2AcceptReservedInstancesExchangeQuoteRequest new] completionHandler:^(AWSEC2AcceptReservedInstancesExchangeQuoteResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testAcceptTransitGatewayPeeringAttachment {
+    NSString *key = @"testAcceptTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] acceptTransitGatewayPeeringAttachment:[AWSEC2AcceptTransitGatewayPeeringAttachmentRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testAcceptTransitGatewayPeeringAttachmentCompletionHandler {
+    NSString *key = @"testAcceptTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] acceptTransitGatewayPeeringAttachment:[AWSEC2AcceptTransitGatewayPeeringAttachmentRequest new] completionHandler:^(AWSEC2AcceptTransitGatewayPeeringAttachmentResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -811,6 +859,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] associateSubnetCidrBlock:[AWSEC2AssociateSubnetCidrBlockRequest new] completionHandler:^(AWSEC2AssociateSubnetCidrBlockResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testAssociateTransitGatewayMulticastDomain {
+    NSString *key = @"testAssociateTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] associateTransitGatewayMulticastDomain:[AWSEC2AssociateTransitGatewayMulticastDomainRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testAssociateTransitGatewayMulticastDomainCompletionHandler {
+    NSString *key = @"testAssociateTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] associateTransitGatewayMulticastDomain:[AWSEC2AssociateTransitGatewayMulticastDomainRequest new] completionHandler:^(AWSEC2AssociateTransitGatewayMulticastDomainResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -2739,6 +2835,102 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testCreateLocalGatewayRoute {
+    NSString *key = @"testCreateLocalGatewayRoute";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] createLocalGatewayRoute:[AWSEC2CreateLocalGatewayRouteRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateLocalGatewayRouteCompletionHandler {
+    NSString *key = @"testCreateLocalGatewayRoute";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] createLocalGatewayRoute:[AWSEC2CreateLocalGatewayRouteRequest new] completionHandler:^(AWSEC2CreateLocalGatewayRouteResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateLocalGatewayRouteTableVpcAssociation {
+    NSString *key = @"testCreateLocalGatewayRouteTableVpcAssociation";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] createLocalGatewayRouteTableVpcAssociation:[AWSEC2CreateLocalGatewayRouteTableVpcAssociationRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateLocalGatewayRouteTableVpcAssociationCompletionHandler {
+    NSString *key = @"testCreateLocalGatewayRouteTableVpcAssociation";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] createLocalGatewayRouteTableVpcAssociation:[AWSEC2CreateLocalGatewayRouteTableVpcAssociationRequest new] completionHandler:^(AWSEC2CreateLocalGatewayRouteTableVpcAssociationResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testCreateNatGateway {
     NSString *key = @"testCreateNatGateway";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -3683,6 +3875,102 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] createTransitGateway:[AWSEC2CreateTransitGatewayRequest new] completionHandler:^(AWSEC2CreateTransitGatewayResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateTransitGatewayMulticastDomain {
+    NSString *key = @"testCreateTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] createTransitGatewayMulticastDomain:[AWSEC2CreateTransitGatewayMulticastDomainRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateTransitGatewayMulticastDomainCompletionHandler {
+    NSString *key = @"testCreateTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] createTransitGatewayMulticastDomain:[AWSEC2CreateTransitGatewayMulticastDomainRequest new] completionHandler:^(AWSEC2CreateTransitGatewayMulticastDomainResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateTransitGatewayPeeringAttachment {
+    NSString *key = @"testCreateTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] createTransitGatewayPeeringAttachment:[AWSEC2CreateTransitGatewayPeeringAttachmentRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testCreateTransitGatewayPeeringAttachmentCompletionHandler {
+    NSString *key = @"testCreateTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] createTransitGatewayPeeringAttachment:[AWSEC2CreateTransitGatewayPeeringAttachmentRequest new] completionHandler:^(AWSEC2CreateTransitGatewayPeeringAttachmentResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -4843,6 +5131,102 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDeleteLocalGatewayRoute {
+    NSString *key = @"testDeleteLocalGatewayRoute";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deleteLocalGatewayRoute:[AWSEC2DeleteLocalGatewayRouteRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteLocalGatewayRouteCompletionHandler {
+    NSString *key = @"testDeleteLocalGatewayRoute";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deleteLocalGatewayRoute:[AWSEC2DeleteLocalGatewayRouteRequest new] completionHandler:^(AWSEC2DeleteLocalGatewayRouteResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteLocalGatewayRouteTableVpcAssociation {
+    NSString *key = @"testDeleteLocalGatewayRouteTableVpcAssociation";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deleteLocalGatewayRouteTableVpcAssociation:[AWSEC2DeleteLocalGatewayRouteTableVpcAssociationRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteLocalGatewayRouteTableVpcAssociationCompletionHandler {
+    NSString *key = @"testDeleteLocalGatewayRouteTableVpcAssociation";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deleteLocalGatewayRouteTableVpcAssociation:[AWSEC2DeleteLocalGatewayRouteTableVpcAssociationRequest new] completionHandler:^(AWSEC2DeleteLocalGatewayRouteTableVpcAssociationResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDeleteNatGateway {
     NSString *key = @"testDeleteNatGateway";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -5118,6 +5502,54 @@ static id mockNetworking = nil;
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteQueuedReservedInstances {
+    NSString *key = @"testDeleteQueuedReservedInstances";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deleteQueuedReservedInstances:[AWSEC2DeleteQueuedReservedInstancesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteQueuedReservedInstancesCompletionHandler {
+    NSString *key = @"testDeleteQueuedReservedInstances";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deleteQueuedReservedInstances:[AWSEC2DeleteQueuedReservedInstancesRequest new] completionHandler:^(AWSEC2DeleteQueuedReservedInstancesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
         dispatch_semaphore_signal(semaphore);
     }];
 	
@@ -5683,6 +6115,102 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] deleteTransitGateway:[AWSEC2DeleteTransitGatewayRequest new] completionHandler:^(AWSEC2DeleteTransitGatewayResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteTransitGatewayMulticastDomain {
+    NSString *key = @"testDeleteTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deleteTransitGatewayMulticastDomain:[AWSEC2DeleteTransitGatewayMulticastDomainRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteTransitGatewayMulticastDomainCompletionHandler {
+    NSString *key = @"testDeleteTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deleteTransitGatewayMulticastDomain:[AWSEC2DeleteTransitGatewayMulticastDomainRequest new] completionHandler:^(AWSEC2DeleteTransitGatewayMulticastDomainResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteTransitGatewayPeeringAttachment {
+    NSString *key = @"testDeleteTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deleteTransitGatewayPeeringAttachment:[AWSEC2DeleteTransitGatewayPeeringAttachmentRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeleteTransitGatewayPeeringAttachmentCompletionHandler {
+    NSString *key = @"testDeleteTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deleteTransitGatewayPeeringAttachment:[AWSEC2DeleteTransitGatewayPeeringAttachmentRequest new] completionHandler:^(AWSEC2DeleteTransitGatewayPeeringAttachmentResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -6362,6 +6890,102 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDeregisterTransitGatewayMulticastGroupMembers {
+    NSString *key = @"testDeregisterTransitGatewayMulticastGroupMembers";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deregisterTransitGatewayMulticastGroupMembers:[AWSEC2DeregisterTransitGatewayMulticastGroupMembersRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeregisterTransitGatewayMulticastGroupMembersCompletionHandler {
+    NSString *key = @"testDeregisterTransitGatewayMulticastGroupMembers";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deregisterTransitGatewayMulticastGroupMembers:[AWSEC2DeregisterTransitGatewayMulticastGroupMembersRequest new] completionHandler:^(AWSEC2DeregisterTransitGatewayMulticastGroupMembersResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeregisterTransitGatewayMulticastGroupSources {
+    NSString *key = @"testDeregisterTransitGatewayMulticastGroupSources";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] deregisterTransitGatewayMulticastGroupSources:[AWSEC2DeregisterTransitGatewayMulticastGroupSourcesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDeregisterTransitGatewayMulticastGroupSourcesCompletionHandler {
+    NSString *key = @"testDeregisterTransitGatewayMulticastGroupSources";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] deregisterTransitGatewayMulticastGroupSources:[AWSEC2DeregisterTransitGatewayMulticastGroupSourcesRequest new] completionHandler:^(AWSEC2DeregisterTransitGatewayMulticastGroupSourcesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDescribeAccountAttributes {
     NSString *key = @"testDescribeAccountAttributes";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -6986,6 +7610,54 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDescribeCoipPools {
+    NSString *key = @"testDescribeCoipPools";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeCoipPools:[AWSEC2DescribeCoipPoolsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeCoipPoolsCompletionHandler {
+    NSString *key = @"testDescribeCoipPools";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeCoipPools:[AWSEC2DescribeCoipPoolsRequest new] completionHandler:^(AWSEC2DescribeCoipPoolsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDescribeConversionTasks {
     NSString *key = @"testDescribeConversionTasks";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -7309,6 +7981,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] describeExportTasks:[AWSEC2DescribeExportTasksRequest new] completionHandler:^(AWSEC2DescribeExportTasksResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeFastSnapshotRestores {
+    NSString *key = @"testDescribeFastSnapshotRestores";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeFastSnapshotRestores:[AWSEC2DescribeFastSnapshotRestoresRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeFastSnapshotRestoresCompletionHandler {
+    NSString *key = @"testDescribeFastSnapshotRestores";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeFastSnapshotRestores:[AWSEC2DescribeFastSnapshotRestoresRequest new] completionHandler:^(AWSEC2DescribeFastSnapshotRestoresResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -8234,6 +8954,102 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDescribeInstanceTypeOfferings {
+    NSString *key = @"testDescribeInstanceTypeOfferings";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeInstanceTypeOfferings:[AWSEC2DescribeInstanceTypeOfferingsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeInstanceTypeOfferingsCompletionHandler {
+    NSString *key = @"testDescribeInstanceTypeOfferings";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeInstanceTypeOfferings:[AWSEC2DescribeInstanceTypeOfferingsRequest new] completionHandler:^(AWSEC2DescribeInstanceTypeOfferingsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeInstanceTypes {
+    NSString *key = @"testDescribeInstanceTypes";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeInstanceTypes:[AWSEC2DescribeInstanceTypesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeInstanceTypesCompletionHandler {
+    NSString *key = @"testDescribeInstanceTypes";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeInstanceTypes:[AWSEC2DescribeInstanceTypesRequest new] completionHandler:^(AWSEC2DescribeInstanceTypesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDescribeInstances {
     NSString *key = @"testDescribeInstances";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -8317,6 +9133,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] describeInternetGateways:[AWSEC2DescribeInternetGatewaysRequest new] completionHandler:^(AWSEC2DescribeInternetGatewaysResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeIpv6Pools {
+    NSString *key = @"testDescribeIpv6Pools";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeIpv6Pools:[AWSEC2DescribeIpv6PoolsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeIpv6PoolsCompletionHandler {
+    NSString *key = @"testDescribeIpv6Pools";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeIpv6Pools:[AWSEC2DescribeIpv6PoolsRequest new] completionHandler:^(AWSEC2DescribeIpv6PoolsResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -8461,6 +9325,294 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] describeLaunchTemplates:[AWSEC2DescribeLaunchTemplatesRequest new] completionHandler:^(AWSEC2DescribeLaunchTemplatesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations {
+    NSString *key = @"testDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations:[AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsCompletionHandler {
+    NSString *key = @"testDescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociations";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeLocalGatewayRouteTableVirtualInterfaceGroupAssociations:[AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsRequest new] completionHandler:^(AWSEC2DescribeLocalGatewayRouteTableVirtualInterfaceGroupAssociationsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayRouteTableVpcAssociations {
+    NSString *key = @"testDescribeLocalGatewayRouteTableVpcAssociations";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeLocalGatewayRouteTableVpcAssociations:[AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayRouteTableVpcAssociationsCompletionHandler {
+    NSString *key = @"testDescribeLocalGatewayRouteTableVpcAssociations";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeLocalGatewayRouteTableVpcAssociations:[AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsRequest new] completionHandler:^(AWSEC2DescribeLocalGatewayRouteTableVpcAssociationsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayRouteTables {
+    NSString *key = @"testDescribeLocalGatewayRouteTables";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeLocalGatewayRouteTables:[AWSEC2DescribeLocalGatewayRouteTablesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayRouteTablesCompletionHandler {
+    NSString *key = @"testDescribeLocalGatewayRouteTables";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeLocalGatewayRouteTables:[AWSEC2DescribeLocalGatewayRouteTablesRequest new] completionHandler:^(AWSEC2DescribeLocalGatewayRouteTablesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayVirtualInterfaceGroups {
+    NSString *key = @"testDescribeLocalGatewayVirtualInterfaceGroups";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeLocalGatewayVirtualInterfaceGroups:[AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayVirtualInterfaceGroupsCompletionHandler {
+    NSString *key = @"testDescribeLocalGatewayVirtualInterfaceGroups";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeLocalGatewayVirtualInterfaceGroups:[AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsRequest new] completionHandler:^(AWSEC2DescribeLocalGatewayVirtualInterfaceGroupsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayVirtualInterfaces {
+    NSString *key = @"testDescribeLocalGatewayVirtualInterfaces";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeLocalGatewayVirtualInterfaces:[AWSEC2DescribeLocalGatewayVirtualInterfacesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewayVirtualInterfacesCompletionHandler {
+    NSString *key = @"testDescribeLocalGatewayVirtualInterfaces";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeLocalGatewayVirtualInterfaces:[AWSEC2DescribeLocalGatewayVirtualInterfacesRequest new] completionHandler:^(AWSEC2DescribeLocalGatewayVirtualInterfacesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGateways {
+    NSString *key = @"testDescribeLocalGateways";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeLocalGateways:[AWSEC2DescribeLocalGatewaysRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeLocalGatewaysCompletionHandler {
+    NSString *key = @"testDescribeLocalGateways";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeLocalGateways:[AWSEC2DescribeLocalGatewaysRequest new] completionHandler:^(AWSEC2DescribeLocalGatewaysResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -10154,6 +11306,102 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDescribeTransitGatewayMulticastDomains {
+    NSString *key = @"testDescribeTransitGatewayMulticastDomains";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeTransitGatewayMulticastDomains:[AWSEC2DescribeTransitGatewayMulticastDomainsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeTransitGatewayMulticastDomainsCompletionHandler {
+    NSString *key = @"testDescribeTransitGatewayMulticastDomains";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeTransitGatewayMulticastDomains:[AWSEC2DescribeTransitGatewayMulticastDomainsRequest new] completionHandler:^(AWSEC2DescribeTransitGatewayMulticastDomainsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeTransitGatewayPeeringAttachments {
+    NSString *key = @"testDescribeTransitGatewayPeeringAttachments";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] describeTransitGatewayPeeringAttachments:[AWSEC2DescribeTransitGatewayPeeringAttachmentsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDescribeTransitGatewayPeeringAttachmentsCompletionHandler {
+    NSString *key = @"testDescribeTransitGatewayPeeringAttachments";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] describeTransitGatewayPeeringAttachments:[AWSEC2DescribeTransitGatewayPeeringAttachmentsRequest new] completionHandler:^(AWSEC2DescribeTransitGatewayPeeringAttachmentsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDescribeTransitGatewayRouteTables {
     NSString *key = @"testDescribeTransitGatewayRouteTables";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -11399,6 +12647,54 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDisableFastSnapshotRestores {
+    NSString *key = @"testDisableFastSnapshotRestores";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] disableFastSnapshotRestores:[AWSEC2DisableFastSnapshotRestoresRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDisableFastSnapshotRestoresCompletionHandler {
+    NSString *key = @"testDisableFastSnapshotRestores";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] disableFastSnapshotRestores:[AWSEC2DisableFastSnapshotRestoresRequest new] completionHandler:^(AWSEC2DisableFastSnapshotRestoresResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDisableTransitGatewayRouteTablePropagation {
     NSString *key = @"testDisableTransitGatewayRouteTablePropagation";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -11828,6 +13124,54 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testDisassociateTransitGatewayMulticastDomain {
+    NSString *key = @"testDisassociateTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] disassociateTransitGatewayMulticastDomain:[AWSEC2DisassociateTransitGatewayMulticastDomainRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testDisassociateTransitGatewayMulticastDomainCompletionHandler {
+    NSString *key = @"testDisassociateTransitGatewayMulticastDomain";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] disassociateTransitGatewayMulticastDomain:[AWSEC2DisassociateTransitGatewayMulticastDomainRequest new] completionHandler:^(AWSEC2DisassociateTransitGatewayMulticastDomainResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testDisassociateTransitGatewayRouteTable {
     NSString *key = @"testDisassociateTransitGatewayRouteTable";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -11959,6 +13303,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] enableEbsEncryptionByDefault:[AWSEC2EnableEbsEncryptionByDefaultRequest new] completionHandler:^(AWSEC2EnableEbsEncryptionByDefaultResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testEnableFastSnapshotRestores {
+    NSString *key = @"testEnableFastSnapshotRestores";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] enableFastSnapshotRestores:[AWSEC2EnableFastSnapshotRestoresRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testEnableFastSnapshotRestoresCompletionHandler {
+    NSString *key = @"testEnableFastSnapshotRestores";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] enableFastSnapshotRestores:[AWSEC2EnableFastSnapshotRestoresRequest new] completionHandler:^(AWSEC2EnableFastSnapshotRestoresResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -12402,6 +13794,54 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testGetAssociatedIpv6PoolCidrs {
+    NSString *key = @"testGetAssociatedIpv6PoolCidrs";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] getAssociatedIpv6PoolCidrs:[AWSEC2GetAssociatedIpv6PoolCidrsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetAssociatedIpv6PoolCidrsCompletionHandler {
+    NSString *key = @"testGetAssociatedIpv6PoolCidrs";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] getAssociatedIpv6PoolCidrs:[AWSEC2GetAssociatedIpv6PoolCidrsRequest new] completionHandler:^(AWSEC2GetAssociatedIpv6PoolCidrsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testGetCapacityReservationUsage {
     NSString *key = @"testGetCapacityReservationUsage";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -12437,6 +13877,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] getCapacityReservationUsage:[AWSEC2GetCapacityReservationUsageRequest new] completionHandler:^(AWSEC2GetCapacityReservationUsageResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetCoipPoolUsage {
+    NSString *key = @"testGetCoipPoolUsage";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] getCoipPoolUsage:[AWSEC2GetCoipPoolUsageRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetCoipPoolUsageCompletionHandler {
+    NSString *key = @"testGetCoipPoolUsage";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] getCoipPoolUsage:[AWSEC2GetCoipPoolUsageRequest new] completionHandler:^(AWSEC2GetCoipPoolUsageResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -12533,6 +14021,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] getConsoleScreenshot:[AWSEC2GetConsoleScreenshotRequest new] completionHandler:^(AWSEC2GetConsoleScreenshotResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetDefaultCreditSpecification {
+    NSString *key = @"testGetDefaultCreditSpecification";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] getDefaultCreditSpecification:[AWSEC2GetDefaultCreditSpecificationRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetDefaultCreditSpecificationCompletionHandler {
+    NSString *key = @"testGetDefaultCreditSpecification";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] getDefaultCreditSpecification:[AWSEC2GetDefaultCreditSpecificationRequest new] completionHandler:^(AWSEC2GetDefaultCreditSpecificationResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -12869,6 +14405,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] getTransitGatewayAttachmentPropagations:[AWSEC2GetTransitGatewayAttachmentPropagationsRequest new] completionHandler:^(AWSEC2GetTransitGatewayAttachmentPropagationsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetTransitGatewayMulticastDomainAssociations {
+    NSString *key = @"testGetTransitGatewayMulticastDomainAssociations";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] getTransitGatewayMulticastDomainAssociations:[AWSEC2GetTransitGatewayMulticastDomainAssociationsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testGetTransitGatewayMulticastDomainAssociationsCompletionHandler {
+    NSString *key = @"testGetTransitGatewayMulticastDomainAssociations";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] getTransitGatewayMulticastDomainAssociations:[AWSEC2GetTransitGatewayMulticastDomainAssociationsRequest new] completionHandler:^(AWSEC2GetTransitGatewayMulticastDomainAssociationsResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -13349,6 +14933,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] modifyClientVpnEndpoint:[AWSEC2ModifyClientVpnEndpointRequest new] completionHandler:^(AWSEC2ModifyClientVpnEndpointResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testModifyDefaultCreditSpecification {
+    NSString *key = @"testModifyDefaultCreditSpecification";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] modifyDefaultCreditSpecification:[AWSEC2ModifyDefaultCreditSpecificationRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testModifyDefaultCreditSpecificationCompletionHandler {
+    NSString *key = @"testModifyDefaultCreditSpecification";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] modifyDefaultCreditSpecification:[AWSEC2ModifyDefaultCreditSpecificationRequest new] completionHandler:^(AWSEC2ModifyDefaultCreditSpecificationResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -13873,6 +15505,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] modifyInstanceEventStartTime:[AWSEC2ModifyInstanceEventStartTimeRequest new] completionHandler:^(AWSEC2ModifyInstanceEventStartTimeResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testModifyInstanceMetadataOptions {
+    NSString *key = @"testModifyInstanceMetadataOptions";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] modifyInstanceMetadataOptions:[AWSEC2ModifyInstanceMetadataOptionsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testModifyInstanceMetadataOptionsCompletionHandler {
+    NSString *key = @"testModifyInstanceMetadataOptions";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] modifyInstanceMetadataOptions:[AWSEC2ModifyInstanceMetadataOptionsRequest new] completionHandler:^(AWSEC2ModifyInstanceMetadataOptionsResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);
@@ -15368,6 +17048,150 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testRegisterTransitGatewayMulticastGroupMembers {
+    NSString *key = @"testRegisterTransitGatewayMulticastGroupMembers";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] registerTransitGatewayMulticastGroupMembers:[AWSEC2RegisterTransitGatewayMulticastGroupMembersRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testRegisterTransitGatewayMulticastGroupMembersCompletionHandler {
+    NSString *key = @"testRegisterTransitGatewayMulticastGroupMembers";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] registerTransitGatewayMulticastGroupMembers:[AWSEC2RegisterTransitGatewayMulticastGroupMembersRequest new] completionHandler:^(AWSEC2RegisterTransitGatewayMulticastGroupMembersResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testRegisterTransitGatewayMulticastGroupSources {
+    NSString *key = @"testRegisterTransitGatewayMulticastGroupSources";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] registerTransitGatewayMulticastGroupSources:[AWSEC2RegisterTransitGatewayMulticastGroupSourcesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testRegisterTransitGatewayMulticastGroupSourcesCompletionHandler {
+    NSString *key = @"testRegisterTransitGatewayMulticastGroupSources";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] registerTransitGatewayMulticastGroupSources:[AWSEC2RegisterTransitGatewayMulticastGroupSourcesRequest new] completionHandler:^(AWSEC2RegisterTransitGatewayMulticastGroupSourcesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testRejectTransitGatewayPeeringAttachment {
+    NSString *key = @"testRejectTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] rejectTransitGatewayPeeringAttachment:[AWSEC2RejectTransitGatewayPeeringAttachmentRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testRejectTransitGatewayPeeringAttachmentCompletionHandler {
+    NSString *key = @"testRejectTransitGatewayPeeringAttachment";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] rejectTransitGatewayPeeringAttachment:[AWSEC2RejectTransitGatewayPeeringAttachmentRequest new] completionHandler:^(AWSEC2RejectTransitGatewayPeeringAttachmentResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testRejectTransitGatewayVpcAttachment {
     NSString *key = @"testRejectTransitGatewayVpcAttachment";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -16606,6 +18430,102 @@ static id mockNetworking = nil;
     [AWSEC2 removeEC2ForKey:key];
 }
 
+- (void)testSearchLocalGatewayRoutes {
+    NSString *key = @"testSearchLocalGatewayRoutes";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] searchLocalGatewayRoutes:[AWSEC2SearchLocalGatewayRoutesRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testSearchLocalGatewayRoutesCompletionHandler {
+    NSString *key = @"testSearchLocalGatewayRoutes";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] searchLocalGatewayRoutes:[AWSEC2SearchLocalGatewayRoutesRequest new] completionHandler:^(AWSEC2SearchLocalGatewayRoutesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testSearchTransitGatewayMulticastGroups {
+    NSString *key = @"testSearchTransitGatewayMulticastGroups";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] searchTransitGatewayMulticastGroups:[AWSEC2SearchTransitGatewayMulticastGroupsRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testSearchTransitGatewayMulticastGroupsCompletionHandler {
+    NSString *key = @"testSearchTransitGatewayMulticastGroups";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] searchTransitGatewayMulticastGroups:[AWSEC2SearchTransitGatewayMulticastGroupsRequest new] completionHandler:^(AWSEC2SearchTransitGatewayMulticastGroupsResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
 - (void)testSearchTransitGatewayRoutes {
     NSString *key = @"testSearchTransitGatewayRoutes";
     AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
@@ -16736,6 +18656,54 @@ static id mockNetworking = nil;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	[[AWSEC2 EC2ForKey:key] startInstances:[AWSEC2StartInstancesRequest new] completionHandler:^(AWSEC2StartInstancesResult* _Nullable response, NSError * _Nullable error) {
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
+        XCTAssertEqual(8848, error.code);
+        XCTAssertNil(response);
+        dispatch_semaphore_signal(semaphore);
+    }];
+	
+ 	dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, (int)(2.0 * NSEC_PER_SEC)));
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testStartVpcEndpointServicePrivateDnsVerification {
+    NSString *key = @"testStartVpcEndpointServicePrivateDnsVerification";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+    [[[[AWSEC2 EC2ForKey:key] startVpcEndpointServicePrivateDnsVerification:[AWSEC2StartVpcEndpointServicePrivateDnsVerificationRequest new]] continueWithBlock:^id(AWSTask *task) {
+        XCTAssertNotNil(task.error);
+        XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", task.error.domain);
+        XCTAssertEqual(8848, task.error.code);
+        XCTAssertNil(task.result);
+        return nil;
+    }] waitUntilFinished];
+
+    OCMVerify([mockNetworking sendRequest:[OCMArg isNotNil]]);
+
+    [AWSEC2 removeEC2ForKey:key];
+}
+
+- (void)testStartVpcEndpointServicePrivateDnsVerificationCompletionHandler {
+    NSString *key = @"testStartVpcEndpointServicePrivateDnsVerification";
+    AWSServiceConfiguration *configuration = [[AWSServiceConfiguration alloc] initWithRegion:AWSRegionUSEast1 credentialsProvider:nil];
+    [AWSEC2 registerEC2WithConfiguration:configuration forKey:key];
+
+    AWSEC2 *awsClient = [AWSEC2 EC2ForKey:key];
+    XCTAssertNotNil(awsClient);
+    XCTAssertNotNil(mockNetworking);
+    [awsClient setValue:mockNetworking forKey:@"networking"];
+
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
+	[[AWSEC2 EC2ForKey:key] startVpcEndpointServicePrivateDnsVerification:[AWSEC2StartVpcEndpointServicePrivateDnsVerificationRequest new] completionHandler:^(AWSEC2StartVpcEndpointServicePrivateDnsVerificationResult* _Nullable response, NSError * _Nullable error) {
         XCTAssertNotNil(error);
         XCTAssertEqualObjects(@"OCMockExpectedNetworkingError", error.domain);
         XCTAssertEqual(8848, error.code);

@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseErrorType) {
     AWSFirehoseErrorUnknown,
     AWSFirehoseErrorConcurrentModification,
     AWSFirehoseErrorInvalidArgument,
+    AWSFirehoseErrorInvalidKMSResource,
     AWSFirehoseErrorLimitExceeded,
     AWSFirehoseErrorResourceInUse,
     AWSFirehoseErrorResourceNotFound,
@@ -43,14 +44,30 @@ typedef NS_ENUM(NSInteger, AWSFirehoseDeliveryStreamEncryptionStatus) {
     AWSFirehoseDeliveryStreamEncryptionStatusUnknown,
     AWSFirehoseDeliveryStreamEncryptionStatusEnabled,
     AWSFirehoseDeliveryStreamEncryptionStatusEnabling,
+    AWSFirehoseDeliveryStreamEncryptionStatusEnablingFailed,
     AWSFirehoseDeliveryStreamEncryptionStatusDisabled,
     AWSFirehoseDeliveryStreamEncryptionStatusDisabling,
+    AWSFirehoseDeliveryStreamEncryptionStatusDisablingFailed,
+};
+
+typedef NS_ENUM(NSInteger, AWSFirehoseDeliveryStreamFailureType) {
+    AWSFirehoseDeliveryStreamFailureTypeUnknown,
+    AWSFirehoseDeliveryStreamFailureTypeRetireKmsGrantFailed,
+    AWSFirehoseDeliveryStreamFailureTypeCreateKmsGrantFailed,
+    AWSFirehoseDeliveryStreamFailureTypeKmsAccessDenied,
+    AWSFirehoseDeliveryStreamFailureTypeDisabledKmsKey,
+    AWSFirehoseDeliveryStreamFailureTypeInvalidKmsKey,
+    AWSFirehoseDeliveryStreamFailureTypeKmsKeyNotFound,
+    AWSFirehoseDeliveryStreamFailureTypeKmsOptInRequired,
+    AWSFirehoseDeliveryStreamFailureTypeUnknownError,
 };
 
 typedef NS_ENUM(NSInteger, AWSFirehoseDeliveryStreamStatus) {
     AWSFirehoseDeliveryStreamStatusUnknown,
     AWSFirehoseDeliveryStreamStatusCreating,
+    AWSFirehoseDeliveryStreamStatusCreatingFailed,
     AWSFirehoseDeliveryStreamStatusDeleting,
+    AWSFirehoseDeliveryStreamStatusDeletingFailed,
     AWSFirehoseDeliveryStreamStatusActive,
 };
 
@@ -79,6 +96,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseHECEndpointType) {
     AWSFirehoseHECEndpointTypeUnknown,
     AWSFirehoseHECEndpointTypeRaw,
     AWSFirehoseHECEndpointTypeEvent,
+};
+
+typedef NS_ENUM(NSInteger, AWSFirehoseKeyType) {
+    AWSFirehoseKeyTypeUnknown,
+    AWSFirehoseKeyTypeAwsOwnedCmk,
+    AWSFirehoseKeyTypeCustomerManagedCmk,
 };
 
 typedef NS_ENUM(NSInteger, AWSFirehoseNoEncryptionConfig) {
@@ -154,6 +177,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @class AWSFirehoseDeleteDeliveryStreamOutput;
 @class AWSFirehoseDeliveryStreamDescription;
 @class AWSFirehoseDeliveryStreamEncryptionConfiguration;
+@class AWSFirehoseDeliveryStreamEncryptionConfigurationInput;
 @class AWSFirehoseDescribeDeliveryStreamInput;
 @class AWSFirehoseDescribeDeliveryStreamOutput;
 @class AWSFirehoseDeserializer;
@@ -167,6 +191,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @class AWSFirehoseExtendedS3DestinationConfiguration;
 @class AWSFirehoseExtendedS3DestinationDescription;
 @class AWSFirehoseExtendedS3DestinationUpdate;
+@class AWSFirehoseFailureDescription;
 @class AWSFirehoseHiveJsonSerDe;
 @class AWSFirehoseInputFormatConfiguration;
 @class AWSFirehoseKMSEncryptionConfig;
@@ -216,18 +241,18 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @class AWSFirehoseUpdateDestinationOutput;
 
 /**
- <p>Describes hints for the buffering to perform before delivering data to the destination. These options are treated as hints, and therefore Kinesis Data Firehose might choose to use different values when it is optimal.</p>
+ <p>Describes hints for the buffering to perform before delivering data to the destination. These options are treated as hints, and therefore Kinesis Data Firehose might choose to use different values when it is optimal. The <code>SizeInMBs</code> and <code>IntervalInSeconds</code> parameters are optional. However, if specify a value for one of them, you must also provide a value for the other.</p>
  */
 @interface AWSFirehoseBufferingHints : AWSModel
 
 
 /**
- <p>Buffer incoming data for the specified period of time, in seconds, before delivering it to the destination. The default value is 300.</p>
+ <p>Buffer incoming data for the specified period of time, in seconds, before delivering it to the destination. The default value is 300. This parameter is optional but if you specify a value for it, you must also specify a value for <code>SizeInMBs</code>, and vice versa.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable intervalInSeconds;
 
 /**
- <p>Buffer incoming data to the specified size, in MBs, before delivering it to the destination. The default value is 5.</p><p>We recommend setting this parameter to a value greater than the amount of data you typically ingest into the delivery stream in 10 seconds. For example, if you typically ingest data at 1 MB/sec, the value should be 10 MB or higher.</p>
+ <p>Buffer incoming data to the specified size, in MiBs, before delivering it to the destination. The default value is 5. This parameter is optional but if you specify a value for it, you must also specify a value for <code>IntervalInSeconds</code>, and vice versa.</p><p>We recommend setting this parameter to a value greater than the amount of data you typically ingest into the delivery stream in 10 seconds. For example, if you typically ingest data at 1 MiB/sec, the value should be 10 MiB or higher.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable sizeInMBs;
 
@@ -264,7 +289,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 
 
 /**
- <p>Optional parameters to use with the Amazon Redshift <code>COPY</code> command. For more information, see the "Optional Parameters" section of <a href="http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html">Amazon Redshift COPY command</a>. Some possible examples that would apply to Kinesis Data Firehose are as follows:</p><p><code>delimiter '\t' lzop;</code> - fields are delimited with "\t" (TAB character) and compressed using lzop.</p><p><code>delimiter '|'</code> - fields are delimited with "|" (this is the default delimiter).</p><p><code>delimiter '|' escape</code> - the delimiter should be escaped.</p><p><code>fixedwidth 'venueid:3,venuename:25,venuecity:12,venuestate:2,venueseats:6'</code> - fields are fixed width in the source, with each width specified after every column in the table.</p><p><code>JSON 's3://mybucket/jsonpaths.txt'</code> - data is in JSON format, and the path specified is the format of the data.</p><p>For more examples, see <a href="http://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html">Amazon Redshift COPY command examples</a>.</p>
+ <p>Optional parameters to use with the Amazon Redshift <code>COPY</code> command. For more information, see the "Optional Parameters" section of <a href="https://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html">Amazon Redshift COPY command</a>. Some possible examples that would apply to Kinesis Data Firehose are as follows:</p><p><code>delimiter '\t' lzop;</code> - fields are delimited with "\t" (TAB character) and compressed using lzop.</p><p><code>delimiter '|'</code> - fields are delimited with "|" (this is the default delimiter).</p><p><code>delimiter '|' escape</code> - the delimiter should be escaped.</p><p><code>fixedwidth 'venueid:3,venuename:25,venuecity:12,venuestate:2,venueseats:6'</code> - fields are fixed width in the source, with each width specified after every column in the table.</p><p><code>JSON 's3://mybucket/jsonpaths.txt'</code> - data is in JSON format, and the path specified is the format of the data.</p><p>For more examples, see <a href="https://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html">Amazon Redshift COPY command examples</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable replicateOptions;
 
@@ -285,6 +310,11 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
  */
 @interface AWSFirehoseCreateDeliveryStreamInput : AWSRequest
 
+
+/**
+ <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).</p>
+ */
+@property (nonatomic, strong) AWSFirehoseDeliveryStreamEncryptionConfigurationInput * _Nullable deliveryStreamEncryptionConfigurationInput;
 
 /**
  <p>The name of the delivery stream. This name must be unique per AWS account in the same AWS Region. If the delivery streams are in different accounts or different Regions, you can have multiple delivery streams with the same name.</p>
@@ -381,6 +411,11 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 
 
 /**
+ <p>Set this to true if you want to delete the delivery stream even if Kinesis Data Firehose is unable to retire the grant for the CMK. Kinesis Data Firehose might be unable to retire the grant due to a customer error, such as when the CMK or the grant are in an invalid state. If you force deletion, you can then use the <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_RevokeGrant.html">RevokeGrant</a> operation to revoke the grant you gave to Kinesis Data Firehose. If a failure to retire the grant happens due to an AWS KMS issue, Kinesis Data Firehose keeps retrying the delete operation.</p><p>The default value is false.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable allowForceDelete;
+
+/**
  <p>The name of the delivery stream.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable deliveryStreamName;
@@ -423,7 +458,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) NSString * _Nullable deliveryStreamName;
 
 /**
- <p>The status of the delivery stream.</p>
+ <p>The status of the delivery stream. If the status of a delivery stream is <code>CREATING_FAILED</code>, this status doesn't change, and you can't invoke <code>CreateDeliveryStream</code> again on it. However, you can invoke the <a>DeleteDeliveryStream</a> operation to delete it.</p>
  */
 @property (nonatomic, assign) AWSFirehoseDeliveryStreamStatus deliveryStreamStatus;
 
@@ -436,6 +471,11 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
  <p>The destinations.</p>
  */
 @property (nonatomic, strong) NSArray<AWSFirehoseDestinationDescription *> * _Nullable destinations;
+
+/**
+ <p>Provides details in case one of the following operations fails due to an error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>, <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+ */
+@property (nonatomic, strong) AWSFirehoseFailureDescription * _Nullable failureDescription;
 
 /**
  <p>Indicates whether there are more destinations available to list.</p>
@@ -460,15 +500,49 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @end
 
 /**
- <p>Indicates the server-side encryption (SSE) status for the delivery stream.</p>
+ <p>Contains information about the server-side encryption (SSE) status for the delivery stream, the type customer master key (CMK) in use, if any, and the ARN of the CMK. You can get <code>DeliveryStreamEncryptionConfiguration</code> by invoking the <a>DescribeDeliveryStream</a> operation. </p>
  */
 @interface AWSFirehoseDeliveryStreamEncryptionConfiguration : AWSModel
 
 
 /**
- <p>For a full description of the different values of this status, see <a>StartDeliveryStreamEncryption</a> and <a>StopDeliveryStreamEncryption</a>.</p>
+ <p>Provides details in case one of the following operations fails due to an error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>, <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+ */
+@property (nonatomic, strong) AWSFirehoseFailureDescription * _Nullable failureDescription;
+
+/**
+ <p>If <code>KeyType</code> is <code>CUSTOMER_MANAGED_CMK</code>, this field contains the ARN of the customer managed CMK. If <code>KeyType</code> is <code>AWS_OWNED_CMK</code>, <code>DeliveryStreamEncryptionConfiguration</code> doesn't contain a value for <code>KeyARN</code>.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable keyARN;
+
+/**
+ <p>Indicates the type of customer master key (CMK) that is used for encryption. The default setting is <code>AWS_OWNED_CMK</code>. For more information about CMKs, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys">Customer Master Keys (CMKs)</a>.</p>
+ */
+@property (nonatomic, assign) AWSFirehoseKeyType keyType;
+
+/**
+ <p>This is the server-side encryption (SSE) status for the delivery stream. For a full description of the different values of this status, see <a>StartDeliveryStreamEncryption</a> and <a>StopDeliveryStreamEncryption</a>. If this status is <code>ENABLING_FAILED</code> or <code>DISABLING_FAILED</code>, it is the status of the most recent attempt to enable or disable SSE, respectively.</p>
  */
 @property (nonatomic, assign) AWSFirehoseDeliveryStreamEncryptionStatus status;
+
+@end
+
+/**
+ <p>Used to specify the type and Amazon Resource Name (ARN) of the CMK needed for Server-Side Encryption (SSE). </p>
+ Required parameters: [KeyType]
+ */
+@interface AWSFirehoseDeliveryStreamEncryptionConfigurationInput : AWSModel
+
+
+/**
+ <p>If you set <code>KeyType</code> to <code>CUSTOMER_MANAGED_CMK</code>, you must specify the Amazon Resource Name (ARN) of the CMK. If you set <code>KeyType</code> to <code>AWS_OWNED_CMK</code>, Kinesis Data Firehose uses a service-account CMK.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable keyARN;
+
+/**
+ <p>Indicates the type of customer master key (CMK) to use for encryption. The default setting is <code>AWS_OWNED_CMK</code>. For more information about CMKs, see <a href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys">Customer Master Keys (CMKs)</a>. When you invoke <a>CreateDeliveryStream</a> or <a>StartDeliveryStreamEncryption</a> with <code>KeyType</code> set to CUSTOMER_MANAGED_CMK, Kinesis Data Firehose invokes the Amazon KMS operation <a href="https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateGrant.html">CreateGrant</a> to create a grant that allows the Kinesis Data Firehose service to use the customer managed CMK to perform encryption and decryption. Kinesis Data Firehose manages that grant. </p><p>When you invoke <a>StartDeliveryStreamEncryption</a> to change the CMK for a delivery stream that is already encrypted with a customer managed CMK, Kinesis Data Firehose schedules the grant it had on the old CMK for retirement.</p>
+ */
+@property (nonatomic, assign) AWSFirehoseKeyType keyType;
 
 @end
 
@@ -585,7 +659,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 
 /**
  <p>Describes the configuration of a destination in Amazon ES.</p>
- Required parameters: [RoleARN, DomainARN, IndexName, TypeName, S3Configuration]
+ Required parameters: [RoleARN, IndexName, S3Configuration]
  */
 @interface AWSFirehoseElasticsearchDestinationConfiguration : AWSModel
 
@@ -601,7 +675,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseCloudWatchLoggingOptions * _Nullable cloudWatchLoggingOptions;
 
 /**
- <p>The ARN of the Amazon ES domain. The IAM role must have permissions for <code>DescribeElasticsearchDomain</code>, <code>DescribeElasticsearchDomains</code>, and <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified in <b>RoleARN</b>. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+ <p>The endpoint to use when communicating with the cluster. Specify either this <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable clusterEndpoint;
+
+/**
+ <p>The ARN of the Amazon ES domain. The IAM role must have permissions for <code>DescribeElasticsearchDomain</code>, <code>DescribeElasticsearchDomains</code>, and <code>DescribeElasticsearchDomainConfig</code> after assuming the role specified in <b>RoleARN</b>. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p><p>Specify either <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable domainARN;
 
@@ -611,7 +690,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) NSString * _Nullable indexName;
 
 /**
- <p>The Elasticsearch index rotation period. Index rotation appends a timestamp to the <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index Rotation for the Amazon ES Destination</a>. The default value is <code>OneDay</code>.</p>
+ <p>The Elasticsearch index rotation period. Index rotation appends a timestamp to the <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index Rotation for the Amazon ES Destination</a>. The default value is <code>OneDay</code>.</p>
  */
 @property (nonatomic, assign) AWSFirehoseElasticsearchIndexRotationPeriod indexRotationPeriod;
 
@@ -626,12 +705,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseElasticsearchRetryOptions * _Nullable retryOptions;
 
 /**
- <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data Firehose for calling the Amazon ES Configuration API and for indexing documents. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+ <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data Firehose for calling the Amazon ES Configuration API and for indexing documents. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable roleARN;
 
 /**
- <p>Defines how documents should be delivered to Amazon S3. When it is set to <code>FailedDocumentsOnly</code>, Kinesis Data Firehose writes any documents that could not be indexed to the configured Amazon S3 destination, with <code>elasticsearch-failed/</code> appended to the key prefix. When set to <code>AllDocuments</code>, Kinesis Data Firehose delivers all incoming records to Amazon S3, and also writes failed documents with <code>elasticsearch-failed/</code> appended to the prefix. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon S3 Backup for the Amazon ES Destination</a>. Default value is <code>FailedDocumentsOnly</code>.</p>
+ <p>Defines how documents should be delivered to Amazon S3. When it is set to <code>FailedDocumentsOnly</code>, Kinesis Data Firehose writes any documents that could not be indexed to the configured Amazon S3 destination, with <code>elasticsearch-failed/</code> appended to the key prefix. When set to <code>AllDocuments</code>, Kinesis Data Firehose delivers all incoming records to Amazon S3, and also writes failed documents with <code>elasticsearch-failed/</code> appended to the prefix. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup">Amazon S3 Backup for the Amazon ES Destination</a>. Default value is <code>FailedDocumentsOnly</code>.</p>
  */
 @property (nonatomic, assign) AWSFirehoseElasticsearchS3BackupMode s3BackupMode;
 
@@ -641,7 +720,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseS3DestinationConfiguration * _Nullable s3Configuration;
 
 /**
- <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one type per index. If you try to specify a new type for an existing index that already has another type, Kinesis Data Firehose returns an error during run time.</p>
+ <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one type per index. If you try to specify a new type for an existing index that already has another type, Kinesis Data Firehose returns an error during run time.</p><p>For Elasticsearch 7.x, don't specify a <code>TypeName</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable typeName;
 
@@ -664,7 +743,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseCloudWatchLoggingOptions * _Nullable cloudWatchLoggingOptions;
 
 /**
- <p>The ARN of the Amazon ES domain. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+ <p>The endpoint to use when communicating with the cluster. Kinesis Data Firehose uses either this <code>ClusterEndpoint</code> or the <code>DomainARN</code> field to send data to Amazon ES.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable clusterEndpoint;
+
+/**
+ <p>The ARN of the Amazon ES domain. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p><p>Kinesis Data Firehose uses either <code>ClusterEndpoint</code> or <code>DomainARN</code> to send data to Amazon ES.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable domainARN;
 
@@ -704,7 +788,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseS3DestinationDescription * _Nullable s3DestinationDescription;
 
 /**
- <p>The Elasticsearch type name.</p>
+ <p>The Elasticsearch type name. This applies to Elasticsearch 6.x and lower versions. For Elasticsearch 7.x, there's no value for <code>TypeName</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable typeName;
 
@@ -727,7 +811,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseCloudWatchLoggingOptions * _Nullable cloudWatchLoggingOptions;
 
 /**
- <p>The ARN of the Amazon ES domain. The IAM role must have permissions for <code>DescribeElasticsearchDomain</code>, <code>DescribeElasticsearchDomains</code>, and <code>DescribeElasticsearchDomainConfig</code> after assuming the IAM role specified in <code>RoleARN</code>. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+ <p>The endpoint to use when communicating with the cluster. Specify either this <code>ClusterEndpoint</code> or the <code>DomainARN</code> field.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable clusterEndpoint;
+
+/**
+ <p>The ARN of the Amazon ES domain. The IAM role must have permissions for <code>DescribeElasticsearchDomain</code>, <code>DescribeElasticsearchDomains</code>, and <code>DescribeElasticsearchDomainConfig</code> after assuming the IAM role specified in <code>RoleARN</code>. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p><p>Specify either <code>ClusterEndpoint</code> or <code>DomainARN</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable domainARN;
 
@@ -737,7 +826,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) NSString * _Nullable indexName;
 
 /**
- <p>The Elasticsearch index rotation period. Index rotation appends a timestamp to <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index Rotation for the Amazon ES Destination</a>. Default value is <code>OneDay</code>.</p>
+ <p>The Elasticsearch index rotation period. Index rotation appends a timestamp to <code>IndexName</code> to facilitate the expiration of old data. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation">Index Rotation for the Amazon ES Destination</a>. Default value is <code>OneDay</code>.</p>
  */
 @property (nonatomic, assign) AWSFirehoseElasticsearchIndexRotationPeriod indexRotationPeriod;
 
@@ -752,7 +841,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseElasticsearchRetryOptions * _Nullable retryOptions;
 
 /**
- <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data Firehose for calling the Amazon ES Configuration API and for indexing documents. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
+ <p>The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis Data Firehose for calling the Amazon ES Configuration API and for indexing documents. For more information, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Grant Kinesis Data Firehose Access to an Amazon S3 Destination</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable roleARN;
 
@@ -762,7 +851,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseS3DestinationUpdate * _Nullable s3Update;
 
 /**
- <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one type per index. If you try to specify a new type for an existing index that already has another type, Kinesis Data Firehose returns an error during runtime.</p>
+ <p>The Elasticsearch type name. For Elasticsearch 6.x, there can be only one type per index. If you try to specify a new type for an existing index that already has another type, Kinesis Data Firehose returns an error during runtime.</p><p>If you upgrade Elasticsearch from 6.x to 7.x and don’t update your delivery stream, Kinesis Data Firehose still delivers data to Elasticsearch with the old index name and type name. If you want to update your delivery stream with a new index name, provide an empty string for <code>TypeName</code>. </p>
  */
 @property (nonatomic, strong) NSString * _Nullable typeName;
 
@@ -837,12 +926,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseEncryptionConfiguration * _Nullable encryptionConfiguration;
 
 /**
- <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. </p>
+ <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable errorOutputPrefix;
 
 /**
- <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can specify an extra prefix to be added in front of the time format prefix. If the prefix ends with a slash, it appears as a folder in the S3 bucket. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name">Amazon S3 Object Name Format</a> in the <i>Amazon Kinesis Data Firehose Developer Guide</i>.</p>
+ <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable prefix;
 
@@ -906,12 +995,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseEncryptionConfiguration * _Nullable encryptionConfiguration;
 
 /**
- <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name.</p>
+ <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable errorOutputPrefix;
 
 /**
- <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can specify an extra prefix to be added in front of the time format prefix. If the prefix ends with a slash, it appears as a folder in the S3 bucket. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name">Amazon S3 Object Name Format</a> in the <i>Amazon Kinesis Data Firehose Developer Guide</i>.</p>
+ <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable prefix;
 
@@ -974,12 +1063,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseEncryptionConfiguration * _Nullable encryptionConfiguration;
 
 /**
- <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name.</p>
+ <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable errorOutputPrefix;
 
 /**
- <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can specify an extra prefix to be added in front of the time format prefix. If the prefix ends with a slash, it appears as a folder in the S3 bucket. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name">Amazon S3 Object Name Format</a> in the <i>Amazon Kinesis Data Firehose Developer Guide</i>.</p>
+ <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable prefix;
 
@@ -1002,6 +1091,25 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
  <p>The Amazon S3 destination for backup.</p>
  */
 @property (nonatomic, strong) AWSFirehoseS3DestinationUpdate * _Nullable s3BackupUpdate;
+
+@end
+
+/**
+ <p>Provides details in case one of the following operations fails due to an error related to KMS: <a>CreateDeliveryStream</a>, <a>DeleteDeliveryStream</a>, <a>StartDeliveryStreamEncryption</a>, <a>StopDeliveryStreamEncryption</a>.</p>
+ Required parameters: [Type, Details]
+ */
+@interface AWSFirehoseFailureDescription : AWSModel
+
+
+/**
+ <p>A message providing details about the error that caused the failure.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable details;
+
+/**
+ <p>The type of error that caused the failure.</p>
+ */
+@property (nonatomic, assign) AWSFirehoseDeliveryStreamFailureType types;
 
 @end
 
@@ -1275,7 +1383,7 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) NSNumber * _Nullable blockSizeBytes;
 
 /**
- <p>The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ration is more important than speed.</p>
+ <p>The compression code to use over data blocks. The possible values are <code>UNCOMPRESSED</code>, <code>SNAPPY</code>, and <code>GZIP</code>, with the default being <code>SNAPPY</code>. Use <code>SNAPPY</code> for higher decompression speed. Use <code>GZIP</code> if the compression ratio is more important than speed.</p>
  */
 @property (nonatomic, assign) AWSFirehoseParquetCompression compression;
 
@@ -1703,12 +1811,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseEncryptionConfiguration * _Nullable encryptionConfiguration;
 
 /**
- <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name.</p>
+ <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable errorOutputPrefix;
 
 /**
- <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can specify an extra prefix to be added in front of the time format prefix. If the prefix ends with a slash, it appears as a folder in the S3 bucket. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name">Amazon S3 Object Name Format</a> in the <i>Amazon Kinesis Data Firehose Developer Guide</i>.</p>
+ <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable prefix;
 
@@ -1752,12 +1860,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseEncryptionConfiguration * _Nullable encryptionConfiguration;
 
 /**
- <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name.</p>
+ <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable errorOutputPrefix;
 
 /**
- <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can specify an extra prefix to be added in front of the time format prefix. If the prefix ends with a slash, it appears as a folder in the S3 bucket. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name">Amazon S3 Object Name Format</a> in the <i>Amazon Kinesis Data Firehose Developer Guide</i>.</p>
+ <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable prefix;
 
@@ -1800,12 +1908,12 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
 @property (nonatomic, strong) AWSFirehoseEncryptionConfiguration * _Nullable encryptionConfiguration;
 
 /**
- <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name.</p>
+ <p>A prefix that Kinesis Data Firehose evaluates and adds to failed records before writing them to S3. This prefix appears immediately following the bucket name. For information about how to specify this prefix, see <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable errorOutputPrefix;
 
 /**
- <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can specify an extra prefix to be added in front of the time format prefix. If the prefix ends with a slash, it appears as a folder in the S3 bucket. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name">Amazon S3 Object Name Format</a> in the <i>Amazon Kinesis Data Firehose Developer Guide</i>.</p>
+ <p>The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered Amazon S3 files. You can also specify a custom prefix, as described in <a href="https://docs.aws.amazon.com/firehose/latest/dev/s3-prefixes.html">Custom Prefixes for Amazon S3 Objects</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable prefix;
 
@@ -2063,6 +2171,11 @@ typedef NS_ENUM(NSInteger, AWSFirehoseSplunkS3BackupMode) {
  */
 @interface AWSFirehoseStartDeliveryStreamEncryptionInput : AWSRequest
 
+
+/**
+ <p>Used to specify the type and Amazon Resource Name (ARN) of the KMS key needed for Server-Side Encryption (SSE).</p>
+ */
+@property (nonatomic, strong) AWSFirehoseDeliveryStreamEncryptionConfigurationInput * _Nullable deliveryStreamEncryptionConfigurationInput;
 
 /**
  <p>The name of the delivery stream for which you want to enable server-side encryption (SSE).</p>
