@@ -91,10 +91,14 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
         AWSSignInViewController *loginController;
         loginController = [AWSSignInViewController getAWSSignInViewControllerWithconfiguration: config];
         
+		loginController.modalPresentationStyle = UIModalPresentationFullScreen;
+		
         loginController.completionHandlerCustom = completionHandler;
         [loginController createInternalCompletionHandler];
         
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+		navController.modalPresentationStyle = UIModalPresentationFullScreen;
+		
         [navigationController presentViewController:navController
                                            animated:YES
                                          completion:nil];
@@ -116,8 +120,10 @@ static NSString *const AWSInfoGoogleIdentifier = @"GoogleSignIn";
         }
         
         loginController.completionHandler = completionHandler;
-        
+        loginController.modalPresentationStyle = UIModalPresentationFullScreen;
+		
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+		navController.modalPresentationStyle = UIModalPresentationFullScreen;
         [navigationController presentViewController:navController
                                            animated:YES
                                          completion:nil];
