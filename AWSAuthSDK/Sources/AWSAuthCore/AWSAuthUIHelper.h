@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Set up shadow around specified view
- 
+
  @param view The view for which form shadow is to be set
  **/
 + (void) setUpFormShadowForView:(UIView *)view;
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Get background color set in the config or return the default background color.
  This is resilient to light/dark mode setting on iOS 13 (`UIColor.systemBackgroundColor`).
- 
+
  @param config The object conforming to `AWSUIConfiguration` protocol
  @return backgroundColor
  **/
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Apply button-like primary color to buttons and labels.
- 
+
  @param config The object conforming to `AWSUIConfiguration` protocol
  @param view The view (usually a `UIButton` or `UILabel`)
  @param background whether the color should be applied to the background of
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Apply primary color to the view's background.
- 
+
  @see applyPrimaryColorFromConfig:(id<AWSUIConfiguration>) toView:(UIView *) background:(BOOL)
  */
 + (void) applyPrimaryColorFromConfig:(id<AWSUIConfiguration>)config
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Retrieve the font set in the config or return nil
- 
+
  @param config The object conforming to `AWSUIConfiguration` protocol
  @return font
  **/
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Retrieve the flag that says if the background color has to be applied full screen or not.
- 
+
  @param config The object conforming to `AWSUIConfiguration` protocol
  @return isFullScreenBackgroundColorEnabled
  **/
@@ -83,11 +83,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Get the primary text color. Based on the configured background color.
- 
+
  On iOS 13 or greater is uses `UIColor.labelColor` so it auto-adapts to
  light/dark mode. On older systems is picks a light or a dark color to
  contrast with the main background color.
- 
+
  @param config The object conforming to `AWSUIConfiguration` protocol
  @return a text color that contrasts with the background color.
  */
@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Set the AWSAuthUIConfiguration object.
- 
+
  @param config The config object from which backgroundColor,
                isFullScreenBackgroundColorEnabled and font are extracted.
  **/
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Retrieve the AWSAuthUIConfiguration object.
- 
+
  @return AWSAuthUIConfiguration
  **/
 + (id<AWSUIConfiguration>) getAWSUIConfiguration;
