@@ -39,6 +39,12 @@
     [self setUp];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_VIEW_NEWPASSWORDREQUIRED object:self];
+}
+
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     if (touch.phase == UITouchPhaseBegan) {

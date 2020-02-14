@@ -42,6 +42,11 @@
     [self setUp];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_VIEW_MFA object:self];
+}
+
 // This is used to dismiss the keyboard, user just has to tap outside the
 // user name and password views and it will dismiss
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

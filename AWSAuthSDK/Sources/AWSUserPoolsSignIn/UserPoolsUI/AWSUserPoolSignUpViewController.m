@@ -70,6 +70,11 @@ id<AWSUIConfiguration> config = nil;
     [self setUp];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_VIEW_SIGNUP object:self];
+}
+
 // This is used to dismiss the keyboard, user just has to tap outside the
 // user name and password views and it will dismiss
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -231,6 +236,11 @@ id<AWSUIConfiguration> config = nil;
     [self setUp];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onConfirmCodeReceived:) name:NFAWS_CONFIRMCODE_RECEIVED_NOTIFICATION object:nil];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[[NSNotificationCenter defaultCenter] postNotificationName:NFAWS_VIEW_SIGNUPCONFIRMATION object:self];
 }
 
 - (void) onConfirmCodeReceived:(NSNotification *) notification {

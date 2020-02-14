@@ -171,6 +171,12 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
     
 }
 
+
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"NFAWS_VIEW_SIGNIN" object:self];
+}
+
 // This is used to dismiss the keyboard, user just has to tap outside the
 // user name and password views and it will dismiss
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
