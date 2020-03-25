@@ -393,7 +393,7 @@ static NSInteger const SCALED_DOWN_LOGO_IMAGE_HEIGHT = 140;
 - (void)setUpNavigationController {
     UIColor *textColor = [AWSAuthUIHelper getTextColor:config];
 
-    self.navigationController.navigationBar.topItem.title = @"Sign In";
+    self.navigationController.navigationBar.topItem.title = @"";
     self.canCancel = self.config.canCancel;
     if (self.canCancel) {
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"

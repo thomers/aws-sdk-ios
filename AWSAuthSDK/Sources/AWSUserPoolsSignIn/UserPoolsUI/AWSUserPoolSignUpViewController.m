@@ -89,7 +89,8 @@ id<AWSUIConfiguration> config = nil;
 - (void)setUp {
     _userNameRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeEmail];
     _passwordRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Password (min. 8 characters)" type:InputTypePassword];
-  //  _emailRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
+
+	//  _emailRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Email" type:InputTypeText];
   //  _phoneNumberRow = [[AWSFormTableCell alloc] initWithPlaceHolder:@"Phone Number" type:InputTypeText];
     _tableDelegate = [AWSFormTableDelegate new];
     [self.tableDelegate addCell:self.userNameRow];
@@ -105,6 +106,9 @@ id<AWSUIConfiguration> config = nil;
     // setup button background
     [AWSAuthUIHelper applyPrimaryColorFromConfig:self.config
                                           toView:self.signUpButton];
+	
+	
+	
 }
 
 - (void)setUpBackground {

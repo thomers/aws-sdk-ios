@@ -28,6 +28,7 @@
 - (instancetype)initWithPlaceHolder:(NSString *)placeHolder
                                type:(InputType)inputType {
     if (self = [super init]) {
+		NSLog(@"initWithPlaceHolder type %@", placeHolder);
         _placeHolder = placeHolder;
         _inputType = inputType;
     }
@@ -37,6 +38,7 @@
 - (instancetype)initWithPlaceHolder:(NSString *)placeHolder
                          staticText:(NSString *)staticText {
     if (self = [super init]) {
+		NSLog(@"initWithPlaceHolder staticText %@ %@", placeHolder, staticText);
         _placeHolder = placeHolder;
         _staticText = staticText;
         _inputType = InputTypeStaticText;

@@ -95,6 +95,7 @@
     if (formCell.inputType == InputTypeStaticText) {
         [inputCell showHeaderLabel:YES];
         inputCell.inputBox.text = formCell.staticText;
+		inputCell.inputBox.userInteractionEnabled = NO;
     }
 	if (formCell.inputType == InputTypeEmail) {
 		inputCell.inputBox.textContentType = UITextContentTypeEmailAddress;
