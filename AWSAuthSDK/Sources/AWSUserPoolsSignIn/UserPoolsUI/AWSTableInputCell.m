@@ -19,15 +19,12 @@
 
 // Handle event when user finishes inputting text into a text field
 - (IBAction)textEditingDidEnd:(id)sender {
-	NSLog(@"textEditingDidEnd");
     if ([self.inputBox.text isEqual: @""]) {
-		NSLog(@"textEditingDidEnd - hide headerLabel!");
         [self showHeaderLabel:NO];
     }
 }
 
 - (IBAction)textEditingDidBegin:(id)sender {
-	NSLog(@"textEditingDidBegin");
     [self showHeaderLabel:YES];
 }
 
@@ -39,9 +36,8 @@
 }
 
 - (void)showHeaderLabel:(BOOL)visible {
-	NSLog(@"showHeaderLabel");
-    if (visible && self.headerLabel.hidden) {
-		NSLog(@"showHeaderLabel - 1");
+//    if (visible && self.headerLabel.hidden) {  - causes CD-1132 and CD-1132, fix in next line
+    if (visible) {
         [UIView transitionWithView:self.placeHolderView
                           duration:0.3
                            options:UIViewAnimationOptionTransitionCrossDissolve
@@ -51,13 +47,12 @@
                             self.inputBox.hidden = NO;
                         }
                         completion:nil];
-//    } else if (!visible && self.placeHolderView.isHidden) {
     } else  {
-		NSLog(@"showHeaderLabel - 2");
         self.placeHolderView.alpha = 0;
         self.placeHolderView.hidden = NO;
         [UIView animateWithDuration:0.3
                          animations:^{
+							 self.placeHolderView.hidden = NO;
                              self.placeHolderView.alpha = 1;
                              self.headerLabel.hidden = YES;
                              self.inputBox.hidden = YES;
@@ -66,21 +61,13 @@
 }
 
 - (void)setAWSTableInputCellFont {
-	NSLog(@"setAWSTableInputCellFont");
-    UIFont *font = [AWSAuthUIHelper getFont:[AWSAuthUIHelper getAWSUIConfiguration]];
+	UIFont *font = [AWSAuthUIHelper getFont:[AWSAuthUIHelper getAWSUIConfiguration]];
     if (font != nil) {
         [self.placeHolderLabel setFont:font];
         [self.headerLabel setFont:font];
         [self.inputBox setFont:font];
     }
 	
-	/*
-	if (self.inputBox.text && ([self.inputBox.text length] > 0)) {
-		[self showHeaderLabel:YES];
-	} else {
-		[self showHeaderLabel:NO];
-	}
-	*/
 	self.inputBox.adjustsFontSizeToFitWidth = NO;
 }
 
